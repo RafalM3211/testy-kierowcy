@@ -13,7 +13,7 @@ const theme = createTheme({
     primary: {
       veryLight: "#ffe0b2",
       light: "#ffb74d",
-      main: "#f57c00",
+      main: "#fb8c00",
       dark: "#e65100",
     },
   },

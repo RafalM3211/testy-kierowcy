@@ -9,7 +9,12 @@ export default function NavLink(props: Props) {
   return (
     <Button
       size="large"
-      sx={{ ...props?.sx, textTransform: "capitalize", fontSize: "1.1em" }}
+      sx={{
+        ...props?.sx,
+        textTransform: "capitalize",
+        fontSize: "1.2em",
+        mx: "5px",
+      }}
     >
       {props.children}
     </Button>

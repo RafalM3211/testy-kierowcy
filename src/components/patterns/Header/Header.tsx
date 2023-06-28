@@ -4,7 +4,13 @@ import NavLink from "../../atoms/NavLink/NavLink";
 
 export default function Header() {
   return (
-    <AppBar color="transparent" position="static">
+    <AppBar
+      sx={{
+        boxShadow: "0px 2px 3px rgba(0,0,0,0.1)",
+      }}
+      color="transparent"
+      position="static"
+    >
       <Container
         sx={{
           display: "flex",
@@ -14,7 +20,15 @@ export default function Header() {
         }}
         maxWidth="lg"
       >
-        <Typography variant="h4">DrivingTests</Typography>
+        <Typography
+          sx={(theme) => ({
+            pl: "10px",
+            borderLeft: `15px solid ${theme.palette.primary.main}`,
+          })}
+          variant="h4"
+        >
+          DrivingTests
+        </Typography>
         <Box component="nav" sx={{ display: "flex", alignItems: "center" }}>
           <NavLink to="/">ulubione</NavLink>
           <NavLink to="/">test</NavLink>
