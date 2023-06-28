@@ -9,7 +9,7 @@ export default function UserChip() {
         mx: "10px",
         ml: "30px",
         borderRadius: "50px",
-        bgcolor: "#eee",
+        bgcolor: "grey.100",
         height: "min-content",
       }}
     >
