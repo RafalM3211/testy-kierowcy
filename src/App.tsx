@@ -1,10 +1,13 @@
 import HomeView from './components/views/Home';
-import logo from './logo.svg';
+import Header from "./components/patterns/Header/Header"
 import './App.css';
 
 function App() {
   return (
+  <>
+    <Header />
     <HomeView />
+  </>
   );
 }
 
