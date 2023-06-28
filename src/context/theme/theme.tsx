@@ -1,12 +1,20 @@
-import { createTheme, ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
 import { ReactNode } from "react";
+
+declare module "@mui/material/styles" {
+  interface SimplePaletteColorOptions {
+    veryLight: string;
+  }
+}
 
 const theme = createTheme({
   palette: {
     primary: {
-      light: "#ffa729",
-      main: "#FF8C08",
-      dark: "#f36c07",
+      veryLight: "#ffe0b2",
+      light: "#ffb74d",
+      main: "#f57c00",
+      dark: "#e65100",
     },
   },
 });
