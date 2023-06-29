@@ -1,3 +1,15 @@
+import { Box } from "@mui/material";
+import bgImage from "../../images/backgrounds/wave.svg";
+
 export default function Home() {
-  return <div>Hello app!</div>;
+  return (
+    <Box
+      sx={{
+        backgroundImage: `url(${bgImage})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        height: "100vh",
+      }}
+    ></Box>
+  );
 }
