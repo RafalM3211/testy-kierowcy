@@ -7,8 +7,8 @@ export default function Header() {
     <AppBar
       sx={{
         boxShadow: "0px 2px 3px rgba(0,0,0,0.1)",
+        bgcolor: "rgb(108, 65, 0, 0.02)",
       }}
-      color="transparent"
       position="absolute"
     >
       <Container
