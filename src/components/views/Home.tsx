@@ -25,6 +25,7 @@ export default function Home() {
           sx={{
             ...flexCenter,
             flexDirection: "column",
+            mb: "100px",
           }}
           xs={6}
         >

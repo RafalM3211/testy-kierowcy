@@ -17,7 +17,7 @@ const strippedBackground = `
 
 export default function Progress() {
   return (
-    <Box sx={{ position: "relative", mt: "70px" }}>
+    <Box sx={{ position: "relative", mt: "60px" }}>
       <Box
         sx={{
           position: "absolute",
@@ -44,7 +44,7 @@ export default function Progress() {
             backgroundColor: "success.light",
           }}
         >
-          <ProgressLabel label="zaliczone" value={20} color="success.light" />
+          <ProgressLabel label="poprawne" value={20} color="success.light" />
         </Box>
         <Box
           sx={{
@@ -52,10 +52,10 @@ export default function Progress() {
             backgroundColor: "error.main",
           }}
         >
-          <ProgressLabel label="niezaliczone" value={30} color="error.main" />
+          <ProgressLabel label="błędne" value={30} color="error.main" />
         </Box>
         <Box sx={{ flexGrow: 1, backgroundColor: "grey.400" }}>
-          <ProgressLabel label="bez podejścia" value={50} color="grey.500" />
+          <ProgressLabel label="bez odpowiedzi" value={50} color="grey.500" />
         </Box>
       </Box>
     </Box>
