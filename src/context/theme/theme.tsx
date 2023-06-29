@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 
 declare module "@mui/material/styles" {
   interface SimplePaletteColorOptions {
-    veryLight: string;
+    veryLight?: string;
   }
 }
 
@@ -15,6 +15,9 @@ const theme = createTheme({
       light: "#ffb74d",
       main: "#fb8c00",
       dark: "#e65100",
+    },
+    error: {
+      main: "#e54141",
     },
   },
 });
