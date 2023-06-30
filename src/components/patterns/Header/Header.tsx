@@ -1,6 +1,6 @@
 import { AppBar, Container, Typography, Box, Link } from "@mui/material";
 import UserChip from "../../atoms/UserChip/UserChip";
-import NavLink from "../../atoms/NavLink/NavLink";
+import NavLink from "../../atoms/ButtonLink/ButtonLink";
 
 export default function Header() {
   return (
@@ -30,8 +30,8 @@ export default function Header() {
           DrivingTests
         </Typography>
         <Box component="nav" sx={{ display: "flex", alignItems: "center" }}>
-          <NavLink to="/">ulubione</NavLink>
-          <NavLink to="/">test</NavLink>
+          <NavLink to="/">Ulubione</NavLink>
+          <NavLink to="/">Test</NavLink>
           <UserChip />
         </Box>
       </Container>
