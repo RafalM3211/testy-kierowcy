@@ -4,12 +4,11 @@ import ProgressBackground from "../../atoms/ProgressBackground/ProgressBackgroun
 
 export default function Progress() {
   return (
-    <Box sx={{ position: "relative", mt: "60px" }}>
+    <Box sx={{ position: "relative", mt: "60px", width: "600px" }}>
       <ProgressBackground />
       <Box
         sx={{
           display: "flex",
-          width: "600px",
           height: "30px",
           borderRadius: "100px",
           background: "grey",
