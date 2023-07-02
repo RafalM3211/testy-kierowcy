@@ -58,7 +58,7 @@ export default function Home() {
             najtrudniejsze i niepoznane wcześniej pytania
           </SectionSubtitle>
           <ButtonLink
-            to="#"
+            to="/question"
             sx={{
               color: "common.white",
               borderRadius: "15px",

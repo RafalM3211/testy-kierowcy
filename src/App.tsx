@@ -3,6 +3,7 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
+  Outlet,
 } from "react-router-dom";
 import { Box } from "@mui/material";
 import HomeView from "./components/views/Home";
@@ -12,10 +13,17 @@ import AppThemeProvider from "./context/theme/theme";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <>
+    <Route
+      element={
+        <>
+          <Header />
+          <Outlet />
+        </>
+      }
+    >
       <Route path="/" element={<HomeView />} />
       <Route path="/question" element={<QuestionView />} />
-    </>
+    </Route>
   )
 );
 
@@ -23,7 +31,6 @@ function App() {
   return (
     <AppThemeProvider>
       <Box sx={{ minHeight: "100vh" }}>
-        <Header />
         <RouterProvider router={router} />
       </Box>
     </AppThemeProvider>
