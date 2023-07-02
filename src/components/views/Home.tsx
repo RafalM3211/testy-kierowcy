@@ -5,6 +5,7 @@ import { flexCenter } from "../../utility/styling";
 import Progress from "../patterns/Progress/Progress";
 import ButtonLink from "../atoms/ButtonLink/ButtonLink";
 import SectionSubtitle from "../atoms/SectionSubtitle/SectionSubtitle";
+import SectionHeader from "../atoms/SectionHeader/SectionHeader";
 
 export default function Home() {
   return (
@@ -31,9 +32,7 @@ export default function Home() {
           }}
           xs={6}
         >
-          <Typography variant="h3" component={"h2"} sx={{ mb: "15px" }}>
-            Twój progres
-          </Typography>
+          <SectionHeader>Twój progres</SectionHeader>
           <SectionSubtitle>
             Rozwiązuj testy a pasek progresu będzie uzupełniał się sam. Dzięki
             temu będziesz wiedział kiedy jesteś gotowy do egzaminu
@@ -44,11 +43,7 @@ export default function Home() {
           sx={{ ...flexCenter, flexDirection: "column", mb: "100px" }}
           xs={6}
         >
-          <Typography
-            variant="h3"
-            component={"h2"}
-            sx={{ textAlign: "center" }}
-          >
+          <SectionHeader sx={{ mb: "5px" }}>
             Kategoria:{" "}
             <Typography
               variant="h1"
@@ -57,7 +52,7 @@ export default function Home() {
             >
               B
             </Typography>
-          </Typography>
+          </SectionHeader>
           <SectionSubtitle variant="subtitle1">
             Spróbuj swoich sił w egzaminie próbnym lub rozwiązuj pojedyńczo
             najtrudniejsze i niepoznane wcześniej pytania
