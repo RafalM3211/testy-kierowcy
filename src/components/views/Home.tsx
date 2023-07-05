@@ -6,6 +6,7 @@ import Progress from "../patterns/Progress/Progress";
 import ButtonLink from "../atoms/ButtonLink/ButtonLink";
 import SectionSubtitle from "../atoms/SectionSubtitle/SectionSubtitle";
 import SectionHeader from "../atoms/SectionHeader/SectionHeader";
+import HighlitedText from "../atoms/HighlitedText/HighlitedText";
 
 export default function Home() {
   return (
@@ -44,14 +45,7 @@ export default function Home() {
           xs={6}
         >
           <SectionHeader sx={{ mb: "5px" }}>
-            Kategoria:{" "}
-            <Typography
-              variant="h1"
-              component={"span"}
-              sx={{ color: "primary.dark" }}
-            >
-              B
-            </Typography>
+            Kategoria: <HighlitedText variant="h1">B</HighlitedText>
           </SectionHeader>
           <SectionSubtitle variant="subtitle1">
             Spróbuj swoich sił w egzaminie próbnym lub rozwiązuj pojedyńczo

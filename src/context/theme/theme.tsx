@@ -20,6 +20,18 @@ const theme = createTheme({
       main: "#e54141",
     },
   },
+  shape: {
+    borderRadius: 5,
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: ({ ownerState }) => ({
+          ...(ownerState.variant === "contained" && { color: "white" }),
+        }),
+      },
+    },
+  },
 });
 
 interface Props {

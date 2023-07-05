@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 
 /* zrob kiedys taka funkcje function generateStrippedBg(count: number) {} */
-const strippedBackground = `
+export const strippedBackground = `
   linear-gradient(
     45deg,
     rgba(255,255,255,0.15) 25%,
