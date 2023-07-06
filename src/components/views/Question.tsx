@@ -6,6 +6,7 @@ import QuestionCount from "../patterns/QuestionCount/QuestionCount";
 import YesNoAnseswer from "../patterns/YesNoAnsewer/YesNoAnsewer";
 import ABCAnsewer from "../patterns/ABCAnsewer/ABCAnsewer";
 import TimeCount from "../patterns/TimeCount/TimeCount";
+import QuestionMedia from "../patterns/QuestionMedia/QuestionMedia";
 
 export default function Question() {
   return (
@@ -40,17 +41,7 @@ export default function Question() {
           Kategoria: <HighlitedText sx={{ fontSize: "1.2em" }}>B</HighlitedText>
         </InfoChip>
       </Box>
-      <Box
-        sx={{
-          width: "921px",
-          height: "540px",
-          bgcolor: "grey",
-          mb: "20px",
-          mt: "15px",
-          gridRow: "2",
-          gridColumn: "1",
-        }}
-      ></Box>
+      <QuestionMedia />
       <Box sx={{ gridRow: "3", gridColumn: "1/3" }}>
         <Typography
           sx={(theme) => ({
@@ -91,6 +82,7 @@ export default function Question() {
           />
         </Box>
         <TimeCount />
+
         <Button
           size="large"
           variant="contained"
