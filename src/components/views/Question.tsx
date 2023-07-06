@@ -4,7 +4,7 @@ import InfoChip from "../atoms/InfoChip/InfoChip";
 import HighlitedText from "../atoms/HighlitedText/HighlitedText";
 import QuestionCount from "../patterns/QuestionCount/QuestionCount";
 import YesNoAnseswer from "../patterns/YesNoAnsewer/YesNoAnsewer";
-
+import ABCAnsewer from "../patterns/ABCAnsewer/ABCAnsewer";
 import TimeCount from "../patterns/TimeCount/TimeCount";
 
 export default function Question() {
@@ -12,35 +12,46 @@ export default function Question() {
     <Container
       maxWidth="lg"
       sx={{
-        ...flexCenter,
+        display: "grid",
+        gridTemplateColumns: "auto 1fr",
+        gridTemplateRows: "auto auto auto",
         minHeight: "100vh",
         py: "100px",
       }}
     >
-      <Box>
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <InfoChip>
-            Id pytania:{" "}
-            <HighlitedText sx={{ fontSize: "1.2em" }}>23233</HighlitedText>
-          </InfoChip>
-          <InfoChip>
-            Wartość punktowa:{" "}
-            <HighlitedText sx={{ fontSize: "1.2em" }}>3</HighlitedText>
-          </InfoChip>
-          <InfoChip>
-            Kategoria:{" "}
-            <HighlitedText sx={{ fontSize: "1.2em" }}>B</HighlitedText>
-          </InfoChip>
-        </Box>
-        <Box
-          sx={{
-            width: "1024px",
-            height: "600px",
-            bgcolor: "grey",
-            mb: "20px",
-            mt: "15px",
-          }}
-        ></Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          height: "min-content",
+          gridRow: "1",
+          gridColumn: "1",
+        }}
+      >
+        <InfoChip>
+          Id pytania:{" "}
+          <HighlitedText sx={{ fontSize: "1.2em" }}>23233</HighlitedText>
+        </InfoChip>
+        <InfoChip>
+          Wartość punktowa:{" "}
+          <HighlitedText sx={{ fontSize: "1.2em" }}>3</HighlitedText>
+        </InfoChip>
+        <InfoChip>
+          Kategoria: <HighlitedText sx={{ fontSize: "1.2em" }}>B</HighlitedText>
+        </InfoChip>
+      </Box>
+      <Box
+        sx={{
+          width: "921px",
+          height: "540px",
+          bgcolor: "grey",
+          mb: "20px",
+          mt: "15px",
+          gridRow: "2",
+          gridColumn: "1",
+        }}
+      ></Box>
+      <Box sx={{ gridRow: "3", gridColumn: "1 3" }}>
         <Typography
           sx={(theme) => ({
             borderLeft: `3px solid ${theme.palette.primary.main}`,
@@ -52,17 +63,19 @@ export default function Question() {
           kierunku przeciwnego, skręcającym w lewo?
         </Typography>
         <Box>
-          <YesNoAnseswer />
+          {/* <YesNoAnseswer /> */}
+          <ABCAnsewer />
         </Box>
       </Box>
 
       <Box
         sx={{
           ...flexCenter,
-          justifyContent: "space-between",
+          justifyContent: "center",
           flexDirection: "column",
-          height: "100%",
           ml: "30px",
+          gridRow: "2",
+          gridColumn: "2",
         }}
       >
         <Box sx={{ display: "flex", mb: "30px" }}>
