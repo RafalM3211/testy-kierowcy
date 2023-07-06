@@ -3,7 +3,7 @@ import AnsewerButton from "../../atoms/AnsewerButton/AnsewerButton";
 
 export default function YesNoAnseswer() {
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", my: "25px" }}>
+    <Box sx={{ display: "flex", justifyContent: "center", mt: "35px" }}>
       <AnsewerButton
         checked
         size="large"

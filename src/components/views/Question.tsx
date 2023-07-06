@@ -10,13 +10,13 @@ import TimeCount from "../patterns/TimeCount/TimeCount";
 export default function Question() {
   return (
     <Container
-      maxWidth="lg"
       sx={{
         display: "grid",
         gridTemplateColumns: "auto 1fr",
         gridTemplateRows: "auto auto auto",
         minHeight: "100vh",
         py: "100px",
+        maxWidth: { lg: "1400px" },
       }}
     >
       <Box
@@ -51,7 +51,7 @@ export default function Question() {
           gridColumn: "1",
         }}
       ></Box>
-      <Box sx={{ gridRow: "3", gridColumn: "1 3" }}>
+      <Box sx={{ gridRow: "3", gridColumn: "1/3" }}>
         <Typography
           sx={(theme) => ({
             borderLeft: `3px solid ${theme.palette.primary.main}`,
