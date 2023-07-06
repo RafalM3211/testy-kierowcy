@@ -1,5 +1,5 @@
 import { AppBar, Box } from "@mui/material";
-import Logo from "../../reusableAtoms/Logo/Logo";
+import Logo from "../../atomsReusable/Logo/Logo";
 
 export default function SmallHeader() {
   return (

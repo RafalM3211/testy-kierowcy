@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import AnsewerButton from "../../../reusableAtoms/AnsewerButton/AnsewerButton";
+import AnsewerButton from "../../../atomsReusable/AnsewerButton/AnsewerButton";
 import type { BoxProps } from "@mui/material";
 
 interface Props extends BoxProps {
