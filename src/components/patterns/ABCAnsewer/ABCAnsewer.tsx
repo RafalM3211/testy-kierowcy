@@ -3,7 +3,7 @@ import AnsewerRow from "../../atoms/AnsewerRow/AnsewerRow";
 
 export default function ABCAnsewer() {
   return (
-    <Box sx={{ mt: "40px" }}>
+    <Box sx={{ mt: "25px" }}>
       <AnsewerRow label="A">
         Odpowiedź bnumer jeden taka średniej długości co często jest no
       </AnsewerRow>
