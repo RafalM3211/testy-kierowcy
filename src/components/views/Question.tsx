@@ -15,8 +15,7 @@ export default function Question() {
         gridTemplateColumns: "auto 1fr",
         gridTemplateRows: "auto auto auto",
         minHeight: "100vh",
-        py: "60px",
-        pl: "20px",
+        pt: "60px",
         maxWidth: { lg: "1400px" },
       }}
     >
@@ -79,7 +78,7 @@ export default function Question() {
           gridColumn: "2",
         }}
       >
-        <Box sx={{ display: "flex", mb: "30px" }}>
+        <Box sx={{ display: "flex", mb: "20px" }}>
           <QuestionCount
             label="Pytania podstawowe"
             value="3/20"

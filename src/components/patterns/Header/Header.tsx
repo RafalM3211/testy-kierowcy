@@ -1,4 +1,4 @@
-import { AppBar, Container, Typography, Box, Link } from "@mui/material";
+import { AppBar, Container, Box } from "@mui/material";
 import UserChip from "../../atoms/UserChip/UserChip";
 import NavLink from "../../atoms/ButtonLink/ButtonLink";
 import Logo from "../../atoms/Logo/Logo";

@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import AnsewerRow from "../../atoms/AnsewerRow/AnsewerRow";
 
 export default function ABCAnsewer() {

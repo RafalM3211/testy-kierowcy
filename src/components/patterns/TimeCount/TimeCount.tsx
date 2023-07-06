@@ -12,7 +12,6 @@ export default function TimeCount() {
           width: "200px",
           textAlign: "center",
           backgroundColor: "grey.300",
-          boxShadow: "1",
           borderRadius: "10px",
           overflow: "hidden",
           position: "relative",

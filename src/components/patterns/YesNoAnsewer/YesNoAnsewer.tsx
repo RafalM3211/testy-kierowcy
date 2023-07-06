@@ -1,4 +1,4 @@
-import { Button, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import AnsewerButton from "../../atoms/AnsewerButton/AnsewerButton";
 
 export default function YesNoAnseswer() {
