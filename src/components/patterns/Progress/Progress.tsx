@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import ProgressLabel from "../../atoms/ProgressLabel/ProgressLabel";
-import ProgressBackground from "../../atoms/ProgressBackground/ProgressBackground";
+import ProgressLabel from "./atoms/ProgressLabel/ProgressLabel";
+import ProgressBackground from "./atoms/ProgressBackground/ProgressBackground";
 
 export default function Progress() {
   return (

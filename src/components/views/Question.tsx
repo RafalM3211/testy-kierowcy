@@ -1,7 +1,7 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import { flexCenter } from "../../utility/styling";
-import InfoChip from "../atoms/InfoChip/InfoChip";
-import HighlitedText from "../atoms/HighlitedText/HighlitedText";
+import InfoChip from "../reusableAtoms/InfoChip/InfoChip";
+import HighlitedText from "../reusableAtoms/HighlitedText/HighlitedText";
 import QuestionCount from "../patterns/QuestionCount/QuestionCount";
 import YesNoAnseswer from "../patterns/YesNoAnsewer/YesNoAnsewer";
 import ABCAnsewer from "../patterns/ABCAnsewer/ABCAnsewer";

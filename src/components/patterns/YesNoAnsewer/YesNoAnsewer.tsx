@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import AnsewerButton from "../../atoms/AnsewerButton/AnsewerButton";
+import AnsewerButton from "../../reusableAtoms/AnsewerButton/AnsewerButton";
 
 export default function YesNoAnseswer() {
   return (

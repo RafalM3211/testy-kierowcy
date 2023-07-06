@@ -1,7 +1,7 @@
 import { AppBar, Container, Box } from "@mui/material";
-import UserChip from "../../atoms/UserChip/UserChip";
-import NavLink from "../../atoms/ButtonLink/ButtonLink";
-import Logo from "../../atoms/Logo/Logo";
+import UserChip from "./atoms/UserChip/UserChip";
+import NavLink from "../../reusableAtoms/ButtonLink/ButtonLink";
+import Logo from "../../reusableAtoms/Logo/Logo";
 
 export default function Header() {
   return (

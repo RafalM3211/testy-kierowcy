@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import AnsewerRow from "../../atoms/AnsewerRow/AnsewerRow";
+import AnsewerRow from "./atoms/AnsewerRow";
 
 export default function ABCAnsewer() {
   return (
