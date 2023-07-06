@@ -15,7 +15,8 @@ export default function Question() {
         gridTemplateColumns: "auto 1fr",
         gridTemplateRows: "auto auto auto",
         minHeight: "100vh",
-        py: "100px",
+        py: "60px",
+        pl: "20px",
         maxWidth: { lg: "1400px" },
       }}
     >

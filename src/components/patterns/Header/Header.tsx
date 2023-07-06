@@ -1,6 +1,7 @@
 import { AppBar, Container, Typography, Box, Link } from "@mui/material";
 import UserChip from "../../atoms/UserChip/UserChip";
 import NavLink from "../../atoms/ButtonLink/ButtonLink";
+import Logo from "../../atoms/Logo/Logo";
 
 export default function Header() {
   return (
@@ -20,15 +21,7 @@ export default function Header() {
         }}
         maxWidth="lg"
       >
-        <Typography
-          sx={(theme) => ({
-            pl: "10px",
-            borderLeft: `15px solid ${theme.palette.primary.main}`,
-          })}
-          variant="h4"
-        >
-          DrivingTests
-        </Typography>
+        <Logo />
         <Box component="nav" sx={{ display: "flex", alignItems: "center" }}>
           <NavLink to="/">Ulubione</NavLink>
           <NavLink to="/">Test</NavLink>
