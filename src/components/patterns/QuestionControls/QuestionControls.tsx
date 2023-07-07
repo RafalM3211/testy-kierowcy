@@ -2,8 +2,13 @@ import { Box, Button, Typography } from "@mui/material";
 import { flexCenter } from "../../../utility/styling";
 import QuestionCount from "../QuestionCount/QuestionCount";
 import TimeCount from "../TimeCount/TimeCount";
+import type { MouseEventHandler } from "react";
 
-export default function QuestionControls() {
+interface Props {
+  nextQuestion: () => void;
+}
+
+export default function QuestionControls(props: Props) {
   return (
     <Box
       sx={{
@@ -26,6 +31,7 @@ export default function QuestionControls() {
       <TimeCount />
 
       <Button
+        onClick={props.nextQuestion}
         size="large"
         variant="contained"
         sx={{

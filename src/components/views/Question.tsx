@@ -6,12 +6,21 @@ import QuestionMedia from "../patterns/QuestionMedia/QuestionMedia";
 import QuestionContent from "../patterns/QuestionContent/QuestionContent";
 import QuestionControls from "../patterns/QuestionControls/QuestionControls";
 import QuestionDetails from "../patterns/QuestionDetails/QuestionDetails";
+import { useCallback, useMemo, MouseEventHandler } from "react";
 
 export default function Question() {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["question"],
     queryFn: getQuestion,
   });
+
+  const nextQuestion = useCallback(
+    function () {
+      refetch();
+      console.log("next");
+    },
+    [refetch]
+  );
 
   return (
     <Container
@@ -37,7 +46,7 @@ export default function Question() {
             ansewers={data.ansewers}
             type={data.type}
           />
-          <QuestionControls />
+          <QuestionControls nextQuestion={nextQuestion} />
         </>
       )}
     </Container>
