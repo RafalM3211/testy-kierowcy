@@ -1,6 +1,7 @@
 import { Container } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { getQuestion } from "../../core/services/question";
+import Loader from "../patterns/Loader/Loader";
 import QuestionMedia from "../patterns/QuestionMedia/QuestionMedia";
 import QuestionContent from "../patterns/QuestionContent/QuestionContent";
 import QuestionControls from "../patterns/QuestionControls/QuestionControls";
@@ -24,7 +25,7 @@ export default function Question() {
       }}
     >
       {isLoading ? (
-        "loading..."
+        <Loader label="Ładowanie pytania..." />
       ) : isError ? (
         "error"
       ) : (
