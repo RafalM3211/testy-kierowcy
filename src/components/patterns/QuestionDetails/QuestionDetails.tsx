@@ -2,7 +2,12 @@ import { Box } from "@mui/material";
 import InfoChip from "../../atomsReusable/InfoChip/InfoChip";
 import HighlitedText from "../../atomsReusable/HighlitedText/HighlitedText";
 
-export default function QuestionDetails() {
+interface Props {
+  id: number;
+  value: number;
+}
+
+export default function QuestionDetails(props: Props) {
   return (
     <Box
       sx={{
@@ -15,11 +20,11 @@ export default function QuestionDetails() {
     >
       <InfoChip>
         Id pytania:{" "}
-        <HighlitedText sx={{ fontSize: "1.2em" }}>23233</HighlitedText>
+        <HighlitedText sx={{ fontSize: "1.2em" }}>{props.id}</HighlitedText>
       </InfoChip>
       <InfoChip>
         Wartość punktowa:{" "}
-        <HighlitedText sx={{ fontSize: "1.2em" }}>3</HighlitedText>
+        <HighlitedText sx={{ fontSize: "1.2em" }}>{props.value}</HighlitedText>
       </InfoChip>
       <InfoChip>
         Kategoria: <HighlitedText sx={{ fontSize: "1.2em" }}>B</HighlitedText>

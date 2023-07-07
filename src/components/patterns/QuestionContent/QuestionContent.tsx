@@ -1,8 +1,18 @@
 import { Box, Typography } from "@mui/material";
 import ABCAnsewer from "../ABCAnsewer/ABCAnsewer";
 import YesNoAnseswer from "../YesNoAnsewer/YesNoAnsewer";
+import type {
+  BasicQuestion,
+  SpecializedQuestion,
+} from "../../../types/globalTypes";
 
-export default function QuestionContent() {
+interface Props {
+  content: string;
+  ansewers: BasicQuestion["ansewers"] | SpecializedQuestion["ansewers"];
+  type: BasicQuestion["type"] | SpecializedQuestion["type"];
+}
+
+export default function QuestionContent(props: Props) {
   return (
     <Box sx={{ gridRow: "3", gridColumn: "1/3" }}>
       <Typography
@@ -12,13 +22,9 @@ export default function QuestionContent() {
         })}
         variant="h6"
       >
-        Czy jadąc na wprost masz pierwszeństwo przed pojazdem nadjeżdżającym z
-        kierunku przeciwnego, skręcającym w lewo?
+        {props.content}
       </Typography>
-      <Box>
-        {/* <YesNoAnseswer /> */}
-        <ABCAnsewer />
-      </Box>
+      <Box>{props.type === "basic" ? <YesNoAnseswer /> : <ABCAnsewer />}</Box>
     </Box>
   );
 }

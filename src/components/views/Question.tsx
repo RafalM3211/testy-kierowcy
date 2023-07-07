@@ -7,10 +7,9 @@ import QuestionControls from "../patterns/QuestionControls/QuestionControls";
 import QuestionDetails from "../patterns/QuestionDetails/QuestionDetails";
 
 export default function Question() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["question"],
     queryFn: getQuestion,
-    retry: false,
   });
 
   return (
@@ -26,11 +25,17 @@ export default function Question() {
     >
       {isLoading ? (
         "loading..."
+      ) : isError ? (
+        "error"
       ) : (
         <>
-          <QuestionDetails />
+          <QuestionDetails id={data.id} value={data.value} />
           <QuestionMedia />
-          <QuestionContent />
+          <QuestionContent
+            content={data.content}
+            ansewers={data.ansewers}
+            type={data.type}
+          />
           <QuestionControls />
         </>
       )}

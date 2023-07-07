@@ -9,17 +9,33 @@ const middlewares = jsonServer.defaults();
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
-server.get("/question", (req, res) => {
-  console.log("get");
-  const question = {
+const questions: Array<Question> = [
+  {
     id: 1,
     value: 3,
     content: "PYTANIE NUmer jeden hehehe",
     ansewers: "YES/NO",
     correctAnsewer: true,
     type: "basic",
-  } satisfies Question;
-  res.status(200).jsonp(question);
+  },
+  {
+    id: 2,
+    value: 2,
+    content:
+      "PYTANIE NUmer dwa bum bum ciao dłuższy tekst troche trzeba tutaj dać żeby zawijanie itd",
+    ansewers: {
+      A: "odpoeiwdz a",
+      B: "odpoeiwdz b",
+      C: "odpoeiwdz c",
+    },
+    correctAnsewer: "B",
+    type: "specialized",
+  },
+];
+
+server.get("/question", (req, res) => {
+  const n = Math.floor(Math.random() * 2);
+  res.status(200).jsonp(questions[n]);
 });
 
 server.listen(3001, () => {
