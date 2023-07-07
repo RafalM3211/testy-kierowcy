@@ -13,7 +13,11 @@ server.get("/question", (req, res) => {
   console.log("get");
   const question = {
     id: 1,
+    value: 3,
     content: "PYTANIE NUmer jeden hehehe",
+    ansewers: "YES/NO",
+    correctAnsewer: true,
+    type: "basic",
   } satisfies Question;
   res.status(200).jsonp(question);
 });
