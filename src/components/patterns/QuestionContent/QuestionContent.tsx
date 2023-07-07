@@ -14,7 +14,7 @@ interface Props {
 
 export default function QuestionContent(props: Props) {
   return (
-    <Box sx={{ gridRow: "3", gridColumn: "1/3" }}>
+    <Box sx={{ gridRow: "3", gridColumn: "1/3", mt: "20px" }}>
       <Typography
         sx={(theme) => ({
           borderLeft: `3px solid ${theme.palette.primary.main}`,

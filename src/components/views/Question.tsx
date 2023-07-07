@@ -16,8 +16,8 @@ export default function Question() {
     <Container
       sx={{
         display: "grid",
-        gridTemplateColumns: "auto 1fr",
-        gridTemplateRows: "auto auto auto",
+        gridTemplateColumns: "921px 1fr",
+        gridTemplateRows: "min-content 540px auto",
         minHeight: "100vh",
         pt: "60px",
         maxWidth: { lg: "1400px" },

@@ -9,8 +9,6 @@ export default function QuestionMedia() {
         width: "921px",
         height: "540px",
         bgcolor: "grey.300",
-        mb: "20px",
-        mt: "15px",
         gridRow: "2",
         gridColumn: "1",
       })}

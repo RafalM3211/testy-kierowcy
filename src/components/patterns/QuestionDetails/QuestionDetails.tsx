@@ -13,7 +13,8 @@ export default function QuestionDetails(props: Props) {
       sx={{
         display: "flex",
         justifyContent: "center",
-        height: "min-content",
+        mt: "5px",
+        mb: "15px",
         gridRow: "1",
         gridColumn: "1",
       }}
