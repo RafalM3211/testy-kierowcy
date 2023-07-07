@@ -5,6 +5,7 @@ import {
   RouterProvider,
   Outlet,
 } from "react-router-dom";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { Box } from "@mui/material";
 import HomeView from "./components/views/Home";
 import QuestionView from "./components/views/Question";
@@ -39,13 +40,17 @@ const router = createBrowserRouter(
   )
 );
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <AppThemeProvider>
-      <Box sx={{ minHeight: "100vh" }}>
-        <RouterProvider router={router} />
-      </Box>
-    </AppThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <AppThemeProvider>
+        <Box sx={{ minHeight: "100vh" }}>
+          <RouterProvider router={router} />
+        </Box>
+      </AppThemeProvider>
+    </QueryClientProvider>
   );
 }
 

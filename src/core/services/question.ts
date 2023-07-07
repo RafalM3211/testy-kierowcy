@@ -1,3 +1,10 @@
+import { isQuestion } from "../../types/typeGuards";
+
 export async function getQuestion() {
-  return await fetch("/question").then((res) => res?.json);
+  const res = await fetch("http://localhost:3001/question");
+  const data = (await res.json()) as unknown;
+  if (!isQuestion(data)) {
+    throw new Error("returned data does not satisfy a question type");
+  }
+  return data;
 }
