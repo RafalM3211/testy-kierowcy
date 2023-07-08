@@ -5,7 +5,18 @@ import TimeCount from "../TimeCount/TimeCount";
 import type { MouseEventHandler } from "react";
 
 interface Props {
+  questionCount: number;
   nextQuestion: () => void;
+}
+
+function drawBasicQuestionCount(count: number) {
+  if (count > 20) return "20/20";
+  else return `${count}/20`;
+}
+
+function drawSpecializedQuestionCount(count: number) {
+  if (count > 20) return count - 20 + "/12";
+  else return "0/20";
 }
 
 export default function QuestionControls(props: Props) {
@@ -20,12 +31,16 @@ export default function QuestionControls(props: Props) {
         gridColumn: "2",
       }}
     >
-      <Box sx={{ display: "flex", mb: "20px" }}>
-        <QuestionCount label="Pytania podstawowe" value="3/20" active={true} />
+      <Box sx={{ display: "flex", alignItems: "center", mb: "20px" }}>
+        <QuestionCount
+          label="Pytania podstawowe"
+          value={drawBasicQuestionCount(props.questionCount)}
+          active={props.questionCount <= 20}
+        />
         <QuestionCount
           label="Pytania specjalistyczne"
-          value="3/12"
-          active={false}
+          value={drawSpecializedQuestionCount(props.questionCount)}
+          active={props.questionCount > 20}
         />
       </Box>
       <TimeCount />

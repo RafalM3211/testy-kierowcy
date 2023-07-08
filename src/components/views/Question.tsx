@@ -6,7 +6,7 @@ import QuestionMedia from "../patterns/QuestionMedia/QuestionMedia";
 import QuestionContent from "../patterns/QuestionContent/QuestionContent";
 import QuestionControls from "../patterns/QuestionControls/QuestionControls";
 import QuestionDetails from "../patterns/QuestionDetails/QuestionDetails";
-import { useCallback, useMemo, MouseEventHandler } from "react";
+import { useCallback, useState } from "react";
 
 export default function Question() {
   const { data, isLoading, isError, refetch } = useQuery({
@@ -14,12 +14,15 @@ export default function Question() {
     queryFn: getQuestion,
   });
 
+  const [questionCount, setQuestionCount] = useState(1);
+
   const nextQuestion = useCallback(
     function () {
       refetch();
-      console.log("next");
+      if (questionCount === 32) console.log("move to summary");
+      setQuestionCount(questionCount + 1);
     },
-    [refetch]
+    [refetch, questionCount, setQuestionCount]
   );
 
   return (
@@ -46,7 +49,10 @@ export default function Question() {
             ansewers={data.ansewers}
             type={data.type}
           />
-          <QuestionControls nextQuestion={nextQuestion} />
+          <QuestionControls
+            questionCount={questionCount}
+            nextQuestion={nextQuestion}
+          />
         </>
       )}
     </Container>
