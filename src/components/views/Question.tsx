@@ -12,6 +12,7 @@ export default function Question() {
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["question"],
     queryFn: getQuestion,
+    retry: 1,
   });
 
   const [questionCount, setQuestionCount] = useState(1);
