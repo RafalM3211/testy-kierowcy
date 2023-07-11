@@ -8,7 +8,7 @@ import type {
 
 interface Props {
   content: string;
-  ansewers: BasicQuestion["ansewers"] | SpecializedQuestion["ansewers"];
+  ansewers?: SpecializedQuestion["ansewers"];
   type: BasicQuestion["type"] | SpecializedQuestion["type"];
 }
 

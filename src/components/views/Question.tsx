@@ -45,11 +45,7 @@ export default function Question() {
         <>
           <QuestionDetails id={data.id} value={data.value} />
           <QuestionMedia />
-          <QuestionContent
-            content={data.content}
-            ansewers={data.ansewers}
-            type={data.type}
-          />
+          <QuestionContent content={data.content} type={data.type} />
           <QuestionControls
             questionCount={questionCount}
             nextQuestion={nextQuestion}

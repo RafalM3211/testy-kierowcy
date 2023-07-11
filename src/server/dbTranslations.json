@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "Numer pytania": "id",
+    "Pytanie": "content",
+    "Poprawna odp": "correctAnsewer",
+    "Media": "media",
+    "Zakres struktury": "type",
+    "Liczba punktów": "value"
+  },
+  "values": {
+    "T": true,
+    "N": false,
+    "PODSTAWOWY": "basic",
+    "SPECJALISTYCZNY": "specialized"
+  }
+}

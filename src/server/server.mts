@@ -1,6 +1,5 @@
 import jsonServer from "json-server";
 import { getQuestionById } from "./dbApi.mjs";
-import type { Question } from "../types/globalTypes";
 
 console.log("START");
 
@@ -11,31 +10,7 @@ server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
 const tempQuestionsIDs = [
-  6301, 6302, 6304, 7131, 2420, 2430, 2432, 2990, 2438, 7130,
-];
-
-const questions: Array<Question> = [
-  {
-    id: 1,
-    value: 3,
-    content: "PYTANIE NUmer jeden hehehe",
-    ansewers: "YES/NO",
-    correctAnsewer: true,
-    type: "basic",
-  },
-  {
-    id: 2,
-    value: 2,
-    content:
-      "PYTANIE NUmer dwa bum bum ciao dłuższy tekst troche trzeba tutaj dać żeby zawijanie itd",
-    ansewers: {
-      A: "odpoeiwdz a",
-      B: "odpoeiwdz b",
-      C: "odpoeiwdz c",
-    },
-    correctAnsewer: "B",
-    type: "specialized",
-  },
+  6301, 6302, 6304, 7131, 2420, 2430, 2432, 2990, 2438, 7130, 10060,
 ];
 
 server.get("/question", (req, res) => {
@@ -55,6 +30,8 @@ server.get("/question", (req, res) => {
     type: "specialized",
   });
 });
+
+getQuestionById(6301);
 
 server.listen(3001, () => {
   console.log("server is running on port 3001!");

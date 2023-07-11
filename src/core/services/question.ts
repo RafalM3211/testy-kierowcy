@@ -1,4 +1,4 @@
-import { isQuestion } from "../../types/typeGuards";
+import { isQuestion } from "../../types/typeGuards.mjs";
 
 export async function getQuestion() {
   const res = await fetch("http://localhost:3001/question");
