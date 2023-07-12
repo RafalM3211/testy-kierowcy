@@ -2,7 +2,7 @@ import * as XLSX from "xlsx";
 import * as fs from "fs";
 import { Readable } from "stream";
 import dbTranslations from "./dbTranslations.json" assert { type: "json" };
-import { hasKey } from "../types/typeGuards.mjs";
+import { hasKey } from "./helpers.mjs";
 import { addPropToObject } from "../utility/utils.mjs";
 import type { Question } from "../types/globalTypes";
 
@@ -28,6 +28,7 @@ const questions = XLSX.utils.sheet_to_json(
 ) as RawQuestionRecord[];
 
 export function getQuestionById(id: number) {
+  console.log(id);
   const rawQuestion = getQuestionRecordById(id);
   console.log("rawQuestion: ", rawQuestion);
   const preparedQuestion = prepareQuestion(rawQuestion);
@@ -35,15 +36,19 @@ export function getQuestionById(id: number) {
   return preparedQuestion;
 }
 
-export function getQuestionRecordById(id: number): RawQuestionRecord {
-  const questionRecord = questions.find((el) => el["Numer pytania"] === id);
-  return questionRecord as RawQuestionRecord;
+function getQuestionRecordById(id: number): RawQuestionRecord {
+  const questionRecord = questions.find((el) => el["Numer pytania"] == id);
+  if (questionRecord === undefined)
+    throw new Error(
+      `Couldn't get quesiton from database. Probably question with id ${id} doesn't exist`
+    );
+  return questionRecord;
 }
 
 function prepareQuestion(rawQuestion: RawQuestionRecord) {
-  const preparedQuestion = {};
+  const newQuestion = {};
   const translatedPropsQuestion = extractAndTranslateProps(
-    preparedQuestion,
+    newQuestion,
     rawQuestion
   );
   const finalQuestion = translateValues(translatedPropsQuestion);
@@ -98,5 +103,3 @@ function translateSingleValue(value: string): string | boolean | undefined {
     return dbTranslations.values[value];
   } else return undefined;
 }
-
-getQuestionById(6302);
