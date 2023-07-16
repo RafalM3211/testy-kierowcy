@@ -2,8 +2,7 @@ import * as XLSX from "xlsx";
 import * as fs from "fs";
 import { Readable } from "stream";
 import dbTranslations from "./dbTranslations.json" assert { type: "json" };
-import { hasKey } from "./helpers.mjs";
-import { addPropToObject } from "../utility/utils.mjs";
+import { hasKey, addPropToObject } from "./helpers.mjs";
 import type { Question } from "../types/globalTypes";
 
 interface RawQuestionRecord {

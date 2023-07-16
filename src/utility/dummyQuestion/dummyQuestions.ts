@@ -24,7 +24,7 @@ export const specialized = {
   value: 3,
   ansewers: {
     A: "Przed wjazdem na pas wyłączenia (zjazdu).",
-    B: "Po wjeździe na początek pasa wyłączenia (zjazdu).",
+    B: "Po wjeździe na początek pasa wyłączenia (zjazdu). Po wjeździe na początek pasa wyłączenia (zjazdu) Po wjeździe na początek pasa wyłączenia (zjazdu)",
     C: "W dowolnym miejscu na autostradzie.",
   },
 } satisfies SpecializedQuestion;

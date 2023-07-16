@@ -12,13 +12,15 @@ export interface BasicQuestion extends QuestionBase {
 
 export interface SpecializedQuestion extends QuestionBase {
   type: "specialized";
-  ansewers: {
-    A: string;
-    B: string;
-    C: string;
-  };
+  ansewers: Ansewers;
   correctAnsewer: "A" | "B" | "C";
 }
+
+export type Ansewers = {
+  A: string;
+  B: string;
+  C: string;
+};
 
 export type Ansewer =
   | BasicQuestion["correctAnsewer"]

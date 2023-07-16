@@ -1,24 +1,21 @@
 import { Box } from "@mui/material";
 import AnsewerRow from "./atoms/AnsewerRow";
 import type { SxProps } from "@mui/material/styles";
+import type { Ansewers } from "../../../types/globalTypes";
 
 interface Props {
+  ansewers: Ansewers;
   sx?: SxProps;
 }
 
 export default function ABCAnsewer(props: Props) {
+  const { ansewers, sx } = props;
+
   return (
-    <Box sx={{ ...props.sx }}>
-      <AnsewerRow label="A">
-        Odpowiedź bnumer jeden taka średniej długości co często jest no
-      </AnsewerRow>
-      <AnsewerRow label="B">
-        Odpowiedź bnumer dwa taka już długiej długości żeby sprawdzić zawijanie
-        tekstuy asjuifaksfjbn ajk sf długości co często jest no
-      </AnsewerRow>
-      <AnsewerRow label="C">
-        Asfa lsfasf lka sfla sfklals flkaf trzey
-      </AnsewerRow>
+    <Box sx={{ ...sx }}>
+      <AnsewerRow label="A">{ansewers.A}</AnsewerRow>
+      <AnsewerRow label="B">{ansewers.B}</AnsewerRow>
+      <AnsewerRow label="C">{ansewers.C}</AnsewerRow>
     </Box>
   );
 }

@@ -4,11 +4,12 @@ import YesNoAnseswer from "../YesNoAnsewer/YesNoAnsewer";
 import type {
   BasicQuestion,
   SpecializedQuestion,
+  Ansewers,
 } from "../../../types/globalTypes";
 
 interface Props {
   content: string;
-  ansewers?: SpecializedQuestion["ansewers"];
+  ansewers?: Ansewers;
   type: BasicQuestion["type"] | SpecializedQuestion["type"];
 }
 
@@ -28,7 +29,10 @@ export default function QuestionContent(props: Props) {
         {props.type === "basic" ? (
           <YesNoAnseswer size={5} sx={{ mt: "35px" }} />
         ) : (
-          <ABCAnsewer sx={{ mt: "35px" }} />
+          <ABCAnsewer
+            ansewers={props.ansewers as Ansewers}
+            sx={{ mt: "35px" }}
+          />
         )}
       </Box>
     </Box>
