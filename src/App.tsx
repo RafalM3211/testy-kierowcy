@@ -12,6 +12,7 @@ import QuestionView from "./components/views/Question";
 import Header from "./components/patterns/Header/Header";
 import SmallHeader from "./components/patterns/SmallHeader/SmallHeader";
 import AppThemeProvider from "./context/theme/theme";
+import { QuestionsProvider } from "./context/questions/questions";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,9 +47,11 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AppThemeProvider>
-        <Box sx={{ minHeight: "100vh" }}>
-          <RouterProvider router={router} />
-        </Box>
+        <QuestionsProvider>
+          <Box sx={{ minHeight: "100vh" }}>
+            <RouterProvider router={router} />
+          </Box>
+        </QuestionsProvider>
       </AppThemeProvider>
     </QueryClientProvider>
   );

@@ -2,7 +2,6 @@ import { Box, Button, Typography } from "@mui/material";
 import { flexCenter } from "../../../utility/styling";
 import QuestionCount from "../QuestionCount/QuestionCount";
 import TimeCount from "../TimeCount/TimeCount";
-import type { MouseEventHandler } from "react";
 
 interface Props {
   questionCount: number;

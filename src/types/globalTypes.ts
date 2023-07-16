@@ -20,6 +20,10 @@ export interface SpecializedQuestion extends QuestionBase {
   correctAnsewer: "A" | "B" | "C";
 }
 
+export type Ansewer =
+  | BasicQuestion["correctAnsewer"]
+  | SpecializedQuestion["correctAnsewer"];
+
 export type Question = BasicQuestion | SpecializedQuestion;
 
 export interface anyObject {
