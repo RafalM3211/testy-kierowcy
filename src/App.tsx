@@ -9,6 +9,8 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { Box } from "@mui/material";
 import HomeView from "./components/views/Home";
 import QuestionView from "./components/views/Question";
+import Summary from "./components/views/Summary";
+import Error404 from "./components/views/errors/Error404";
 import Header from "./components/patterns/Header/Header";
 import SmallHeader from "./components/patterns/SmallHeader/SmallHeader";
 import AppThemeProvider from "./context/theme/theme";
@@ -26,6 +28,7 @@ const router = createBrowserRouter(
         }
       >
         <Route path="/" element={<HomeView />} />
+        <Route path="/summary" element={<Summary />} />
       </Route>
       <Route
         element={
@@ -36,6 +39,9 @@ const router = createBrowserRouter(
         }
       >
         <Route path="/question" element={<QuestionView />} />
+      </Route>
+      <Route element={<Outlet />}>
+        <Route path="*" element={<Error404 />} />
       </Route>
     </>
   )
@@ -48,9 +54,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AppThemeProvider>
         <QuestionsProvider>
-          <Box sx={{ minHeight: "100vh" }}>
-            <RouterProvider router={router} />
-          </Box>
+          <RouterProvider router={router} />
         </QuestionsProvider>
       </AppThemeProvider>
     </QueryClientProvider>
