@@ -1,19 +1,16 @@
 import { Box } from "@mui/material";
 
 /* zrob kiedys taka funkcje function generateStrippedBg(count: number) {} */
-export const strippedBackground = `
-  linear-gradient(
-    45deg,
-    rgba(255,255,255,0.15) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(255,255,255,0.15) 50%,
-    rgba(255,255,255,0.15) 75%,
-    transparent 75%,
-    transparent
-)`;
 
-export default function ProgressBackground() {
+const stripeColor = "rgba(255,255,255,0.15)";
+
+export const strippedBackground = `repeating-linear-gradient( 45deg, ${stripeColor}, ${stripeColor} 30px,transparent 30px,transparent 60px)`;
+
+interface Props {
+  stripesWidth: number;
+}
+
+export default function ProgressBackground(props: Props) {
   return (
     <>
       <Box
@@ -21,7 +18,7 @@ export default function ProgressBackground() {
           position: "absolute",
           backgroundImage: strippedBackground,
           left: "0%",
-          width: "50%",
+          width: `${props.stripesWidth}%`,
           height: "100%",
         }}
       ></Box>

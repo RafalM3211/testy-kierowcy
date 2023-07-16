@@ -1,11 +1,26 @@
 import { Box } from "@mui/material";
 import ProgressLabel from "./atoms/ProgressLabel/ProgressLabel";
 import ProgressBackground from "./atoms/ProgressBackground/ProgressBackground";
+import type { SxProps } from "@mui/material";
 
-export default function Progress() {
+interface Props {
+  correct: number;
+  wrong: number;
+  sx?: SxProps;
+}
+
+export default function Progress(props: Props) {
+  const { correct, wrong, sx } = props;
+
+  if (correct + wrong > 100) {
+    console.warn(
+      "Progress value is displayed in percentages. Sum of correct and wrong ansewers shouldn't be more than 100"
+    );
+  }
+
   return (
-    <Box sx={{ position: "relative", mt: "60px", width: "600px" }}>
-      <ProgressBackground />
+    <Box sx={{ position: "relative", width: "600px", ...sx }}>
+      <ProgressBackground stripesWidth={correct + wrong} />
       <Box
         sx={{
           display: "flex",
@@ -18,19 +33,23 @@ export default function Progress() {
       >
         <Box
           sx={{
-            width: "20%",
+            width: `${correct}%`,
             backgroundColor: "success.light",
           }}
         >
-          <ProgressLabel label="poprawne" value={20} color="success.light" />
+          <ProgressLabel
+            label="poprawne"
+            value={correct}
+            color="success.light"
+          />
         </Box>
         <Box
           sx={{
-            width: "30%",
+            width: `${wrong}%`,
             backgroundColor: "error.main",
           }}
         >
-          <ProgressLabel label="błędne" value={30} color="error.main" />
+          <ProgressLabel label="błędne" value={wrong} color="error.main" />
         </Box>
         <Box
           sx={{
@@ -38,7 +57,11 @@ export default function Progress() {
             backgroundColor: "grey.400",
           }}
         >
-          <ProgressLabel label="bez odpowiedzi" value={50} color="grey.500" />
+          <ProgressLabel
+            label="bez odpowiedzi"
+            value={100 - (correct + wrong)}
+            color="grey.500"
+          />
         </Box>
       </Box>
     </Box>
