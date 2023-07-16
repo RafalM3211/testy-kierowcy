@@ -1,7 +1,5 @@
 import { Box } from "@mui/material";
 
-/* zrob kiedys taka funkcje function generateStrippedBg(count: number) {} */
-
 const stripeColor = "rgba(255,255,255,0.15)";
 
 export const strippedBackground = `repeating-linear-gradient( 45deg, ${stripeColor}, ${stripeColor} 30px,transparent 30px,transparent 60px)`;
@@ -37,7 +35,7 @@ export default function ProgressBackground(props: Props) {
         sx={{
           position: "absolute",
           backgroundImage:
-            "linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.5))",
+            "linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.3))",
           borderRadius: "50px",
           left: "50%",
           width: "50%",
