@@ -16,10 +16,13 @@ export default function AnsewerRow(props: Props) {
       sx={{ display: "flex", alignItems: "center", my: "20px", ...sx }}
       {...other}
     >
-      <AnsewerButton checked={checked} sx={{ minWidth: "35px" }}>
+      <AnsewerButton
+        checked={checked}
+        sx={{ minWidth: "40px", width: "40px", height: "40px" }}
+      >
         {label}
       </AnsewerButton>
-      <Typography>{children}</Typography>
+      <Typography sx={{ fontSize: "1em" }}>{children}</Typography>
     </Box>
   );
 }

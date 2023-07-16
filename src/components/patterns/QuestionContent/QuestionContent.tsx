@@ -24,7 +24,13 @@ export default function QuestionContent(props: Props) {
       >
         {props.content}
       </Typography>
-      <Box>{props.type === "basic" ? <YesNoAnseswer /> : <ABCAnsewer />}</Box>
+      <Box>
+        {props.type === "basic" ? (
+          <YesNoAnseswer size={5} sx={{ mt: "35px" }} />
+        ) : (
+          <ABCAnsewer sx={{ mt: "35px" }} />
+        )}
+      </Box>
     </Box>
   );
 }

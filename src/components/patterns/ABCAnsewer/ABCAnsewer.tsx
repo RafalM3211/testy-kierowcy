@@ -1,9 +1,14 @@
 import { Box } from "@mui/material";
 import AnsewerRow from "./atoms/AnsewerRow";
+import type { SxProps } from "@mui/material/styles";
 
-export default function ABCAnsewer() {
+interface Props {
+  sx?: SxProps;
+}
+
+export default function ABCAnsewer(props: Props) {
   return (
-    <Box sx={{ mt: "35px" }}>
+    <Box sx={{ ...props.sx }}>
       <AnsewerRow label="A">
         Odpowiedź bnumer jeden taka średniej długości co często jest no
       </AnsewerRow>
