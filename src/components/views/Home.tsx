@@ -1,7 +1,7 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import bgImage from "../../images/backgrounds/wave.svg";
-import { flexCenter } from "../../utility/styling";
+import { flexCenter, backgroundImg } from "../../utility/styling";
 import Progress from "../patterns/Progress/Progress";
 import ButtonLink from "../atomsReusable/ButtonLink/ButtonLink";
 import SectionSubtitle from "../atomsReusable/SectionSubtitle/SectionSubtitle";
@@ -12,9 +12,7 @@ export default function Home() {
   return (
     <Box
       sx={{
-        backgroundImage: `url(${bgImage})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
+        ...backgroundImg(bgImage),
         height: "100vh",
       }}
     >
@@ -38,7 +36,7 @@ export default function Home() {
             Rozwiązuj testy a pasek progresu będzie uzupełniał się sam. Dzięki
             temu będziesz wiedział kiedy jesteś gotowy do egzaminu
           </SectionSubtitle>
-          <Progress />
+          <Progress correct={20} wrong={30} sx={{ mt: "60px" }} />
         </Grid>
         <Grid
           sx={{ ...flexCenter, flexDirection: "column", mb: "100px" }}
