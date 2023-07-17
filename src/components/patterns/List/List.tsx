@@ -53,7 +53,7 @@ export default memo(function List(props: Props) {
       {specializedQuestions.length > 0 ? (
         specializedQuestions.map((question, index) => (
           <QuestionPreview
-            key={question.id}
+            key={question.id + index}
             number={index + 1}
             data={question}
           />

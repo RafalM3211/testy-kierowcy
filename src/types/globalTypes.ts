@@ -28,6 +28,8 @@ export type Ansewer =
 
 export type Question = BasicQuestion | SpecializedQuestion;
 
+export type AnseweredQuestion = Question & { chosenAnsewer: Ansewer };
+
 export interface anyObject {
   [key: string]: unknown;
 }

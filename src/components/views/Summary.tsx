@@ -3,25 +3,33 @@ import bgImage from "../../images/backgrounds/wave.svg";
 import { backgroundImg, flexCenter } from "../../utility/styling";
 import List from "../patterns/List/List";
 import Progress from "../patterns/Progress/Progress";
-import { basic, specialized } from "../../utility/dummyQuestion/dummyQuestions";
 import HighlitedText from "../atomsReusable/HighlitedText/HighlitedText";
 import { useQuestionsContext } from "../../context/questions/questions";
-import { useState } from "react";
+import type { AnseweredQuestion } from "../../types/globalTypes";
 
-const questions = [
-  basic,
-  basic,
-  basic,
-  basic,
-  basic,
-  specialized,
-  specialized,
-  specialized,
-  specialized,
-];
+function calculateOutcome(questions: AnseweredQuestion[]) {
+  let points = 0;
+  let correct = 0;
+  let wrong = 0;
+  questions.forEach((question) => {
+    const { chosenAnsewer, correctAnsewer, value: questionValue } = question;
+    if (chosenAnsewer === correctAnsewer) {
+      correct++;
+      points += questionValue;
+    } else {
+      wrong++;
+    }
+  });
+
+  const passed = points >= 68;
+  return { correct, wrong, points, passed };
+}
 
 export default function Summary() {
   const { anseweredQuestions } = useQuestionsContext();
+
+  const { correct, wrong, points, passed } =
+    calculateOutcome(anseweredQuestions);
 
   return (
     <Box sx={{ ...backgroundImg(bgImage), minHeight: "100vh", pt: "130px" }}>
@@ -39,20 +47,20 @@ export default function Summary() {
             <Typography
               variant="h2"
               component="span"
-              sx={{ color: "error.main" }}
+              sx={{ color: passed ? "success.light" : "error.main" }}
             >
-              Niezaliczony
-              <Typography variant="h6" component="span">
-                {" "}
-                (54%)
-              </Typography>
+              {passed ? "zaliczony" : "niezaliczony"}
             </Typography>
           </Typography>
           <Typography variant="subtitle1">
-            poprawnie udzielone odpowiedzi: <HighlitedText>23\34</HighlitedText>
+            poprawnie udzielone odpowiedzi:{" "}
+            <HighlitedText>{`${correct}/32`}</HighlitedText>
+          </Typography>
+          <Typography variant="subtitle1">
+            zdobyte punkty: <HighlitedText>{`${points}/74`}</HighlitedText>
           </Typography>
         </Box>
-        <Progress correct={20} wrong={30} />
+        <Progress correct={correct} wrong={wrong} />
       </Container>
       <List questions={anseweredQuestions} />
     </Box>
