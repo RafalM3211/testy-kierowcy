@@ -38,21 +38,29 @@ export default memo(function List(props: Props) {
       }}
     >
       <ListHeader>Pytania podstawowe</ListHeader>
-      {basicQuestions.map((question, index) => (
-        <QuestionPreview
-          key={question.id + index}
-          number={index + 1}
-          data={question}
-        />
-      ))}
+      {basicQuestions.length > 0 ? (
+        basicQuestions.map((question, index) => (
+          <QuestionPreview
+            key={question.id}
+            number={index + 1}
+            data={question}
+          />
+        ))
+      ) : (
+        <Typography>Brak pytań podstawowych</Typography>
+      )}
       <ListHeader>Pytania specjalistyczne</ListHeader>
-      {specializedQuestions.map((question, index) => (
-        <QuestionPreview
-          key={question.id + index}
-          number={index + 1}
-          data={question}
-        />
-      ))}
+      {specializedQuestions.length > 0 ? (
+        specializedQuestions.map((question, index) => (
+          <QuestionPreview
+            key={question.id}
+            number={index + 1}
+            data={question}
+          />
+        ))
+      ) : (
+        <Typography>Brak pytań specjalistycznych</Typography>
+      )}
     </Box>
   );
 });

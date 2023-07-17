@@ -1,6 +1,7 @@
 import { Container } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useQuestionsContext } from "../../context/questions/questions";
 import { getQuestion } from "../../core/services/question";
 import Loader from "../patterns/Loader/Loader";
@@ -16,6 +17,8 @@ export default function Question() {
     retry: 1,
   });
 
+  const navigate = useNavigate();
+
   const { addAnsewer } = useQuestionsContext();
   const [questionCount, setQuestionCount] = useState(1);
 
@@ -25,7 +28,10 @@ export default function Question() {
     }
     addAnsewer(data, "B");
     refetch();
-    if (questionCount === 32) console.log("move to summary");
+    if (questionCount === 32) {
+      console.log("move to summary");
+      navigate("/summary");
+    }
     setQuestionCount(questionCount + 1);
   }, [refetch, questionCount, setQuestionCount, data]);
 
@@ -48,7 +54,11 @@ export default function Question() {
         <>
           <QuestionDetails id={data.id} value={data.value} />
           <QuestionMedia />
-          <QuestionContent content={data.content} type={data.type} />
+          <QuestionContent
+            content={data.content}
+            type={data.type}
+            ansewers={data.type === "specialized" ? data.ansewers : null}
+          />
           <QuestionControls
             questionCount={questionCount}
             nextQuestion={nextQuestion}

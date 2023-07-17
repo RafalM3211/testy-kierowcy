@@ -9,7 +9,7 @@ import type {
 
 interface Props {
   content: string;
-  ansewers?: Ansewers;
+  ansewers: Ansewers | null;
   type: BasicQuestion["type"] | SpecializedQuestion["type"];
 }
 

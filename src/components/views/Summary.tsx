@@ -21,8 +21,7 @@ const questions = [
 ];
 
 export default function Summary() {
-  const [a, seta] = useState(0);
-  console.log("sum render");
+  const { anseweredQuestions } = useQuestionsContext();
 
   return (
     <Box sx={{ ...backgroundImg(bgImage), minHeight: "100vh", pt: "130px" }}>
@@ -34,12 +33,7 @@ export default function Summary() {
         }}
         maxWidth="xl"
       >
-        <Box
-          onClick={() => {
-            seta(a + 1);
-          }}
-          sx={{ textAlign: "center" }}
-        >
+        <Box sx={{ textAlign: "center" }}>
           <Typography variant="h4" component="h2">
             Wynik egzaminu:{" "}
             <Typography
@@ -60,7 +54,7 @@ export default function Summary() {
         </Box>
         <Progress correct={20} wrong={30} />
       </Container>
-      <List questions={questions} />
+      <List questions={anseweredQuestions} />
     </Box>
   );
 }

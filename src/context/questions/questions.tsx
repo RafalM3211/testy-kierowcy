@@ -2,7 +2,7 @@ import { createContext, useState, useContext } from "react";
 import type { ReactNode } from "react";
 import type { Question, Ansewer } from "../../types/globalTypes";
 
-type AnseweredQuestion = (Question & { chosenAnsewer: Ansewer }) | null;
+type AnseweredQuestion = Question & { chosenAnsewer: Ansewer };
 
 interface Props {
   children: ReactNode;
