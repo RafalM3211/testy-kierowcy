@@ -16,7 +16,7 @@ function calculateOutcome(questions: AnseweredQuestion[]) {
     if (chosenAnsewer === correctAnsewer) {
       correct++;
       points += questionValue;
-    } else {
+    } else if (chosenAnsewer !== null) {
       wrong++;
     }
   });

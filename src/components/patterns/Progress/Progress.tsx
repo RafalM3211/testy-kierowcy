@@ -12,6 +12,8 @@ interface Props {
 export default function Progress(props: Props) {
   const { correct, wrong, sx } = props;
 
+  console.log(correct, wrong);
+
   if (correct + wrong > 100) {
     console.warn(
       "Progress value is displayed in percentages. Sum of correct and wrong ansewers shouldn't be more than 100"
