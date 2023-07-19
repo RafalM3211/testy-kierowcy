@@ -3,6 +3,8 @@ import AnsewerButton from "../../atomsReusable/AnsewerButton/AnsewerButton";
 import type { SxProps } from "@mui/material/styles";
 
 interface Props {
+  setChosenAnsewer?: (chosenAnsewer: boolean) => void;
+  chosenAnsewer: boolean | null;
   size: number;
   sx?: SxProps;
 }
@@ -16,13 +18,23 @@ export default function YesNoAnseswer(props: Props) {
   return (
     <Box sx={{ display: "flex", justifyContent: "center", ...props.sx }}>
       <AnsewerButton
-        checked
+        onClick={() => {
+          if (props.setChosenAnsewer) props.setChosenAnsewer(true);
+        }}
+        checked={!!props.chosenAnsewer}
         size="large"
         sx={{ px: px, py: py, fontSize: fontSize, mr: mr }}
       >
         tak
       </AnsewerButton>
-      <AnsewerButton size="large" sx={{ px: px, py: py, fontSize: fontSize }}>
+      <AnsewerButton
+        onClick={() => {
+          if (props.setChosenAnsewer) props.setChosenAnsewer(false);
+        }}
+        checked={!props.chosenAnsewer}
+        size="large"
+        sx={{ px: px, py: py, fontSize: fontSize }}
+      >
         nie
       </AnsewerButton>
     </Box>

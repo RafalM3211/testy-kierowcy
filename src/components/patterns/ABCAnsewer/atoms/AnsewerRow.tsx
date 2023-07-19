@@ -13,16 +13,41 @@ export default function AnsewerRow(props: Props) {
 
   return (
     <Box
-      sx={{ display: "flex", alignItems: "center", my: "20px", ...sx }}
+      sx={{
+        cursor: "pointer",
+        display: "flex",
+        alignItems: "center",
+        my: "20px",
+        ml: "10px",
+        pr: "50px",
+        width: "fit-content",
+        bgcolor: checked ? "grey.50" : "unset",
+        transition: "background-color 0.25s ",
+
+        "&:hover": {
+          bgcolor: "grey.100",
+        },
+
+        ...sx,
+      }}
       {...other}
     >
-      <AnsewerButton
-        checked={checked}
-        sx={{ minWidth: "40px", width: "40px", height: "40px" }}
+      <Typography
+        sx={{
+          fontSize: "1em",
+          cursor: "pointer",
+          userSelect: "none",
+        }}
+        component="label"
       >
-        {label}
-      </AnsewerButton>
-      <Typography sx={{ fontSize: "1em" }}>{children}</Typography>
+        <AnsewerButton
+          checked={checked}
+          sx={{ minWidth: "40px", width: "40px", ml: "0", height: "40px" }}
+        >
+          {label}
+        </AnsewerButton>
+        {children}
+      </Typography>
     </Box>
   );
 }

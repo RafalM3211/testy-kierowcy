@@ -4,12 +4,15 @@ import YesNoAnseswer from "../YesNoAnsewer/YesNoAnsewer";
 import type {
   BasicQuestion,
   SpecializedQuestion,
-  Ansewers,
+  ABCansewers,
+  Ansewer,
 } from "../../../types/globalTypes";
 
 interface Props {
   content: string;
-  ansewers: Ansewers | null;
+  ansewers: ABCansewers | null;
+  chosenAnsewer: Ansewer | null;
+  setChosenAnsewer?: (chosenAnsewer: Ansewer) => void;
   type: BasicQuestion["type"] | SpecializedQuestion["type"];
 }
 
@@ -27,10 +30,19 @@ export default function QuestionContent(props: Props) {
       </Typography>
       <Box>
         {props.type === "basic" ? (
-          <YesNoAnseswer size={5} sx={{ mt: "35px" }} />
+          <YesNoAnseswer
+            setChosenAnsewer={props.setChosenAnsewer}
+            chosenAnsewer={props.chosenAnsewer as boolean}
+            size={5}
+            sx={{ mt: "35px" }}
+          />
         ) : (
           <ABCAnsewer
-            ansewers={props.ansewers as Ansewers}
+            ansewers={props.ansewers as ABCansewers}
+            chosenAnsewer={
+              props.chosenAnsewer as keyof SpecializedQuestion["ansewers"]
+            }
+            setChosenAnsewer={props.setChosenAnsewer}
             sx={{ mt: "35px" }}
           />
         )}

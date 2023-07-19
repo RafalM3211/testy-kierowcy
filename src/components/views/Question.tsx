@@ -9,19 +9,20 @@ import QuestionMedia from "../patterns/QuestionMedia/QuestionMedia";
 import QuestionContent from "../patterns/QuestionContent/QuestionContent";
 import QuestionControls from "../patterns/QuestionControls/QuestionControls";
 import QuestionDetails from "../patterns/QuestionDetails/QuestionDetails";
+import type { Ansewer } from "../../types/globalTypes";
 
 export default function Question() {
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["question"],
     queryFn: getQuestion,
     retry: 1,
+    refetchOnWindowFocus: false,
   });
 
   const navigate = useNavigate();
 
   const { addAnsewer } = useQuestionsContext();
   const [questionCount, setQuestionCount] = useState(1);
-
   const nextQuestion = useCallback(() => {
     if (!data) {
       throw new Error("question is undefined");
@@ -34,6 +35,10 @@ export default function Question() {
     }
     setQuestionCount(questionCount + 1);
   }, [refetch, questionCount, setQuestionCount, data]);
+
+  const [chosenAnsewer, setChosenAnsewer] = useState<Ansewer | null>(null);
+
+  console.log(chosenAnsewer);
 
   return (
     <Container
@@ -58,6 +63,8 @@ export default function Question() {
             content={data.content}
             type={data.type}
             ansewers={data.type === "specialized" ? data.ansewers : null}
+            chosenAnsewer={chosenAnsewer}
+            setChosenAnsewer={setChosenAnsewer}
           />
           <QuestionControls
             questionCount={questionCount}

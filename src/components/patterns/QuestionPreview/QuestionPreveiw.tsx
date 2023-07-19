@@ -3,14 +3,18 @@ import YesNoAnseswer from "../YesNoAnsewer/YesNoAnsewer";
 import { flexCenter } from "../../../utility/styling";
 import ABCAnsewer from "../ABCAnsewer/ABCAnsewer";
 import { trimText } from "../../../utility/utils";
-import type { Ansewers, Question } from "../../../types/globalTypes";
+import type {
+  ABCansewers,
+  AnseweredQuestion,
+  Question,
+} from "../../../types/globalTypes";
 
 interface Props {
   data: Question;
   number?: number;
 }
 
-function trimAnsewers(ansewers: Ansewers): Ansewers {
+function trimAnsewers(ansewers: ABCansewers): ABCansewers {
   return {
     A: trimText(ansewers.A, 100),
     B: trimText(ansewers.B, 100),
@@ -77,10 +81,11 @@ export default function QuestionPreview(props: Props) {
           {trimText(question.content, 140)}
         </Typography>
         {question.type === "basic" ? (
-          <YesNoAnseswer size={3.4} />
+          <YesNoAnseswer chosenAnsewer={null} size={3.4} />
         ) : (
           <ABCAnsewer
             ansewers={trimAnsewers(question.ansewers)}
+            chosenAnsewer={null}
             sx={{ fontSize: "0.9em" }}
           />
         )}
