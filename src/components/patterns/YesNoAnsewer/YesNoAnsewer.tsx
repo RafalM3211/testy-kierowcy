@@ -21,7 +21,7 @@ export default function YesNoAnseswer(props: Props) {
         onClick={() => {
           if (props.setChosenAnsewer) props.setChosenAnsewer(true);
         }}
-        checked={!!props.chosenAnsewer}
+        checked={props.chosenAnsewer === true}
         size="large"
         sx={{ px: px, py: py, fontSize: fontSize, mr: mr }}
       >
@@ -31,7 +31,7 @@ export default function YesNoAnseswer(props: Props) {
         onClick={() => {
           if (props.setChosenAnsewer) props.setChosenAnsewer(false);
         }}
-        checked={!props.chosenAnsewer}
+        checked={props.chosenAnsewer === false}
         size="large"
         sx={{ px: px, py: py, fontSize: fontSize }}
       >
