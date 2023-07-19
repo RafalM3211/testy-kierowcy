@@ -12,7 +12,7 @@ interface Props {
 
 interface QuesitonsContextType {
   anseweredQuestions: AnseweredQuestion[];
-  addAnsewer: (question: Question, chosenAnsewer: Ansewer) => void;
+  addAnsewer: (question: Question, chosenAnsewer: Ansewer | null) => void;
 }
 
 const QuestionsContext = createContext<QuesitonsContextType | null>(null);
@@ -31,7 +31,7 @@ export function QuestionsProvider(props: Props) {
     AnseweredQuestion[]
   >([]);
 
-  function addAnsewer(question: Question, chosenAnsewer: Ansewer) {
+  function addAnsewer(question: Question, chosenAnsewer: Ansewer | null) {
     const newAnseweredQuestion = {
       ...question,
       chosenAnsewer,

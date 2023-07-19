@@ -10,7 +10,7 @@ import type {
 } from "../../../types/globalTypes";
 
 interface Props {
-  data: Question;
+  data: Question | AnseweredQuestion;
   number?: number;
 }
 
@@ -81,11 +81,22 @@ export default function QuestionPreview(props: Props) {
           {trimText(question.content, 140)}
         </Typography>
         {question.type === "basic" ? (
-          <YesNoAnseswer chosenAnsewer={null} size={3.4} />
+          <YesNoAnseswer
+            chosenAnsewer={
+              "chosenAnsewer" in question
+                ? (question.chosenAnsewer as boolean)
+                : null
+            }
+            size={3.4}
+          />
         ) : (
           <ABCAnsewer
             ansewers={trimAnsewers(question.ansewers)}
-            chosenAnsewer={null}
+            chosenAnsewer={
+              "chosenAnsewer" in question
+                ? (question.chosenAnsewer as keyof ABCansewers)
+                : null
+            }
             sx={{ fontSize: "0.9em" }}
           />
         )}

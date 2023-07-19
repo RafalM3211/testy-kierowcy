@@ -22,23 +22,29 @@ export default function Question() {
   const navigate = useNavigate();
 
   const { addAnsewer } = useQuestionsContext();
+
+  const [chosenAnsewer, setChosenAnsewer] = useState<Ansewer | null>(null);
   const [questionCount, setQuestionCount] = useState(1);
+
   const nextQuestion = useCallback(() => {
     if (!data) {
       throw new Error("question is undefined");
     }
-    addAnsewer(data, "B");
+    addAnsewer(data, chosenAnsewer);
     refetch();
     if (questionCount === 32) {
-      console.log("move to summary");
       navigate("/summary");
     }
     setQuestionCount(questionCount + 1);
-  }, [refetch, questionCount, setQuestionCount, data]);
-
-  const [chosenAnsewer, setChosenAnsewer] = useState<Ansewer | null>(null);
-
-  console.log(chosenAnsewer);
+    setChosenAnsewer(null);
+  }, [
+    refetch,
+    questionCount,
+    setQuestionCount,
+    data,
+    chosenAnsewer,
+    setChosenAnsewer,
+  ]);
 
   return (
     <Container

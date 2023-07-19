@@ -41,7 +41,7 @@ export default memo(function List(props: Props) {
       {basicQuestions.length > 0 ? (
         basicQuestions.map((question, index) => (
           <QuestionPreview
-            key={question.id}
+            key={question.id + Math.floor(Math.random() * 99999) + index}
             number={index + 1}
             data={question}
           />
@@ -53,7 +53,7 @@ export default memo(function List(props: Props) {
       {specializedQuestions.length > 0 ? (
         specializedQuestions.map((question, index) => (
           <QuestionPreview
-            key={question.id + index}
+            key={question.id + Math.floor(Math.random() * 99999) + index}
             number={index + 1}
             data={question}
           />
