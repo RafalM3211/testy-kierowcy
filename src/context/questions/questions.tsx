@@ -4,10 +4,7 @@ import type {
   Question,
   Ansewer,
   AnseweredQuestion,
-  AnseweredBasicQuestion,
-  AnseweredSpecializedQuestion,
   BasicQuestion,
-  SpecializedQuestion,
   BasicAnsewer,
   SpecializedAnsewer,
 } from "../../types/globalTypes";

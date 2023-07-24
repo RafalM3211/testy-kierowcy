@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { strippedBackground } from "../Progress/atoms/ProgressBackground/ProgressBackground";
+import { strippedBackground } from "../Progress/subcomponents/ProgressBackground/ProgressBackground";
 
 export default function TimeCount() {
   return (

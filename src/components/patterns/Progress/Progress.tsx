@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import ProgressLabel from "./atoms/ProgressLabel/ProgressLabel";
-import ProgressBackground from "./atoms/ProgressBackground/ProgressBackground";
+import ProgressLabel from "./subcomponents/ProgressLabel/ProgressLabel";
+import ProgressBackground from "./subcomponents/ProgressBackground/ProgressBackground";
 import type { SxProps } from "@mui/material";
 
 interface Props {

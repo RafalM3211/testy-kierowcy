@@ -1,5 +1,5 @@
 import { AppBar, Container, Box } from "@mui/material";
-import UserChip from "./atoms/UserChip/UserChip";
+import UserChip from "./subcomponents/UserChip/UserChip";
 import NavLink from "../../atomsReusable/ButtonLink/ButtonLink";
 import Logo from "../../atomsReusable/Logo/Logo";
 

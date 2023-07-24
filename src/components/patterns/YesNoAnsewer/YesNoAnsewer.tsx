@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { useState } from "react";
-import AnsewerButton from "../../atomsReusable/AnsewerButton/AnsewerButton";
+import AnsewerButton from "../../atoms/AnsewerButton/AnsewerButton";
 import type { SxProps } from "@mui/material/styles";
 import {
   AnseweredBasicQuestion,

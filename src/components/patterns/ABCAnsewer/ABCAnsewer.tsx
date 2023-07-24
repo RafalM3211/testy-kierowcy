@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import AnsewerRow from "./atoms/AnsewerRow";
+import AnsewerRow from "./subcomponents/AnsewerRow";
 import type { SxProps } from "@mui/material/styles";
 import type {
   ABCansewers,
