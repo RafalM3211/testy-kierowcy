@@ -6,6 +6,7 @@ import { useQuestionsContext } from "../../context/questions/questions";
 import { getQuestion } from "../../core/services/question";
 import Loader from "../patterns/Loader/Loader";
 import Question from "../patterns/Question/Question";
+import ErrorBlock from "../patterns/ErrorBlock/ErrorBlock";
 import type {
   Ansewer,
   BasicAnsewer,
@@ -17,7 +18,7 @@ export default function Exam() {
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["question"],
     queryFn: getQuestion,
-    retry: 1,
+    retry: 0,
     refetchOnWindowFocus: false,
   });
 
@@ -53,7 +54,7 @@ export default function Exam() {
       {isLoading ? (
         <Loader />
       ) : isError ? (
-        "error"
+        <ErrorBlock sx={{ height: "100vh", mb: "50px" }} />
       ) : (
         <Question
           question={{ ...data }}
