@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import InfoChip from "../../atomsReusable/InfoChip/InfoChip";
-import HighlitedText from "../../atomsReusable/HighlitedText/HighlitedText";
+import InfoChip from "../../../../atomsReusable/InfoChip/InfoChip";
+import HighlitedText from "../../../../atomsReusable/HighlitedText/HighlitedText";
 
 interface Props {
   id: number;

@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
-import { flexCenter } from "../../../utility/styling";
+import { flexCenter } from "../../../../../utility/styling";
 
 export default function QuestionMedia() {
   return (

@@ -1,20 +1,32 @@
 import { Box, Typography } from "@mui/material";
-import ABCAnsewer from "../ABCAnsewer/ABCAnsewer";
-import YesNoAnseswer from "../YesNoAnsewer/YesNoAnsewer";
+import ABCAnsewer from "../../../ABCAnsewer/ABCAnsewer";
+import YesNoAnseswer from "../../../YesNoAnsewer/YesNoAnsewer";
 import type {
   BasicQuestion,
   SpecializedQuestion,
   ABCansewers,
   Ansewer,
-} from "../../../types/globalTypes";
+  BasicAnsewer,
+  SpecializedAnsewer,
+} from "../../../../../types/globalTypes";
 
-interface Props {
+interface PropsBase {
   content: string;
-  ansewers: ABCansewers | null;
-  chosenAnsewer: Ansewer | null;
-  setChosenAnsewer?: (chosenAnsewer: Ansewer) => void;
-  type: BasicQuestion["type"] | SpecializedQuestion["type"];
+  setChosenAnsewer?: (chosenAnsewer: Exclude<Ansewer, null>) => void;
 }
+
+interface BasicQuesitonProps extends PropsBase {
+  type: BasicQuestion["type"];
+  chosenAnsewer: BasicAnsewer;
+}
+
+interface SpecializedQuestionProps extends PropsBase {
+  type: SpecializedQuestion["type"];
+  chosenAnsewer: SpecializedAnsewer;
+  ansewers: ABCansewers;
+}
+
+type Props = SpecializedQuestionProps | BasicQuesitonProps;
 
 export default function QuestionContent(props: Props) {
   return (
@@ -32,16 +44,14 @@ export default function QuestionContent(props: Props) {
         {props.type === "basic" ? (
           <YesNoAnseswer
             setChosenAnsewer={props.setChosenAnsewer}
-            chosenAnsewer={props.chosenAnsewer as boolean}
+            chosenAnsewer={props.chosenAnsewer}
             size={5}
             sx={{ mt: "35px" }}
           />
         ) : (
           <ABCAnsewer
             ansewers={props.ansewers as ABCansewers}
-            chosenAnsewer={
-              props.chosenAnsewer as keyof SpecializedQuestion["ansewers"]
-            }
+            chosenAnsewer={props.chosenAnsewer}
             setChosenAnsewer={props.setChosenAnsewer}
             sx={{ mt: "35px" }}
           />

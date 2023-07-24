@@ -6,9 +6,8 @@ import {
   Outlet,
 } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { Box } from "@mui/material";
 import HomeView from "./components/views/Home";
-import QuestionView from "./components/views/Question";
+import ExamView from "./components/views/Exam";
 import Summary from "./components/views/Summary";
 import Error404 from "./components/views/errors/Error404";
 import Header from "./components/patterns/Header/Header";
@@ -38,7 +37,7 @@ const router = createBrowserRouter(
           </>
         }
       >
-        <Route path="/question" element={<QuestionView />} />
+        <Route path="/question" element={<ExamView />} />
       </Route>
       <Route element={<Outlet />}>
         <Route path="*" element={<Error404 />} />

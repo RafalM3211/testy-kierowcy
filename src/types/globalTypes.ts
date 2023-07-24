@@ -10,11 +10,29 @@ export interface BasicQuestion extends QuestionBase {
   correctAnsewer: boolean;
 }
 
+export type BasicAnsewer = BasicQuestion["correctAnsewer"] | null;
+
+export interface AnseweredBasicQuestion extends BasicQuestion {
+  chosenAnsewer: BasicAnsewer;
+}
+
 export interface SpecializedQuestion extends QuestionBase {
   type: "specialized";
   ansewers: ABCansewers;
-  correctAnsewer: "A" | "B" | "C";
+  correctAnsewer: keyof ABCansewers;
 }
+
+export type SpecializedAnsewer = SpecializedQuestion["correctAnsewer"] | null;
+
+export interface AnseweredSpecializedQuestion extends SpecializedQuestion {
+  chosenAnsewer: SpecializedAnsewer;
+}
+
+export type Question = BasicQuestion | SpecializedQuestion;
+
+export type AnseweredQuestion =
+  | AnseweredBasicQuestion
+  | AnseweredSpecializedQuestion;
 
 export type ABCansewers = {
   A: string;
@@ -22,13 +40,7 @@ export type ABCansewers = {
   C: string;
 };
 
-export type Ansewer =
-  | BasicQuestion["correctAnsewer"]
-  | SpecializedQuestion["correctAnsewer"];
-
-export type Question = BasicQuestion | SpecializedQuestion;
-
-export type AnseweredQuestion = Question & { chosenAnsewer: Ansewer | null };
+export type Ansewer = BasicAnsewer | SpecializedAnsewer;
 
 export interface anyObject {
   [key: string]: unknown;
