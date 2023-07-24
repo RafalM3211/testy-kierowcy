@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { flexCenter } from "../../../utility/styling";
-import HighlitedText from "../../atomsReusable/HighlitedText/HighlitedText";
-import ButtonLink from "../../atomsReusable/ButtonLink/ButtonLink";
+import HighlitedText from "../../atoms/HighlitedText/HighlitedText";
+import ButtonLink from "../../atoms/ButtonLink/ButtonLink";
 
 export default function Error404() {
   return (

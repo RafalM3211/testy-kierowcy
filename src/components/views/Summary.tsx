@@ -3,7 +3,7 @@ import bgImage from "../../images/backgrounds/wave.svg";
 import { backgroundImg, flexCenter } from "../../utility/styling";
 import List from "../patterns/List/List";
 import Progress from "../patterns/Progress/Progress";
-import HighlitedText from "../atomsReusable/HighlitedText/HighlitedText";
+import HighlitedText from "../atoms/HighlitedText/HighlitedText";
 import { useQuestionsContext } from "../../context/questions/questions";
 import type { AnseweredQuestion } from "../../types/globalTypes";
 

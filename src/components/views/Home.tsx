@@ -3,10 +3,10 @@ import Grid from "@mui/material/Unstable_Grid2";
 import bgImage from "../../images/backgrounds/wave.svg";
 import { flexCenter, backgroundImg } from "../../utility/styling";
 import Progress from "../patterns/Progress/Progress";
-import ButtonLink from "../atomsReusable/ButtonLink/ButtonLink";
-import SectionSubtitle from "../atomsReusable/SectionSubtitle/SectionSubtitle";
-import SectionHeader from "../atomsReusable/SectionHeader/SectionHeader";
-import HighlitedText from "../atomsReusable/HighlitedText/HighlitedText";
+import ButtonLink from "../atoms/ButtonLink/ButtonLink";
+import SectionSubtitle from "../atoms/SectionSubtitle/SectionSubtitle";
+import SectionHeader from "../atoms/SectionHeader/SectionHeader";
+import HighlitedText from "../atoms/HighlitedText/HighlitedText";
 
 export default function Home() {
   return (
