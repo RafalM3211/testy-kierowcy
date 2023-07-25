@@ -16,10 +16,11 @@ interface Props {
 }
 
 function trimAnsewers(ansewers: ABCansewers): ABCansewers {
+  const trimValue = 65;
   return {
-    A: trimText(ansewers.A, 100),
-    B: trimText(ansewers.B, 100),
-    C: trimText(ansewers.C, 100),
+    A: trimText(ansewers.A, trimValue),
+    B: trimText(ansewers.B, trimValue),
+    C: trimText(ansewers.C, trimValue),
   };
 }
 

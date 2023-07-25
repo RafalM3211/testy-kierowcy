@@ -19,7 +19,7 @@ export default function AnsewerRow(props: Props) {
         alignItems: "center",
         my: "20px",
         ml: "10px",
-        pr: "50px",
+        pr: "10px",
         width: "fit-content",
         bgcolor: checked ? "grey.50" : "unset",
         transition: "background-color 0.25s ",
@@ -37,12 +37,19 @@ export default function AnsewerRow(props: Props) {
           fontSize: "1em",
           cursor: "pointer",
           userSelect: "none",
+          display: "flex",
         }}
         component="label"
       >
         <AnsewerButton
           checked={checked}
-          sx={{ minWidth: "40px", width: "40px", ml: "0", height: "40px" }}
+          sx={{
+            minWidth: "40px",
+            width: "40px",
+            ml: "0",
+            height: "40px",
+            display: "block",
+          }}
         >
           {label}
         </AnsewerButton>
