@@ -3,6 +3,7 @@ import { Container, Box, Typography, SxProps } from "@mui/material";
 import { flexCenter } from "../../../utility/styling";
 
 interface Props {
+  label?: string;
   sx?: SxProps;
 }
 
@@ -19,7 +20,7 @@ export default function ErrorBlock(props: Props) {
     >
       <ErrorOutlineIcon color="error" sx={{ mr: "10px", fontSize: "1.4em" }} />
       <Typography variant="h6" component="p" sx={{ fontSize: "0.7em" }}>
-        Wystąpił błąd, przepraszamy
+        {props.label || "Wystąpił błąd, przepraszamy"}
       </Typography>
     </Box>
   );

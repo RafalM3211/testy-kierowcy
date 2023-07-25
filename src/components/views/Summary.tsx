@@ -6,6 +6,7 @@ import Progress from "../patterns/Progress/Progress";
 import HighlitedText from "../atoms/HighlitedText/HighlitedText";
 import { useQuestionsContext } from "../../context/questions/questions";
 import type { AnseweredQuestion } from "../../types/globalTypes";
+import { Link } from "react-router-dom";
 
 function calculateOutcome(questions: AnseweredQuestion[]) {
   let points = 0;
