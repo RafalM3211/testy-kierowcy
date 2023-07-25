@@ -91,6 +91,19 @@ export default function QuestionPreview(props: Props) {
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
+
+            "& *:hover": {
+              backgroundColor: "inherit",
+              borderColor: "initial",
+            },
+
+            "& .MuiButton-contained:hover": {
+              backgroundColor: "primary.main",
+            },
+
+            "& .MuiButton-root:hover": {
+              borderColor: "primary.light",
+            },
           }}
         >
           <Typography variant="body1">
