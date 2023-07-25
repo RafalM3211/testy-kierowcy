@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { flexCenter } from "../../../../../utility/styling";
 import QuestionCount from "../QuestionCount/QuestionCount";
-import TimeCount from "../../../TimeCount/TimeCount";
+import TimeCount from "../TimeCount/TimeCount";
 import { QuestionMode } from "../../types";
 
 interface LearnMode {
@@ -23,7 +23,7 @@ function drawBasicQuestionCount(count: number) {
 
 function drawSpecializedQuestionCount(count: number) {
   if (count > 20) return count - 20 + "/12";
-  else return "0/20";
+  else return "0/12";
 }
 
 export default function QuestionControls(props: Props) {
