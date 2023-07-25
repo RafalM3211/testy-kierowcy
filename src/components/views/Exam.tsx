@@ -54,7 +54,9 @@ export default function Exam() {
       {isLoading ? (
         <Loader />
       ) : isError ? (
-        <ErrorBlock sx={{ height: "100vh", mb: "50px" }} />
+        <ErrorBlock
+          sx={{ height: "100vh", pb: "50px", boxSizing: "border-box" }}
+        />
       ) : (
         <Question
           question={{ ...data }}
