@@ -1,8 +1,6 @@
 import jsonServer from "json-server";
-import * as fs from "fs";
 import { getQuestionById } from "./dbApi.mjs";
-import { getDirname, allowedMediaExtensions } from "./helpers.mjs";
-import type { EndpointHandler } from "./types.mjs";
+import { sendImage, streamVideo, allowedMediaExtensions } from "./media.mjs";
 
 console.log("START");
 
@@ -25,9 +23,12 @@ server.get("/question", (req, res) => {
 server.get("/media/:fileName", (req, res) => {
   const { fileName } = req.params;
   const fileExtension = fileName.slice(fileName.lastIndexOf(".") + 1);
-  console.log(fileExtension);
   if (allowedMediaExtensions.includes(fileExtension)) {
-    streamVideo(req, res);
+    if (fileExtension === "jpg") {
+      sendImage(req, res);
+    } else {
+      streamVideo(req, res);
+    }
   } else {
     const errorMessage =
       "wrong media extension. Supported extensions are: " +
@@ -36,29 +37,6 @@ server.get("/media/:fileName", (req, res) => {
     res.status(400).send(errorMessage);
   }
 });
-
-const streamVideo: EndpointHandler = function (req, res) {
-  const { fileName } = req.params;
-  const range = req.headers.range;
-  if (range === undefined) {
-    res.status(400).send("Range header is not provided");
-  } else {
-    const filePath =
-      getDirname(import.meta.url) + "/db/temporaryMedia/" + fileName;
-    const fileSize = fs.statSync(filePath).size;
-    const chunkSize = 10 ** 6; //1Mb
-    const start = Number(range.replace(/\D/g, ""));
-    const end = Math.min(start + chunkSize, fileSize - 1);
-    res.writeHead(206, {
-      "Content-Range": `bytes ${start}-${end}/${fileSize}`,
-      "Content-Length": end - start + 1,
-      "Accept-Ranges": "bytes",
-      "Content-Type": "video/mp4",
-    });
-    const stream = fs.createReadStream(filePath, { start, end });
-    stream.pipe(res);
-  }
-};
 
 server.listen(3001, () => {
   console.log("server is running on port 3001!");

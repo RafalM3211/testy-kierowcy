@@ -22,5 +22,3 @@ export function getDirname(importMetaUrl: string) {
   const dirname = path.dirname(filename);
   return dirname;
 }
-
-export const allowedMediaExtensions = ["jpg", "mp4"];
