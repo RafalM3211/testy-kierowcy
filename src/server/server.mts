@@ -1,7 +1,7 @@
 import jsonServer from "json-server";
 import * as fs from "fs";
 import { getQuestionById } from "./dbApi.mjs";
-import { getDirname } from "./helpers.mjs";
+import { getDirname, allowedMediaExtensions } from "./helpers.mjs";
 import type { EndpointHandler } from "./types.mjs";
 
 console.log("START");
@@ -23,7 +23,18 @@ server.get("/question", (req, res) => {
 });
 
 server.get("/media/:fileName", (req, res) => {
-  streamVideo(req, res);
+  const { fileName } = req.params;
+  const fileExtension = fileName.slice(fileName.lastIndexOf(".") + 1);
+  console.log(fileExtension);
+  if (allowedMediaExtensions.includes(fileExtension)) {
+    streamVideo(req, res);
+  } else {
+    const errorMessage =
+      "wrong media extension. Supported extensions are: " +
+      allowedMediaExtensions.join(", ");
+    console.error(errorMessage);
+    res.status(400).send(errorMessage);
+  }
 });
 
 const streamVideo: EndpointHandler = function (req, res) {
