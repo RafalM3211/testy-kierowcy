@@ -1,4 +1,6 @@
 import type { anyObject } from "../types/globalTypes";
+import path from "path";
+import { fileURLToPath } from "url";
 
 export function hasKey<T extends object, K extends PropertyKey>(
   obj: T,
@@ -13,4 +15,10 @@ export function addPropToObject<O extends string, V>(
   value: V
 ) {
   obj[key] = value;
+}
+
+export function getDirname(importMetaUrl: string) {
+  const filename = fileURLToPath(importMetaUrl);
+  const dirname = path.dirname(filename);
+  return dirname;
 }
