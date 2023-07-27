@@ -1,6 +1,6 @@
-import { createReadStream, statSync } from "fs";
+import { createReadStream, statSync, existsSync } from "fs";
 import { getDirname } from "./helpers.mjs";
-import type { EndpointHandler } from "./types.mjs";
+import type { EndpointHandler, Res } from "./types.mjs";
 
 export const allowedMediaExtensions = ["jpg", "mp4"];
 
@@ -10,8 +10,10 @@ export const streamVideo: EndpointHandler = function (req, res) {
   if (range === undefined) {
     res.status(400).send("Range header is not provided");
   } else {
-    const filePath =
-      getDirname(import.meta.url) + "/db/temporaryMedia/" + fileName;
+    const filePath = buildFilePath(fileName);
+    if (!existsSync(filePath)) {
+      sendFileNotFoundError(res, fileName);
+    }
     const fileSize = statSync(filePath).size;
     const chunkSize = 10 ** 6; //1Mb
     const start = Number(range.replace(/\D/g, ""));
@@ -29,8 +31,10 @@ export const streamVideo: EndpointHandler = function (req, res) {
 
 export const sendImage: EndpointHandler = function (req, res) {
   const { fileName } = req.params;
-  const filePath =
-    getDirname(import.meta.url) + "/db/temporaryMedia/" + fileName;
+  const filePath = buildFilePath(fileName);
+  if (!existsSync(filePath)) {
+    sendFileNotFoundError(res, fileName);
+  }
   const fileSize = statSync(filePath).size;
   res.writeHead(206, {
     "Content-Length": fileSize,
@@ -39,3 +43,13 @@ export const sendImage: EndpointHandler = function (req, res) {
   const stream = createReadStream(filePath);
   stream.pipe(res);
 };
+
+function sendFileNotFoundError(res: Res, fileName: string) {
+  const errorMessage = `file ${fileName} not found in database`;
+  console.error(errorMessage);
+  res.status(404).send(errorMessage);
+}
+
+function buildFilePath(fileName: string) {
+  return getDirname(import.meta.url) + "/db/media/" + fileName;
+}

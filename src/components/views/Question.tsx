@@ -24,9 +24,9 @@ export default function Question() {
           sx={{ pt: "80px" }}
         />
       )}
-      <img src="http://localhost:3001/media/img.jpg" />
+      <img src="http://localhost:3001/media/1C110.jpg" />
       <video id="videoPlayer" width="50%" controls muted autoPlay>
-        <source src="http://localhost:3001/media/video.mp4" type="video/mp4" />
+        <source src="http://localhost:3001/media/R_1org.mp4" type="video/mp4" />
       </video>
     </Box>
   );
