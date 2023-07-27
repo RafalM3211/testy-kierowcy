@@ -19,9 +19,14 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### Running backend
+### `npm run server`
 
-`npm run server`
+Runns application backend
+
+### `npm run convert-wmv`
+
+Converts all .wmv videos to .mp4 in database media directory. This script is a batch file so it works only on windows. Migration to node script is planned in future.
+All official driving license question medias are stored on goverment driving license site ([https://www.gov.pl/web/infrastruktura/prawo-jazdy]) and all video files there have .wmv extension which is not supported in browsers.
 
 ### `npm run build`
 

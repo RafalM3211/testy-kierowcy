@@ -14,6 +14,7 @@ for %%F in ("%baseDir%\*.wmv") do (
 
     REM Run ffmpeg command to convert the file
     ffmpeg -i "%%F" "!output!"
+    del "!baseDir!\*.wmv"
 )
 
 echo Conversion of wmv files to mp4 completed
