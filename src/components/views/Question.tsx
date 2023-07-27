@@ -12,10 +12,16 @@ export default function Question() {
     (quesiton) => quesiton.id === parseInt(id)
   );
 
+  //todo: kiedy pytanie nie bedzie w kontekscie to rob requesta po te pyanie
+
   return (
     <Box sx={{ minHeight: "100vh" }}>
       {!question ? (
-        <ErrorBlock />
+        <ErrorBlock
+          sx={{
+            height: "100vh",
+          }}
+        />
       ) : (
         <QuestionComponent
           mode="learn"
@@ -24,10 +30,10 @@ export default function Question() {
           sx={{ pt: "80px" }}
         />
       )}
-      <img src="http://localhost:3001/media/1C110.jpg" />
+      {/*       <img src="http://localhost:3001/media/1C110.jpg" />
       <video id="videoPlayer" width="50%" controls muted autoPlay>
         <source src="http://localhost:3001/media/R_1org.mp4" type="video/mp4" />
-      </video>
+      </video> */}
     </Box>
   );
 }

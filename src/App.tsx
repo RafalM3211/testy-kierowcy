@@ -10,6 +10,7 @@ import Home from "./components/views/Home";
 import Exam from "./components/views/Exam";
 import Summary from "./components/views/Summary";
 import Error404 from "./components/views/errors/Error404";
+import Error500 from "./components/views/errors/Error500";
 import Header from "./components/patterns/Header/Header";
 import SmallHeader from "./components/patterns/SmallHeader/SmallHeader";
 import AppThemeProvider from "./context/theme/theme";
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
         <Route path="/question" element={<Exam />} />
       </Route>
       <Route element={<Outlet />}>
+        <Route path="/error/500" element={<Error500 />} />
         <Route path="*" element={<Error404 />} />
       </Route>
     </>
