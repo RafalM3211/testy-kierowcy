@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { flexCenter } from "../../../../../utility/styling";
-import QuestionCount from "../QuestionCount/QuestionCount";
-import TimeCount from "../TimeCount/TimeCount";
+import QuestionCount from "../../subcomponents/QuestionCount/QuestionCount";
+import TimeCount from "../../subcomponents/TimeCount/TimeCount";
 import { QuestionMode } from "../../types";
 
 interface LearnMode {
