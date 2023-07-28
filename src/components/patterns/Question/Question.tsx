@@ -1,8 +1,8 @@
 import { Container } from "@mui/material";
-import QuestionDetails from "./subcomponents/QuestionDetails/QuestionDetails";
-import QuestionMedia from "./subcomponents/QuestionMedia/QuestionMedia";
-import QuestionContent from "./subcomponents/QuestionContent/QuestionContent";
-import QuestionControls from "./subcomponents/QuestionControls/QuestionControls";
+import QuestionDetails from "./tempsubcomponents/QuestionDetails/QuestionDetails";
+import QuestionMedia from "./tempsubcomponents/QuestionMedia/QuestionMedia";
+import QuestionContent from "./tempsubcomponents/QuestionContent/QuestionContent";
+import QuestionControls from "./tempsubcomponents/QuestionControls/QuestionControls";
 import {
   Ansewer,
   BasicAnsewer,
