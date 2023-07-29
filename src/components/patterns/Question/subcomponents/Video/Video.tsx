@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import { SxProps } from "@mui/system";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import ReactPlayer from "react-player";
 import { flexCenter } from "../../../../../utility/styling";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ErrorBlock from "../../../ErrorBlock/ErrorBlock";
 
 interface Props {
@@ -12,6 +12,12 @@ interface Props {
 export default function Video(props: Props) {
   const [isError, setError] = useState(false);
   const [isStarted, setStarted] = useState(false);
+
+  useEffect(() => {
+    if (!ReactPlayer.canPlay(props.src)) {
+      handleError();
+    }
+  }, [props.src]);
 
   function start() {
     setStarted(true);
@@ -24,6 +30,7 @@ export default function Video(props: Props) {
   return (
     <>
       <Box
+        onClick={start}
         sx={{
           width: "100%",
           height: "100%",
@@ -38,22 +45,16 @@ export default function Video(props: Props) {
         ) : (
           <>
             {isStarted ? (
-              <video
-                style={{ width: "100%", height: "100%" }}
-                id="videoPlayer"
-                width="50%"
+              <ReactPlayer
+                width="100%"
+                height="100%"
                 onError={handleError}
-                controls
-                muted
-                autoPlay
-              >
-                <source src={props.src} type="video/mp4" />
-              </video>
+                playing={true}
+                muted={true}
+                url={props.src}
+              />
             ) : (
-              <Box
-                onClick={start}
-                sx={{ ...flexCenter, flexDirection: "column" }}
-              >
+              <Box sx={{ ...flexCenter, flexDirection: "column" }}>
                 <Typography variant="h6" component="p">
                   Kliknij aby odtworzyć
                 </Typography>
