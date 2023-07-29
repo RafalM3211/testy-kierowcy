@@ -2,7 +2,7 @@ interface QuestionBase {
   id: number;
   content: string;
   value: number;
-  media: any;
+  media: string;
 }
 
 export interface BasicQuestion extends QuestionBase {

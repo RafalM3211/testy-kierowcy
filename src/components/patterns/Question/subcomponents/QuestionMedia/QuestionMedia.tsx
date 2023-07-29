@@ -1,34 +1,41 @@
-import { Box, Typography } from "@mui/material";
-import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
-import { flexCenter } from "../../../../../utility/styling";
+import { Box } from "@mui/material";
+import Image from "../Image/Image";
+import Video from "../Video/Video";
 
-export default function QuestionMedia() {
+interface Props {
+  mediaFileName: string;
+}
+
+const mediaEndpointUrl = process.env.REACT_APP_SERVER_URL + "media/";
+const mediaWidth = 921;
+const aspectRatio = 0.5625;
+const mediaHeight = mediaWidth * aspectRatio;
+
+function isImage(name: string) {
+  const extension = name.slice(name.lastIndexOf(".") + 1);
+  return extension === "jpg";
+}
+
+export default function QuestionMedia(props: Props) {
+  const isMediaImage = isImage(props.mediaFileName);
+
+  const fileUrl = mediaEndpointUrl + props.mediaFileName;
+
   return (
     <Box
       sx={(theme) => ({
-        width: "921px",
-        height: "540px",
+        width: mediaWidth + "px",
+        height: mediaHeight + "px",
         bgcolor: "grey.300",
         gridRow: "2",
         gridColumn: "1",
       })}
     >
-      <Box
-        sx={{
-          width: "100%",
-          height: "100%",
-          bgcolor: "grey.300",
-          cursor: "pointer",
-          userSelect: "none",
-          ...flexCenter,
-          flexDirection: "column",
-        }}
-      >
-        <Typography variant="h6" component="p">
-          Kliknij aby odtworzyć
-        </Typography>
-        <PlayCircleOutlineIcon sx={{ fontSize: 90, mt: "10px" }} />
-      </Box>
+      {isMediaImage ? (
+        <Image src={fileUrl} sx={{ width: "100%", height: "100%" }} />
+      ) : (
+        <Video src={fileUrl} />
+      )}
     </Box>
   );
 }
