@@ -57,6 +57,7 @@ export default function Question(props: Props) {
       )}
 
       <QuestionControls
+        type={question.type}
         mode={"exam"}
         questionCount={controls.questionCount}
         nextQuestion={controls.nextQuestion}

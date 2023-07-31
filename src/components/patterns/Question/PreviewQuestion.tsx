@@ -38,7 +38,7 @@ export default function Question(props: Props) {
           chosenAnsewer={props.chosenAnsewer as SpecializedAnsewer}
         />
       )}
-      <QuestionControls mode={"preview"} />
+      <QuestionControls type={question.type} mode={"preview"} />
     </QuestionContainer>
   );
 }

@@ -2,13 +2,18 @@ import { Box, Button, Typography } from "@mui/material";
 import { flexCenter } from "../../../../../utility/styling";
 import QuestionCount from "../../subcomponents/QuestionCount/QuestionCount";
 import TimeCount from "../../subcomponents/TimeCount/TimeCount";
-import { QuestionMode } from "../../types";
+import type { QuestionMode } from "../../types";
+import type { Question } from "../../../../../types/globalTypes";
 
-interface LearnMode {
+interface PropsBase {
+  type: Question["type"];
+}
+
+interface LearnMode extends PropsBase {
   mode: QuestionMode<"preview">;
 }
 
-interface ExamMode {
+interface ExamMode extends PropsBase {
   mode: QuestionMode<"exam">;
   questionCount: number;
   nextQuestion: () => void;
@@ -52,7 +57,12 @@ export default function QuestionControls(props: Props) {
               active={props.questionCount > 20}
             />
           </Box>
-          <TimeCount />
+          <TimeCount
+            type={props.type}
+            mode={props.mode}
+            questionCount={props.questionCount}
+            nextQuestion={props.nextQuestion}
+          />
 
           <Button
             onClick={props.nextQuestion}

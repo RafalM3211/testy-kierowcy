@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import Image from "../Image/Image";
 import Video from "../Video/Video";
 import { QuestionMode } from "../../types";
+import { Question } from "../../../../../types/globalTypes";
 
 interface PropsBase {
   mediaFileName: string;
