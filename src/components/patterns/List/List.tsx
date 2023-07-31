@@ -1,6 +1,6 @@
 import { Typography, Box } from "@mui/material";
 import { memo } from "react";
-import QuestionPreview from "../QuestionPreview/QuestionPreveiw";
+import QuestionItem from "../QuestionItem/QuestionItem";
 import type { SxProps } from "@mui/material/styles";
 import {
   BasicQuestion,
@@ -40,7 +40,7 @@ export default memo(function List(props: Props) {
       <ListHeader>Pytania podstawowe</ListHeader>
       {basicQuestions.length > 0 ? (
         basicQuestions.map((question, index) => (
-          <QuestionPreview
+          <QuestionItem
             key={question.id + Math.floor(Math.random() * 99999) + index}
             number={index + 1}
             data={question}
@@ -52,7 +52,7 @@ export default memo(function List(props: Props) {
       <ListHeader>Pytania specjalistyczne</ListHeader>
       {specializedQuestions.length > 0 ? (
         specializedQuestions.map((question, index) => (
-          <QuestionPreview
+          <QuestionItem
             key={question.id + Math.floor(Math.random() * 99999) + index}
             number={index + 1}
             data={question}

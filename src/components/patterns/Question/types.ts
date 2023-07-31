@@ -1,7 +1,7 @@
 import type { Ansewer } from "../../../types/globalTypes";
 
-export type QuestionMode<Mode extends "exam" | "learn"> = Mode extends "exam"
+export type QuestionMode<Mode extends "exam" | "preview"> = Mode extends "exam"
   ? "exam"
-  : "learn";
+  : "preview";
 
 export type setAnsewerFunction = (ansewer: Exclude<Ansewer, null>) => void;

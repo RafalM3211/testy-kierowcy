@@ -5,7 +5,7 @@ import TimeCount from "../../subcomponents/TimeCount/TimeCount";
 import { QuestionMode } from "../../types";
 
 interface LearnMode {
-  mode: QuestionMode<"learn">;
+  mode: QuestionMode<"preview">;
 }
 
 interface ExamMode {

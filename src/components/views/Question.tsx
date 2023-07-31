@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Box } from "@mui/material";
-import QuestionComponent from "../patterns/Question/Question";
+import PreviewQuestion from "../patterns/Question/PreviewQuestion";
 import ErrorBlock from "../patterns/ErrorBlock/ErrorBlock";
 import { useQuestionsContext } from "../../context/questions/questions";
 
@@ -23,8 +23,7 @@ export default function Question() {
           }}
         />
       ) : (
-        <QuestionComponent
-          mode="learn"
+        <PreviewQuestion
           question={question}
           chosenAnsewer={question.chosenAnsewer}
           sx={{ pt: "80px" }}

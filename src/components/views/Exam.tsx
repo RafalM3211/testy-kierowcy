@@ -1,18 +1,12 @@
-import { Container } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuestionsContext } from "../../context/questions/questions";
 import { getQuestion } from "../../core/services/question";
 import Loader from "../patterns/Loader/Loader";
-import Question from "../patterns/Question/Question";
+import ExamQuestion from "../patterns/Question/ExamQuestion";
 import ErrorBlock from "../patterns/ErrorBlock/ErrorBlock";
-import type {
-  Ansewer,
-  BasicAnsewer,
-  BasicQuestion,
-  SpecializedAnsewer,
-} from "../../types/globalTypes";
+import type { Ansewer } from "../../types/globalTypes";
 
 export default function Exam() {
   const { data, isLoading, isError, refetch } = useQuery({
@@ -28,6 +22,7 @@ export default function Exam() {
 
   const [chosenAnsewer, setChosenAnsewer] = useState<Ansewer>(null);
   const [questionCount, setQuestionCount] = useState(1);
+  const [isStarted, setStarted] = useState(false);
 
   const nextQuestion = useCallback(() => {
     if (!data) {
@@ -38,6 +33,8 @@ export default function Exam() {
     if (questionCount === 32) {
       navigate("/summary");
     }
+
+    setStarted(false);
     setQuestionCount(questionCount + 1);
     setChosenAnsewer(null);
   }, [
@@ -47,7 +44,19 @@ export default function Exam() {
     data,
     chosenAnsewer,
     setChosenAnsewer,
+    setStarted,
+    addAnsewer,
+    navigate,
   ]);
+
+  const controls = {
+    setChosenAnsewer,
+    chosenAnsewer,
+    nextQuestion,
+    questionCount,
+    isStarted,
+    setStarted,
+  };
 
   return (
     <>
@@ -58,14 +67,7 @@ export default function Exam() {
           sx={{ height: "100vh", pb: "50px", boxSizing: "border-box" }}
         />
       ) : (
-        <Question
-          question={{ ...data }}
-          mode="exam"
-          setChosenAnsewer={setChosenAnsewer}
-          chosenAnsewer={chosenAnsewer}
-          nextQuestion={nextQuestion}
-          questionCount={questionCount}
-        />
+        <ExamQuestion question={{ ...data }} controls={controls} />
       )}
     </>
   );

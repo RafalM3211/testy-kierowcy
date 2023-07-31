@@ -5,9 +5,18 @@ import { flexCenter } from "../../../../../utility/styling";
 import { useEffect, useState } from "react";
 import ErrorBlock from "../../../ErrorBlock/ErrorBlock";
 
-interface Props {
+interface PropsBase {
   src: string;
 }
+
+interface ExamMode extends PropsBase {
+  isStarted: boolean;
+  setStarted: (value: boolean) => void;
+}
+
+type PreviewMode = Omit<ExamMode, "isStarted" | "setStarted">;
+
+type Props = ExamMode | PreviewMode;
 
 export default function Video(props: Props) {
   const [isError, setError] = useState(false);

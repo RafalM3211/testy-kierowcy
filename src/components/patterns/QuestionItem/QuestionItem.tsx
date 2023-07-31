@@ -24,7 +24,7 @@ function trimAnsewers(ansewers: ABCansewers): ABCansewers {
   };
 }
 
-export default function QuestionPreview(props: Props) {
+export default function QuestionItem(props: Props) {
   const { data: question } = props;
 
   return (
