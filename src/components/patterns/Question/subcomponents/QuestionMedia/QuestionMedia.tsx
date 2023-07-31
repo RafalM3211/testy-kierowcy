@@ -30,8 +30,6 @@ function isImage(name: string) {
 }
 
 export default function QuestionMedia(props: Props) {
-  const isStarted = props.mode === "exam" ? props.isStarted : undefined;
-  const setStarted = props.mode === "exam" ? props.setStarted : undefined;
   const isMediaImage = isImage(props.mediaFileName);
 
   const fileUrl = mediaEndpointUrl + props.mediaFileName;
@@ -49,7 +47,18 @@ export default function QuestionMedia(props: Props) {
       {isMediaImage ? (
         <Image src={fileUrl} sx={{ width: "100%", height: "100%" }} />
       ) : (
-        <Video isStarted={isStarted} setStarted={setStarted} src={fileUrl} />
+        <>
+          {props.mode === "exam" ? (
+            <Video
+              mode="exam"
+              isStarted={props.isStarted}
+              setStarted={props.setStarted}
+              src={fileUrl}
+            />
+          ) : (
+            <Video mode="preview" src={fileUrl} />
+          )}
+        </>
       )}
     </Box>
   );
