@@ -2,23 +2,11 @@ import { Box } from "@mui/material";
 import Image from "../Image/Image";
 import Video from "../Video/Video";
 import { QuestionMode } from "../../types";
-import { Question } from "../../../../../types/globalTypes";
 
-interface PropsBase {
+interface Props {
   mediaFileName: string;
+  mode: QuestionMode;
 }
-
-interface ExamMode extends PropsBase {
-  mode: QuestionMode<"exam">;
-  isStarted: boolean;
-  setStarted: (value: boolean) => void;
-}
-
-interface PreviewMode extends PropsBase {
-  mode: QuestionMode<"preview">;
-}
-
-type Props = ExamMode | PreviewMode;
 
 const mediaEndpointUrl = process.env.REACT_APP_SERVER_URL + "media/";
 const mediaWidth = 921;
@@ -52,8 +40,7 @@ export default function QuestionMedia(props: Props) {
           {props.mode === "exam" ? (
             <Video
               mode="exam"
-              isStarted={props.isStarted}
-              setStarted={props.setStarted}
+              //todo: zamien isTimerStarted na didQuestionChange i daj to jakos wyzej zeby nazwa byla adekwatnaa
               src={fileUrl}
             />
           ) : (

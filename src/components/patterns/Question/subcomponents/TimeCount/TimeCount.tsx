@@ -5,6 +5,7 @@ import type { QuestionMode } from "../../types";
 import { Question } from "../../../../../types/globalTypes";
 
 interface Props {
+  isStarted: boolean;
   type: Question["type"];
   mode: QuestionMode<"exam" | "preview">;
   questionCount: number;
@@ -32,13 +33,15 @@ export default function TimeCount(props: Props) {
 
   useEffect(() => {
     const timerInterval = setInterval(() => {
-      decrementTime();
+      if (props.isStarted) {
+        decrementTime();
+      }
     }, 1000);
 
     return () => {
       clearInterval(timerInterval);
     };
-  }, [props.questionCount, decrementTime]);
+  }, [props.questionCount, props.isStarted, decrementTime]);
 
   useEffect(() => {
     const timeForAnsewer = getAnsewerTimeFromType(props.type);

@@ -11,6 +11,7 @@ interface Controls {
   nextQuestion: () => void;
   isStarted: boolean;
   setStarted: (value: boolean) => void;
+  //timerMode, setTimerMode: "prepare", "wait", "ansewer"
 }
 
 interface DataControls {

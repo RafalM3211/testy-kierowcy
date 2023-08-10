@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import ABCAnsewer from "../../../ABCAnsewer/ABCAnsewer";
 import YesNoAnseswer from "../../../YesNoAnsewer/YesNoAnsewer";
+import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
 import type {
   BasicQuestion,
   SpecializedQuestion,
@@ -12,23 +13,22 @@ import type {
 
 interface PropsBase {
   content: string;
-  setChosenAnsewer?: (chosenAnsewer: Exclude<Ansewer, null>) => void;
 }
 
 interface BasicQuesitonProps extends PropsBase {
   type: BasicQuestion["type"];
-  chosenAnsewer: BasicAnsewer;
 }
 
 interface SpecializedQuestionProps extends PropsBase {
   type: SpecializedQuestion["type"];
-  chosenAnsewer: SpecializedAnsewer;
   ansewers: ABCansewers;
 }
 
 type Props = SpecializedQuestionProps | BasicQuesitonProps;
 
 export default function QuestionContent(props: Props) {
+  const { chosenAnsewer, setChosenAnsewer } = useEgzamControlContext();
+
   return (
     <Box sx={{ gridRow: "3", gridColumn: "1/3", mt: "20px" }}>
       <Typography
@@ -43,16 +43,16 @@ export default function QuestionContent(props: Props) {
       <Box>
         {props.type === "basic" ? (
           <YesNoAnseswer
-            setChosenAnsewer={props.setChosenAnsewer}
-            chosenAnsewer={props.chosenAnsewer}
+            setChosenAnsewer={setChosenAnsewer}
+            chosenAnsewer={chosenAnsewer as BasicAnsewer}
             size={5}
             sx={{ mt: "35px" }}
           />
         ) : (
           <ABCAnsewer
             ansewers={props.ansewers as ABCansewers}
-            chosenAnsewer={props.chosenAnsewer}
-            setChosenAnsewer={props.setChosenAnsewer}
+            chosenAnsewer={chosenAnsewer as SpecializedAnsewer}
+            setChosenAnsewer={setChosenAnsewer}
             sx={{ mt: "35px" }}
           />
         )}

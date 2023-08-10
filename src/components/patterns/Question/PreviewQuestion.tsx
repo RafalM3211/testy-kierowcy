@@ -25,17 +25,12 @@ export default function Question(props: Props) {
       <QuestionDetails id={question.id} value={question.value} />
       <QuestionMedia mode="preview" mediaFileName={question.media} />
       {question.type === "basic" ? (
-        <QuestionContent
-          content={question.content}
-          type={"basic"}
-          chosenAnsewer={props.chosenAnsewer as BasicAnsewer}
-        />
+        <QuestionContent content={question.content} type={"basic"} />
       ) : (
         <QuestionContent
           content={question.content}
           type={question.type}
           ansewers={question.ansewers}
-          chosenAnsewer={props.chosenAnsewer as SpecializedAnsewer}
         />
       )}
       <QuestionControls type={question.type} mode={"preview"} />
