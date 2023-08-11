@@ -13,6 +13,7 @@ import type {
 
 interface PropsBase {
   content: string;
+  chosenAnsewer?: Ansewer;
 }
 
 interface BasicQuesitonProps extends PropsBase {
@@ -27,7 +28,9 @@ interface SpecializedQuestionProps extends PropsBase {
 type Props = SpecializedQuestionProps | BasicQuesitonProps;
 
 export default function QuestionContent(props: Props) {
-  const { chosenAnsewer, setChosenAnsewer } = useEgzamControlContext();
+  const { selectedAnsewer, setSelectedAnsewer } = useEgzamControlContext();
+
+  const chosenAnsewer = selectedAnsewer || props.chosenAnsewer;
 
   return (
     <Box sx={{ gridRow: "3", gridColumn: "1/3", mt: "20px" }}>
@@ -43,7 +46,7 @@ export default function QuestionContent(props: Props) {
       <Box>
         {props.type === "basic" ? (
           <YesNoAnseswer
-            setChosenAnsewer={setChosenAnsewer}
+            setChosenAnsewer={setSelectedAnsewer}
             chosenAnsewer={chosenAnsewer as BasicAnsewer}
             size={5}
             sx={{ mt: "35px" }}
@@ -52,7 +55,7 @@ export default function QuestionContent(props: Props) {
           <ABCAnsewer
             ansewers={props.ansewers as ABCansewers}
             chosenAnsewer={chosenAnsewer as SpecializedAnsewer}
-            setChosenAnsewer={setChosenAnsewer}
+            setChosenAnsewer={setSelectedAnsewer}
             sx={{ mt: "35px" }}
           />
         )}

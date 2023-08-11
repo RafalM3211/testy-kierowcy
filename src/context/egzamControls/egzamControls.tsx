@@ -5,8 +5,8 @@ import type { Ansewer, Question } from "../../types/globalTypes";
 import type { setAnsewerFunction } from "./types";
 
 interface Controls {
-  chosenAnsewer: Ansewer;
-  setChosenAnsewer: setAnsewerFunction;
+  selectedAnsewer: Ansewer;
+  setSelectedAnsewer: setAnsewerFunction;
   questionCount: number;
   nextQuestion: () => void;
   isStarted: boolean;
@@ -30,8 +30,8 @@ export function useEgzamControlContext() {
   const contextValue = useContext(EgzamControlContext);
   if (!contextValue) {
     const emptyControls = {
-      chosenAnsewer: undefined,
-      setChosenAnsewer: undefined,
+      selectedAnsewer: undefined,
+      setSelectedAnsewer: undefined,
       isStarted: undefined,
       setStarted: undefined,
       nextQuestion: undefined,
@@ -47,7 +47,7 @@ export default function EgzamControlProvider(props: Props) {
   const { addAnsewer } = useQuestionsContext();
   const navigate = useNavigate();
 
-  const [chosenAnsewer, setChosenAnsewer] = useState<Ansewer>(null);
+  const [selectedAnsewer, setSelectedAnsewer] = useState<Ansewer>(null);
   const [questionCount, setQuestionCount] = useState(1);
   const [isStarted, setStarted] = useState(false);
 
@@ -55,7 +55,7 @@ export default function EgzamControlProvider(props: Props) {
     if (!props.questionData) {
       throw new Error("question is undefined");
     }
-    addAnsewer(props.questionData, chosenAnsewer);
+    addAnsewer(props.questionData, selectedAnsewer);
     props.dataControls.refetch();
     if (questionCount === 32) {
       navigate("/summary");
@@ -63,12 +63,12 @@ export default function EgzamControlProvider(props: Props) {
 
     setStarted(false);
     setQuestionCount(questionCount + 1);
-    setChosenAnsewer(null);
+    setSelectedAnsewer(null);
   };
 
   const controls = {
-    chosenAnsewer,
-    setChosenAnsewer,
+    selectedAnsewer,
+    setSelectedAnsewer,
     isStarted,
     setStarted,
     nextQuestion,

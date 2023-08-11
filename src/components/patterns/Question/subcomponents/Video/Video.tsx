@@ -25,12 +25,6 @@ export default function Video(props: Props) {
     }
   }
 
-  useEffect(() => {
-    if (!ReactPlayer.canPlay(props.src)) {
-      handleError();
-    }
-  }, [props.src]);
-
   function handleStart() {
     if (props.mode === "exam") {
       setVideoStarted(true);
@@ -40,6 +34,12 @@ export default function Video(props: Props) {
   function handleError() {
     setError(true);
   }
+
+  useEffect(() => {
+    if (!ReactPlayer.canPlay(props.src)) {
+      handleError();
+    }
+  }, [props.src]);
 
   useEffect(() => {
     videoRef.current?.seekTo(0);
