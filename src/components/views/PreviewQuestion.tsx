@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import { Box } from "@mui/material";
-import PreviewQuestion from "../patterns/Question/PreviewQuestion";
+import Question from "../patterns/Question/Question";
 import ErrorBlock from "../patterns/ErrorBlock/ErrorBlock";
 import { useQuestionsContext } from "../../context/questions/questions";
 
-export default function Question() {
+export default function PreviewQuestion() {
   const id = useParams().id as string;
   const { anseweredQuestions } = useQuestionsContext();
   console.log(anseweredQuestions, id);
@@ -23,8 +23,9 @@ export default function Question() {
           }}
         />
       ) : (
-        <PreviewQuestion
+        <Question
           question={question}
+          mode="preview"
           chosenAnsewer={question.chosenAnsewer}
           sx={{ pt: "80px" }}
         />

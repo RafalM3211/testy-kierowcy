@@ -5,20 +5,22 @@ import QuestionContent from "./subcomponents/QuestionContent/QuestionContent";
 import QuestionControls from "./subcomponents/QuestionControls/QuestionControls";
 import { Ansewer, Question as QuestionType } from "../../../types/globalTypes";
 import { SxProps } from "@mui/material";
+import { QuestionMode } from "./types";
 
 interface Props {
   question: QuestionType;
-  chosenAnsewer: Ansewer;
+  mode: QuestionMode;
+  chosenAnsewer?: Ansewer;
   sx?: SxProps;
 }
 
 export default function Question(props: Props) {
-  const { question, chosenAnsewer } = props;
+  const { question, chosenAnsewer, mode } = props;
 
   return (
     <QuestionContainer>
       <QuestionDetails id={question.id} value={question.value} />
-      <QuestionMedia mode="preview" mediaFileName={question.media} />
+      <QuestionMedia mode={mode} mediaFileName={question.media} />
       {question.type === "basic" ? (
         <QuestionContent
           chosenAnsewer={chosenAnsewer}
@@ -33,7 +35,7 @@ export default function Question(props: Props) {
           ansewers={question.ansewers}
         />
       )}
-      <QuestionControls type={question.type} mode={"preview"} />
+      <QuestionControls type={question.type} mode={mode} />
     </QuestionContainer>
   );
 }

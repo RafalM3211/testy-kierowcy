@@ -7,7 +7,7 @@ import { Question } from "../../../../../types/globalTypes";
 interface Props {
   isStarted: boolean;
   type: Question["type"];
-  mode: QuestionMode<"exam" | "preview">;
+  mode: QuestionMode;
   questionCount: number;
   nextQuestion: () => void;
 }

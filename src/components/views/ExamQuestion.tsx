@@ -1,12 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import { getQuestion } from "../../core/services/question";
 import Loader from "../patterns/Loader/Loader";
-import ExamQuestion from "../patterns/Question/ExamQuestion";
+import Question from "../patterns/Question/Question";
 import ErrorBlock from "../patterns/ErrorBlock/ErrorBlock";
 import EgzamControlProvider from "../../context/egzamControls/egzamControls";
 
-export default function Exam() {
+export default function ExamQuestion() {
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["question"],
     queryFn: getQuestion,
@@ -28,7 +27,7 @@ export default function Exam() {
         />
       ) : (
         <EgzamControlProvider dataControls={dataControls} questionData={data}>
-          <ExamQuestion question={{ ...data }} />
+          <Question question={{ ...data }} mode="exam" />
         </EgzamControlProvider>
       )}
     </>
