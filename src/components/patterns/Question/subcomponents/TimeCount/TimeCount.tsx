@@ -4,12 +4,12 @@ import { strippedBackground } from "../../../Progress/subcomponents/ProgressBack
 import type { QuestionMode } from "../../types";
 import { Question } from "../../../../../types/globalTypes";
 
+import { useTimer } from "react-timer-hook";
+import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
+import type { ExcludeUndefined } from "../../types";
+
 interface Props {
-  isStarted: boolean;
   type: Question["type"];
-  mode: QuestionMode;
-  questionCount: number;
-  nextQuestion: () => void;
 }
 
 function getAnsewerTimeFromType(questionType: Question["type"]) {
@@ -20,33 +20,31 @@ function calcTimeProgresPercent(currentTime: number, maxTime: number) {
   return Math.floor(100 - (currentTime / maxTime) * 100) + "%";
 }
 
+function getExpiryTimeStamp(timeForAnsewer: number) {
+  const time = new Date();
+  time.setSeconds(time.getSeconds() + timeForAnsewer);
+  return time;
+}
+
 export default function TimeCount(props: Props) {
   const timeForAnsewer = getAnsewerTimeFromType(props.type);
   const [ansewerTime, setAnsewerTime] = useState(timeForAnsewer);
+  const controls = useEgzamControlContext();
+  const { isStarted, nextQuestion, questionCount } =
+    controls as ExcludeUndefined<typeof controls>;
 
-  function decrementTime() {
-    setAnsewerTime(ansewerTime - 1);
-    if (ansewerTime < 1) {
-      props.nextQuestion();
-    }
-  }
-
-  useEffect(() => {
-    const timerInterval = setInterval(() => {
-      if (props.isStarted) {
-        decrementTime();
-      }
-    }, 1000);
-
-    return () => {
-      clearInterval(timerInterval);
-    };
-  }, [props.questionCount, props.isStarted, decrementTime]);
+  const { seconds, restart } = useTimer({
+    expiryTimestamp: getExpiryTimeStamp(timeForAnsewer),
+    onExpire() {
+      nextQuestion();
+    },
+  });
 
   useEffect(() => {
     const timeForAnsewer = getAnsewerTimeFromType(props.type);
     setAnsewerTime(timeForAnsewer);
-  }, [props.questionCount, setAnsewerTime, props.type]);
+    restart(getExpiryTimeStamp(timeForAnsewer));
+  }, [questionCount, setAnsewerTime, props.type, restart]);
 
   return (
     <>
@@ -64,7 +62,7 @@ export default function TimeCount(props: Props) {
         }}
       >
         <Typography sx={{ position: "relative", zIndex: 5 }} variant="h6">
-          {ansewerTime + "s"}
+          {seconds + "s"}
         </Typography>
         <Box
           sx={{
