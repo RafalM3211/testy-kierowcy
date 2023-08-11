@@ -30,7 +30,7 @@ type Props = SpecializedQuestionProps | BasicQuesitonProps;
 export default function QuestionContent(props: Props) {
   const { selectedAnsewer, setSelectedAnsewer } = useEgzamControlContext();
 
-  const chosenAnsewer = selectedAnsewer || props.chosenAnsewer;
+  const chosenAnsewer = selectedAnsewer ?? props.chosenAnsewer;
 
   return (
     <Box sx={{ gridRow: "3", gridColumn: "1/3", mt: "20px" }}>
