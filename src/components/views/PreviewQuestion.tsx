@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { Box } from "@mui/material";
 import Question from "../patterns/Question/Question";
 import ErrorBlock from "../patterns/ErrorBlock/ErrorBlock";
-import { useQuestionsContext } from "../../context/questions/questions";
+import { useQuestionsContext } from "../../context/AnseweredQuestions/AnseweredQuestions";
 
 export default function PreviewQuestion() {
   const id = useParams().id as string;

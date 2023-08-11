@@ -15,7 +15,7 @@ import Error500 from "./components/views/errors/Error500";
 import Header from "./components/patterns/Header/Header";
 import SmallHeader from "./components/patterns/SmallHeader/SmallHeader";
 import AppThemeProvider from "./context/theme/theme";
-import { QuestionsProvider } from "./context/questions/questions";
+import { QuestionsProvider } from "./context/AnseweredQuestions/AnseweredQuestions";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

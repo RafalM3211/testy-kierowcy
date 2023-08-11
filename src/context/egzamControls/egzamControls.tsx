@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQuestionsContext } from "../questions/questions";
+import { useQuestionsContext } from "../AnseweredQuestions/AnseweredQuestions";
 import type { Ansewer, Question } from "../../types/globalTypes";
 import type { setAnsewerFunction } from "./types";
 
