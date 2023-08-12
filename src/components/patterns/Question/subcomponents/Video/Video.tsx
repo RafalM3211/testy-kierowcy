@@ -16,18 +16,21 @@ export default function Video(props: Props) {
   const [isVideoStarted, setVideoStarted] = useState(false);
   const [isError, setError] = useState(false);
 
-  const { questionCount, setStarted } = useEgzamControlContext();
+  const { questionCount, setTimerState, timerState } = useEgzamControlContext();
   const videoRef = useRef<ReactPlayer>(null);
 
   function handleVideoEnd() {
-    if (setStarted) {
-      setStarted(true);
+    if (setTimerState) {
+      setTimerState("ansewer");
     }
   }
 
-  function handleStart() {
+  function handleVideoStart() {
     if (props.mode === "exam") {
       setVideoStarted(true);
+      if (setTimerState) {
+        setTimerState("wait");
+      }
     }
   }
 
@@ -46,10 +49,16 @@ export default function Video(props: Props) {
     videoRef.current?.seekTo(0);
   }, [questionCount]);
 
+  useEffect(() => {
+    if (timerState === "wait") {
+      handleVideoStart();
+    }
+  }, [timerState]);
+
   return (
     <>
       <Box
-        onClick={handleStart}
+        onClick={handleVideoStart}
         sx={{
           width: "100%",
           height: "100%",

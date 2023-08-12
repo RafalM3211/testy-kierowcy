@@ -1,19 +1,26 @@
 import { Box, Typography } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { strippedBackground } from "../../../Progress/subcomponents/ProgressBackground/ProgressBackground";
-import type { QuestionMode } from "../../types";
-import { Question } from "../../../../../types/globalTypes";
-
 import { useTimer } from "react-timer-hook";
 import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
+import type { Question, TimerState } from "../../../../../types/globalTypes";
 import type { ExcludeUndefined } from "../../types";
 
 interface Props {
   type: Question["type"];
 }
 
-function getAnsewerTimeFromType(questionType: Question["type"]) {
-  return questionType === "basic" ? 25 : 50;
+function getTotalTime(questionType: Question["type"], timerState: TimerState) {
+  const prepareTime = 20;
+  const basicAnsewerTime = 15;
+  const specializedAnsewerTime = 50;
+
+  if (questionType === "basic") {
+    if (timerState === "prepare") return prepareTime;
+    else return basicAnsewerTime;
+  } else {
+    return specializedAnsewerTime;
+  }
 }
 
 function calcTimeProgresPercent(currentTime: number, maxTime: number) {
@@ -26,30 +33,48 @@ function getExpiryTimeStamp(timeForAnsewer: number) {
   return time;
 }
 
-export default function TimeCount(props: Props) {
-  const timeForAnsewer = getAnsewerTimeFromType(props.type);
-  const [ansewerTime, setAnsewerTime] = useState(timeForAnsewer);
-  const controls = useEgzamControlContext();
-  const { isStarted, nextQuestion, questionCount } =
-    controls as ExcludeUndefined<typeof controls>;
+function getTimerLabel(timerState: TimerState) {
+  switch (timerState) {
+    case "prepare":
+      return "Czas na zapoznanie się z pytaniem";
+    case "wait":
+      return "Trwa odtwarzanie";
+    case "ansewer":
+      return "Czas na odpowiedź";
+  }
+}
 
-  const { seconds, restart } = useTimer({
-    expiryTimestamp: getExpiryTimeStamp(timeForAnsewer),
+export default function TimeCount(props: Props) {
+  const controls = useEgzamControlContext();
+  const { timerState, setTimerState, nextQuestion, questionCount } =
+    controls as ExcludeUndefined<typeof controls>;
+  const totalTime = getTotalTime(props.type, timerState);
+
+  const { seconds, restart, pause } = useTimer({
+    expiryTimestamp: getExpiryTimeStamp(totalTime),
     onExpire() {
-      nextQuestion();
+      if (timerState === "prepare") {
+        setTimerState("wait");
+      }
+      if (timerState === "ansewer") {
+        nextQuestion();
+      }
     },
   });
 
   useEffect(() => {
-    const timeForAnsewer = getAnsewerTimeFromType(props.type);
-    setAnsewerTime(timeForAnsewer);
-    restart(getExpiryTimeStamp(timeForAnsewer));
-  }, [questionCount, setAnsewerTime, props.type, restart]);
+    const totalTime = getTotalTime(props.type, timerState);
+    restart(getExpiryTimeStamp(totalTime));
+
+    if (timerState === "wait") {
+      pause();
+    }
+  }, [questionCount, props.type, timerState, restart, pause]);
 
   return (
     <>
       <Typography variant="subtitle2" sx={{ color: "grey.800" }}>
-        Czas na odpowiedź
+        {getTimerLabel(timerState)}
       </Typography>
       <Box
         sx={{
@@ -62,14 +87,14 @@ export default function TimeCount(props: Props) {
         }}
       >
         <Typography sx={{ position: "relative", zIndex: 5 }} variant="h6">
-          {seconds + "s"}
+          {timerState === "wait" ? "- " : seconds}s
         </Typography>
         <Box
           sx={{
             backgroundColor: "primary.light",
             backgroundImage: strippedBackground,
             position: "absolute",
-            width: calcTimeProgresPercent(ansewerTime, timeForAnsewer),
+            width: calcTimeProgresPercent(seconds, totalTime),
             transition: "width 1s linear",
             height: "100%",
             top: "0",

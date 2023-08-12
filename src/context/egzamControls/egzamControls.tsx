@@ -1,17 +1,18 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuestionsContext } from "../AnseweredQuestions/AnseweredQuestions";
-import type { Ansewer, Question } from "../../types/globalTypes";
-import type { setAnsewerFunction } from "./types";
+import type { Ansewer, Question, TimerState } from "../../types/globalTypes";
+import type { SetAnsewerFunction } from "./types";
 
 interface Controls {
-  selectedAnsewer: Ansewer;
-  setSelectedAnsewer: setAnsewerFunction;
-  questionCount: number;
   nextQuestion: () => void;
+  questionCount: number;
+  selectedAnsewer: Ansewer;
+  setSelectedAnsewer: SetAnsewerFunction;
   isStarted: boolean;
   setStarted: (value: boolean) => void;
-  //timerMode, setTimerMode: "prepare", "wait", "ansewer"
+  timerState: TimerState;
+  setTimerState: (value: TimerState) => void;
 }
 
 interface DataControls {
@@ -30,12 +31,14 @@ export function useEgzamControlContext() {
   const contextValue = useContext(EgzamControlContext);
   if (!contextValue) {
     const emptyControls = {
+      nextQuestion: undefined,
+      questionCount: undefined,
       selectedAnsewer: undefined,
       setSelectedAnsewer: undefined,
       isStarted: undefined,
       setStarted: undefined,
-      nextQuestion: undefined,
-      questionCount: undefined,
+      timerState: undefined,
+      setTimerState: undefined,
     };
     return emptyControls as Record<keyof Controls, undefined>;
   }
@@ -47,9 +50,10 @@ export default function EgzamControlProvider(props: Props) {
   const { addAnsewer } = useQuestionsContext();
   const navigate = useNavigate();
 
-  const [selectedAnsewer, setSelectedAnsewer] = useState<Ansewer>(null);
   const [questionCount, setQuestionCount] = useState(1);
+  const [selectedAnsewer, setSelectedAnsewer] = useState<Ansewer>(null);
   const [isStarted, setStarted] = useState(false);
+  const [timerState, setTimerState] = useState<TimerState>("prepare");
 
   const nextQuestion = () => {
     if (!props.questionData) {
@@ -64,15 +68,18 @@ export default function EgzamControlProvider(props: Props) {
     setStarted(false);
     setQuestionCount(questionCount + 1);
     setSelectedAnsewer(null);
+    setTimerState("prepare");
   };
 
   const controls = {
+    nextQuestion,
+    questionCount,
     selectedAnsewer,
     setSelectedAnsewer,
     isStarted,
     setStarted,
-    nextQuestion,
-    questionCount,
+    timerState,
+    setTimerState,
   } satisfies Controls;
 
   return (

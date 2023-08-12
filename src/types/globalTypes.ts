@@ -42,6 +42,8 @@ export type ABCansewers = {
 
 export type Ansewer = BasicAnsewer | SpecializedAnsewer;
 
+export type TimerState = "prepare" | "wait" | "ansewer";
+
 export interface anyObject {
   [key: string]: unknown;
 }
