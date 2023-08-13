@@ -2,14 +2,13 @@ import type {
   BasicQuestion,
   SpecializedQuestion,
 } from "../../types/globalTypes";
-import image from "./question.jpg";
 
 export const basic = {
   id: 6301,
   content:
     "Czy postąpisz właściwie umieszczając ostrzegawczy trójkąt odblaskowy w odległości 30-50 m za pojazdem, który uległ awarii na drodze ekspresowej?",
   correctAnsewer: false,
-  media: image,
+  media: "./question.jpg",
   type: "basic",
   value: 1,
 } satisfies BasicQuestion;
@@ -19,7 +18,7 @@ export const specialized = {
   content:
     "Poruszasz się autostradą i zamierzasz ją opuścić. W którym miejscu rozpoczniesz hamowanie przed zjazdem z autostrady?",
   correctAnsewer: "B",
-  media: image,
+  media: "./question.jpg",
   type: "specialized",
   value: 3,
   ansewers: {
