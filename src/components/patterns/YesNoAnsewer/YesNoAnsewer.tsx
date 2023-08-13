@@ -1,11 +1,7 @@
 import { Box } from "@mui/material";
-import { useState } from "react";
 import AnsewerButton from "../../atoms/AnsewerButton/AnsewerButton";
 import type { SxProps } from "@mui/material/styles";
-import {
-  AnseweredBasicQuestion,
-  BasicAnsewer,
-} from "../../../types/globalTypes";
+import { BasicAnsewer } from "../../../types/globalTypes";
 
 interface Props {
   setChosenAnsewer?: (chosenAnsewer: boolean) => void;

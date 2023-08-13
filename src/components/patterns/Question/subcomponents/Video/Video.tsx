@@ -1,9 +1,5 @@
-import { Box, Typography } from "@mui/material";
-import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import ReactPlayer from "react-player";
-import { flexCenter } from "../../../../../utility/styling";
-import { useEffect, useRef, useState } from "react";
-import ErrorBlock from "../../../ErrorBlock/ErrorBlock";
+import { useCallback, useEffect, useRef, useState } from "react";
 import MediaCover from "../MediaCover/MediaCover";
 import { QuestionMode } from "../../types";
 import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
@@ -26,27 +22,27 @@ export default function Video(props: Props) {
     }
   }
 
-  function handleVideoStart() {
+  const handleVideoStart = useCallback(() => {
     if (props.mode === "exam") {
       setVideoStarted(true);
       if (setTimerState) {
         setTimerState("wait");
       }
     }
-  }
+  }, [setVideoStarted, setTimerState, props.mode]);
 
-  function handleError() {
+  const handleError = useCallback(() => {
     setError(true);
     if (setTimerState) {
       setTimerState("wait");
     }
-  }
+  }, [setError, setTimerState]);
 
   useEffect(() => {
     if (!ReactPlayer.canPlay(props.src)) {
       handleError();
     }
-  }, [props.src]);
+  }, [props.src, handleError]);
 
   useEffect(() => {
     setVideoStarted(false);
@@ -57,7 +53,7 @@ export default function Video(props: Props) {
     if (timerState === "wait") {
       handleVideoStart();
     }
-  }, [timerState]);
+  }, [timerState, handleVideoStart]);
 
   return (
     <>

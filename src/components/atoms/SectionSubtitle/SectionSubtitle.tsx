@@ -1,6 +1,5 @@
 import { Typography } from "@mui/material";
 import type { TypographyProps } from "@mui/material";
-import { ReactNode } from "react";
 
 export default function SectionSubtitle(props: TypographyProps) {
   const { children, ...typographyProps } = props;

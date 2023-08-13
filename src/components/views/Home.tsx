@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import bgImage from "../../images/backgrounds/wave.svg";
 import { flexCenter, backgroundImg } from "../../utility/styling";

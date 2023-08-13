@@ -13,7 +13,7 @@ export default function Image(props: Props) {
   const [isQuestionStarted, setQuestionStarted] = useState(false);
   const [isError, setError] = useState(false);
 
-  const { setTimerState, timerState } = useEgzamControlContext();
+  const { setTimerState } = useEgzamControlContext();
 
   function handleError() {
     setError(true);

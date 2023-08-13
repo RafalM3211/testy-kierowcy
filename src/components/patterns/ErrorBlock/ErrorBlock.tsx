@@ -1,5 +1,5 @@
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import { Container, Box, Typography, SxProps } from "@mui/material";
+import { Box, Typography, SxProps } from "@mui/material";
 import { flexCenter } from "../../../utility/styling";
 
 interface Props {

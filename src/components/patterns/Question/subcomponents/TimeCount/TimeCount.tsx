@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { strippedBackground } from "../../../Progress/subcomponents/ProgressBackground/ProgressBackground";
 import { useTimer } from "react-timer-hook";
 import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";

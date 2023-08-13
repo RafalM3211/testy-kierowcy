@@ -1,10 +1,7 @@
 import { Box } from "@mui/material";
 import AnsewerRow from "./subcomponents/AnsewerRow";
 import type { SxProps } from "@mui/material/styles";
-import type {
-  ABCansewers,
-  SpecializedQuestion,
-} from "../../../types/globalTypes";
+import type { ABCansewers } from "../../../types/globalTypes";
 
 interface Props {
   ansewers: ABCansewers;

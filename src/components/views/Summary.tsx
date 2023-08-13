@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Stack } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import bgImage from "../../images/backgrounds/wave.svg";
 import { backgroundImg, flexCenter } from "../../utility/styling";
 import List from "../patterns/List/List";
@@ -6,7 +6,6 @@ import Progress from "../patterns/Progress/Progress";
 import HighlitedText from "../atoms/HighlitedText/HighlitedText";
 import { useQuestionsContext } from "../../context/AnseweredQuestions/AnseweredQuestions";
 import type { AnseweredQuestion } from "../../types/globalTypes";
-import { Link } from "react-router-dom";
 
 function calculateOutcome(questions: AnseweredQuestion[]) {
   let points = 0;
