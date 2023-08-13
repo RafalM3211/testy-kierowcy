@@ -6,6 +6,7 @@ import {
   Outlet,
 } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { CssBaseline } from "@mui/material";
 import Home from "./components/views/Home";
 import ExamQuestion from "./components/views/ExamQuestion";
 import PreviewQuestion from "./components/views/PreviewQuestion";
@@ -57,6 +58,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AppThemeProvider>
         <QuestionsProvider>
+          <CssBaseline />
           <RouterProvider router={router} />
         </QuestionsProvider>
       </AppThemeProvider>
