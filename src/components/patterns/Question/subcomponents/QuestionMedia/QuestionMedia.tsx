@@ -38,11 +38,7 @@ export default function QuestionMedia(props: Props) {
       ) : (
         <>
           {props.mode === "exam" ? (
-            <Video
-              mode="exam"
-              //todo: zamien isTimerStarted na didQuestionChange i daj to jakos wyzej zeby nazwa byla adekwatnaa
-              src={fileUrl}
-            />
+            <Video mode="exam" src={fileUrl} />
           ) : (
             <Video mode="preview" src={fileUrl} />
           )}

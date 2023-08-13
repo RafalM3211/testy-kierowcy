@@ -4,6 +4,7 @@ import ReactPlayer from "react-player";
 import { flexCenter } from "../../../../../utility/styling";
 import { useEffect, useRef, useState } from "react";
 import ErrorBlock from "../../../ErrorBlock/ErrorBlock";
+import MediaCover from "../MediaCover/MediaCover";
 import { QuestionMode } from "../../types";
 import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
 
@@ -36,6 +37,9 @@ export default function Video(props: Props) {
 
   function handleError() {
     setError(true);
+    if (setTimerState) {
+      setTimerState("wait");
+    }
   }
 
   useEffect(() => {
@@ -57,43 +61,26 @@ export default function Video(props: Props) {
 
   return (
     <>
-      <Box
-        onClick={handleVideoStart}
-        sx={{
-          width: "100%",
-          height: "100%",
-          bgcolor: "grey.300",
-          cursor: "pointer",
-          userSelect: "none",
-          ...flexCenter,
-        }}
-      >
-        {isError ? (
-          <ErrorBlock />
-        ) : (
-          <>
-            <ReactPlayer
-              onEnded={handleVideoEnd}
-              ref={videoRef}
-              width="100%"
-              height="100%"
-              onError={handleError}
-              playing={!!isVideoStarted}
-              style={{ display: !!isVideoStarted ? "block" : "none" }}
-              muted={true}
-              url={props.src}
-            />
-            {isVideoStarted || (
-              <Box sx={{ ...flexCenter, flexDirection: "column" }}>
-                <Typography variant="h6" component="p">
-                  Kliknij aby odtworzyć
-                </Typography>
-                <PlayCircleOutlineIcon sx={{ fontSize: 90, mt: "10px" }} />
-              </Box>
-            )}
-          </>
-        )}
-      </Box>
+      <MediaCover
+        isError={isError}
+        handleStart={handleVideoStart}
+        isStarted={isVideoStarted}
+        mode="exam"
+        mediaType="video"
+        mediaElement={
+          <ReactPlayer
+            onEnded={handleVideoEnd}
+            ref={videoRef}
+            width="100%"
+            height="100%"
+            onError={handleError}
+            playing={!!isVideoStarted}
+            style={{ display: !!isVideoStarted ? "block" : "none" }}
+            muted={true}
+            url={props.src}
+          />
+        }
+      />
     </>
   );
 }
