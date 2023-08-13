@@ -1,9 +1,12 @@
 import ButtonLink from "./ButtonLink";
+import { wrapInDummyProviders } from "../../../utility/dummyProviders/DummyProviders";
 import type { Meta, StoryObj } from "@storybook/react";
+
+const ButtonLinkWrapped = wrapInDummyProviders(ButtonLink);
 
 const metaData = {
   title: "ButtonLink",
-  component: ButtonLink,
+  component: ButtonLinkWrapped,
 } satisfies Meta<typeof ButtonLink>;
 
 export default metaData;
