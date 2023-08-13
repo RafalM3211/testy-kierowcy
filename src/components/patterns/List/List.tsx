@@ -7,7 +7,7 @@ import {
   Question,
   SpecializedQuestion,
 } from "../../../types/globalTypes";
-import ListHeader from "./ListHeader";
+import ListHeader from "./subcomponents/ListHeader";
 
 interface Props {
   questions: Question[];

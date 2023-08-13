@@ -1,4 +1,4 @@
-import SectionHeader from "../../atoms/SectionHeader/SectionHeader";
+import SectionHeader from "../../../atoms/SectionHeader/SectionHeader";
 import { Box } from "@mui/material";
 
 interface Props {
