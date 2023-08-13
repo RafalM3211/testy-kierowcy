@@ -20,7 +20,11 @@ export default function Question(props: Props) {
   return (
     <QuestionContainer>
       <QuestionDetails id={question.id} value={question.value} />
-      <QuestionMedia mode={mode} mediaFileName={question.media} />
+      <QuestionMedia
+        type={question.type}
+        mode={mode}
+        mediaFileName={question.media}
+      />
       {question.type === "basic" ? (
         <QuestionContent
           chosenAnsewer={chosenAnsewer}

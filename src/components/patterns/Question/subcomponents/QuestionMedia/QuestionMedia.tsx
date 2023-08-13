@@ -2,9 +2,11 @@ import { Box } from "@mui/material";
 import Image from "../Image/Image";
 import Video from "../Video/Video";
 import { QuestionMode } from "../../types";
+import { Question } from "../../../../../types/globalTypes";
 
 interface Props {
   mediaFileName: string;
+  type: Question["type"];
   mode: QuestionMode;
 }
 
@@ -34,7 +36,7 @@ export default function QuestionMedia(props: Props) {
       }}
     >
       {isMediaImage ? (
-        <Image src={fileUrl} sx={{ width: "100%", height: "100%" }} />
+        <Image type={props.type} src={fileUrl} />
       ) : (
         <>
           {props.mode === "exam" ? (

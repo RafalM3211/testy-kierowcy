@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, SxProps } from "@mui/system";
 import MediaCover from "../MediaCover/MediaCover";
 import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
+import { Question } from "../../../../../types/globalTypes";
 
 interface Props {
   src: string;
+  type: Question["type"];
   alt?: string;
-  sx?: SxProps;
 }
 
 export default function Image(props: Props) {
@@ -29,6 +30,12 @@ export default function Image(props: Props) {
     }
   }
 
+  useEffect(() => {
+    if (props.type === "specialized") {
+      handleStart();
+    }
+  }, [props.type]);
+
   return (
     <MediaCover
       isError={isError}
@@ -42,7 +49,11 @@ export default function Image(props: Props) {
           onError={handleError}
           src={props.src}
           alt={props.alt || ""}
-          sx={{ display: !!isQuestionStarted ? "block" : "none", ...props.sx }}
+          sx={{
+            display: !!isQuestionStarted ? "block" : "none",
+            width: "100%",
+            height: "100%",
+          }}
         ></Box>
       }
     />
