@@ -16,7 +16,9 @@ interface Props {
   routes?: ReactNode;
 }
 
-export function wrapInDummyProviders(Component: (props: any) => JSX.Element) {
+export function wrapInDummyProviders<P extends {}>(
+  Component: (props: P) => JSX.Element
+) {
   type Props = ComponentProps<typeof Component>;
 
   function Wrapped(props: Props) {
