@@ -1,14 +1,16 @@
+import { wrapInDummyProviders } from "../../../utility/dummyProviders/DummyProviders";
 import SmallHeader from "./SmallHeader";
 import type { Meta, StoryObj } from "@storybook/react";
 
+const SmallHeaderWrapped = wrapInDummyProviders(SmallHeader);
+
 const metaData = {
-  title: "small header",
+  title: "Small header",
+  component: SmallHeaderWrapped,
 } satisfies Meta<typeof SmallHeader>;
 
 export default metaData;
 
 type Story = StoryObj<typeof SmallHeader>;
 
-export const Primary = {
-  render: () => <SmallHeader />,
-} satisfies Story;
+export const Primary = {} satisfies Story;
