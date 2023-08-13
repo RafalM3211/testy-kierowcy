@@ -4,7 +4,6 @@ import type {
   Question,
   Ansewer,
   AnseweredQuestion,
-  BasicQuestion,
   BasicAnsewer,
   SpecializedAnsewer,
 } from "../../types/globalTypes";
@@ -16,6 +15,7 @@ interface Props {
 interface QuesitonsContextType {
   anseweredQuestions: AnseweredQuestion[];
   addAnsewer: (question: Question, chosenAnsewer: Ansewer) => void;
+  clearAnsewers: () => void;
 }
 
 const QuestionsContext = createContext<QuesitonsContextType | null>(null);
@@ -34,9 +34,9 @@ export function QuestionsProvider(props: Props) {
     AnseweredQuestion[]
   >([]);
 
-  function addAnsewer<Q extends Question>(
-    question: Q,
-    chosenAnsewer: Q extends BasicQuestion ? BasicAnsewer : SpecializedAnsewer
+  function addAnsewer(
+    question: Question,
+    chosenAnsewer: BasicAnsewer | SpecializedAnsewer
   ) {
     const newAnseweredQuestion = {
       ...question,
@@ -44,11 +44,18 @@ export function QuestionsProvider(props: Props) {
     } as AnseweredQuestion;
 
     setAnseweredQuestions([...anseweredQuestions, newAnseweredQuestion]);
-    console.log("addansewer", newAnseweredQuestion);
+  }
+
+  function clearAnsewers() {
+    if (anseweredQuestions.length > 0) {
+      setAnseweredQuestions([]);
+    }
   }
 
   return (
-    <QuestionsContext.Provider value={{ anseweredQuestions, addAnsewer }}>
+    <QuestionsContext.Provider
+      value={{ anseweredQuestions, addAnsewer, clearAnsewers }}
+    >
       {props.children}
     </QuestionsContext.Provider>
   );

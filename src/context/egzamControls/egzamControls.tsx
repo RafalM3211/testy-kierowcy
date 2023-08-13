@@ -1,4 +1,10 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuestionsContext } from "../AnseweredQuestions/AnseweredQuestions";
 import type { Ansewer, Question, TimerState } from "../../types/globalTypes";
@@ -47,7 +53,7 @@ export function useEgzamControlContext() {
 }
 
 export default function EgzamControlProvider(props: Props) {
-  const { addAnsewer } = useQuestionsContext();
+  const { addAnsewer, clearAnsewers } = useQuestionsContext();
   const navigate = useNavigate();
 
   const [questionCount, setQuestionCount] = useState(1);
@@ -56,6 +62,7 @@ export default function EgzamControlProvider(props: Props) {
   const [timerState, setTimerState] = useState<TimerState>("prepare");
 
   const nextQuestion = () => {
+    console.log(questionCount);
     if (!props.questionData) {
       throw new Error("question is undefined");
     }
@@ -70,6 +77,12 @@ export default function EgzamControlProvider(props: Props) {
     setSelectedAnsewer(null);
     setTimerState("prepare");
   };
+
+  useEffect(() => {
+    if (questionCount === 1) {
+      clearAnsewers();
+    }
+  }, [questionCount, clearAnsewers]);
 
   const controls = {
     nextQuestion,

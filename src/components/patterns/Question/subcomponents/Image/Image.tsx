@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Box, SxProps } from "@mui/system";
+import { useState, useEffect, useCallback } from "react";
+import { Box } from "@mui/system";
 import MediaCover from "../MediaCover/MediaCover";
 import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
 import { Question } from "../../../../../types/globalTypes";
@@ -23,18 +23,18 @@ export default function Image(props: Props) {
     }
   }
 
-  function handleStart() {
+  const handleStart = useCallback(() => {
     setQuestionStarted(true);
     if (setTimerState) {
       setTimerState("ansewer");
     }
-  }
+  }, [setQuestionStarted, setTimerState]);
 
   useEffect(() => {
     if (props.type === "specialized") {
       handleStart();
     }
-  }, [props.type]);
+  }, [props.type, handleStart]);
 
   return (
     <MediaCover
