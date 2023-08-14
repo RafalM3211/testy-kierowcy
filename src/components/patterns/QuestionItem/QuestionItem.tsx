@@ -1,8 +1,9 @@
 import { Box, Card, Typography } from "@mui/material";
+import VideocamIcon from "@mui/icons-material/Videocam";
 import YesNoAnseswer from "../YesNoAnsewer/YesNoAnsewer";
-import { flexCenter } from "../../../utility/styling";
 import ABCAnsewer from "../ABCAnsewer/ABCAnsewer";
-import { trimText } from "../../../utility/utils";
+import { flexCenter } from "../../../utility/styling";
+import { trimText, isImage } from "../../../utility/utils";
 import type {
   ABCansewers,
   AnseweredQuestion,
@@ -15,6 +16,8 @@ interface Props {
   number?: number;
 }
 
+const mediaEndpointUrl = process.env.REACT_APP_SERVER_URL + "media/";
+
 function trimAnsewers(ansewers: ABCansewers): ABCansewers {
   const trimValue = 65;
   return {
@@ -26,6 +29,8 @@ function trimAnsewers(ansewers: ABCansewers): ABCansewers {
 
 export default function QuestionItem(props: Props) {
   const { data: question } = props;
+
+  const mediaUrl = mediaEndpointUrl + question.media;
 
   return (
     <Card
@@ -73,15 +78,33 @@ export default function QuestionItem(props: Props) {
             {props.number}
           </Typography>
         </Box>
-        <Box
-          sx={{
-            width: "200px",
-            height: "114px",
-            ml: "10px",
-            mr: "5px",
-            bgcolor: "grey.300",
-          }}
-        ></Box>
+        {isImage(question.media) ? (
+          <Box
+            component="img"
+            src={mediaUrl}
+            alt={"miniaturka obrazu dla pytania egzaminacyjnego"}
+            sx={{
+              width: "200px",
+              height: "114px",
+              ml: "10px",
+              mr: "5px",
+            }}
+          ></Box>
+        ) : (
+          <Box
+            sx={{
+              width: "200px",
+              height: "114px",
+              ml: "10px",
+              mr: "5px",
+              bgcolor: "grey.300",
+              ...flexCenter,
+            }}
+          >
+            <VideocamIcon fontSize="large" />
+          </Box>
+        )}
+
         <Box
           sx={{
             boxSizing: "border-box",
@@ -107,7 +130,7 @@ export default function QuestionItem(props: Props) {
           }}
         >
           <Typography variant="body1">
-            {trimText(question.content, 140)}
+            {trimText(question.content, 100)}
           </Typography>
           {question.type === "basic" ? (
             <YesNoAnseswer

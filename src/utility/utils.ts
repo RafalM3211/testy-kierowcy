@@ -5,3 +5,8 @@ export function trimText(text: string, limit: number) {
   }
   return returnedText;
 }
+
+export function isImage(name: string) {
+  const extension = name.slice(name.lastIndexOf(".") + 1);
+  return extension === "jpg";
+}

@@ -1,8 +1,9 @@
 import { Box } from "@mui/material";
 import Image from "../Image/Image";
 import Video from "../Video/Video";
-import { QuestionMode } from "../../types";
-import { Question } from "../../../../../types/globalTypes";
+import { isImage } from "../../../../../utility/utils";
+import type { QuestionMode } from "../../types";
+import type { Question } from "../../../../../types/globalTypes";
 
 interface Props {
   mediaFileName: string;
@@ -15,15 +16,10 @@ const mediaWidth = 921;
 const aspectRatio = 0.5625;
 const mediaHeight = mediaWidth * aspectRatio;
 
-function isImage(name: string) {
-  const extension = name.slice(name.lastIndexOf(".") + 1);
-  return extension === "jpg";
-}
-
 export default function QuestionMedia(props: Props) {
   const isMediaImage = isImage(props.mediaFileName);
 
-  const fileUrl = mediaEndpointUrl + props.mediaFileName;
+  const mediaUrl = mediaEndpointUrl + props.mediaFileName;
 
   return (
     <Box
@@ -36,13 +32,13 @@ export default function QuestionMedia(props: Props) {
       }}
     >
       {isMediaImage ? (
-        <Image type={props.type} mode={props.mode} src={fileUrl} />
+        <Image type={props.type} mode={props.mode} src={mediaUrl} />
       ) : (
         <>
           {props.mode === "exam" ? (
-            <Video mode="exam" src={fileUrl} />
+            <Video mode="exam" src={mediaUrl} />
           ) : (
-            <Video mode="preview" src={fileUrl} />
+            <Video mode="preview" src={mediaUrl} />
           )}
         </>
       )}
