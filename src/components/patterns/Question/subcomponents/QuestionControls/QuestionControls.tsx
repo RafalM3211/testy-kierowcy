@@ -37,9 +37,8 @@ export default function QuestionControls(props: Props) {
     >
       {props.mode === "exam" &&
         (() => {
-          const { questionCount, nextQuestion } = controls as ExcludeUndefined<
-            typeof controls
-          >;
+          const { questionCount, nextQuestion, endExam } =
+            controls as ExcludeUndefined<typeof controls>;
           return (
             <>
               <Box sx={{ display: "flex", alignItems: "center", mb: "20px" }}>
@@ -55,6 +54,16 @@ export default function QuestionControls(props: Props) {
                 />
               </Box>
               <TimeCount type={props.type} />
+              <Button
+                onClick={endExam}
+                variant="outlined"
+                sx={{
+                  textTransform: "unset",
+                  mt: "20px",
+                }}
+              >
+                <Typography>Zakończ egzamin</Typography>
+              </Button>
 
               <Button
                 onClick={nextQuestion}

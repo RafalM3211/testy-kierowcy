@@ -12,6 +12,7 @@ import type { SetAnsewerFunction } from "./types";
 
 interface Controls {
   nextQuestion: () => void;
+  endExam: () => void;
   questionCount: number;
   selectedAnsewer: Ansewer;
   setSelectedAnsewer: SetAnsewerFunction;
@@ -61,7 +62,7 @@ export default function EgzamControlProvider(props: Props) {
   const [isStarted, setStarted] = useState(false);
   const [timerState, setTimerState] = useState<TimerState>("prepare");
 
-  const nextQuestion = () => {
+  function nextQuestion() {
     console.log(questionCount);
     if (!props.questionData) {
       throw new Error("question is undefined");
@@ -76,7 +77,11 @@ export default function EgzamControlProvider(props: Props) {
     setQuestionCount(questionCount + 1);
     setSelectedAnsewer(null);
     setTimerState("prepare");
-  };
+  }
+
+  function endExam() {
+    navigate("/summary");
+  }
 
   useEffect(() => {
     if (questionCount === 1) {
@@ -86,6 +91,7 @@ export default function EgzamControlProvider(props: Props) {
 
   const controls = {
     nextQuestion,
+    endExam,
     questionCount,
     selectedAnsewer,
     setSelectedAnsewer,
