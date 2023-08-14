@@ -18,7 +18,7 @@ export default function Question(props: Props) {
   const { question, chosenAnsewer, mode } = props;
 
   return (
-    <QuestionContainer>
+    <QuestionContainer sx={props.sx}>
       <QuestionDetails id={question.id} value={question.value} />
       <QuestionMedia
         type={question.type}
