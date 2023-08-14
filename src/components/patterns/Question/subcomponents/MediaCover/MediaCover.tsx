@@ -34,7 +34,7 @@ export default function MediaCover(props: Props) {
         ) : (
           <>
             {props.mediaElement}
-            {props.isStarted || (
+            {props.isStarted || props.mode === "preview" || (
               <Box sx={{ ...flexCenter, flexDirection: "column" }}>
                 <Typography variant="h6" component="p">
                   {`Kliknij aby wyświetlić ${

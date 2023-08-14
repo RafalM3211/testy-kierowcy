@@ -3,10 +3,12 @@ import { Box } from "@mui/system";
 import MediaCover from "../MediaCover/MediaCover";
 import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
 import { Question } from "../../../../../types/globalTypes";
+import { QuestionMode } from "../../types";
 
 interface Props {
   src: string;
   type: Question["type"];
+  mode: QuestionMode;
   alt?: string;
 }
 
@@ -41,18 +43,20 @@ export default function Image(props: Props) {
       isError={isError}
       handleStart={handleStart}
       isStarted={isQuestionStarted}
-      mode="exam"
+      mode={props.mode}
       mediaType="image"
       mediaElement={
         <Box
           component="img"
           onError={handleError}
           src={props.src}
-          alt={props.alt || ""}
+          alt={"Obraz dla pytania egzaminacyjnego"}
           sx={{
-            display: !!isQuestionStarted ? "block" : "none",
             width: "100%",
             height: "100%",
+
+            display:
+              isQuestionStarted || props.mode === "preview" ? "block" : "none",
           }}
         ></Box>
       }

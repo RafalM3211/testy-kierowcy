@@ -36,7 +36,7 @@ export default function QuestionMedia(props: Props) {
       }}
     >
       {isMediaImage ? (
-        <Image type={props.type} src={fileUrl} />
+        <Image type={props.type} mode={props.mode} src={fileUrl} />
       ) : (
         <>
           {props.mode === "exam" ? (
