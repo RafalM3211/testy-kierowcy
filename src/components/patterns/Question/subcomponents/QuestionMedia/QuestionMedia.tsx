@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import Image from "../Image/Image";
-import EgzamVideo from "../ExamVideo/EgzamVideo";
-import PreviewVideo from "../PreviewVideo/PreviewVideo";
+import Video from "../Video/Video";
 import { QuestionMode } from "../../types";
 import { Question } from "../../../../../types/globalTypes";
 
@@ -41,9 +40,9 @@ export default function QuestionMedia(props: Props) {
       ) : (
         <>
           {props.mode === "exam" ? (
-            <EgzamVideo mode="exam" src={fileUrl} />
+            <Video mode="exam" src={fileUrl} />
           ) : (
-            <PreviewVideo mode="preview" src={fileUrl} />
+            <Video mode="preview" src={fileUrl} />
           )}
         </>
       )}

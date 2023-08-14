@@ -9,7 +9,7 @@ interface Props {
   mode: QuestionMode;
 }
 
-export default function EgzamVideo(props: Props) {
+export default function Video(props: Props) {
   const [isVideoStarted, setVideoStarted] = useState(false);
   const [isError, setError] = useState(false);
 
