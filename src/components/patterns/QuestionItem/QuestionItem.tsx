@@ -1,4 +1,4 @@
-import { Box, Card, Typography } from "@mui/material";
+import { Box, Card, Typography, useMediaQuery } from "@mui/material";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import YesNoAnseswer from "../YesNoAnsewer/YesNoAnsewer";
 import ABCAnsewer from "../ABCAnsewer/ABCAnsewer";
@@ -29,6 +29,9 @@ function trimAnsewers(ansewers: ABCansewers): ABCansewers {
 
 export default function QuestionItem(props: Props) {
   const { data: question } = props;
+
+  const isViewportMedium = useMediaQuery("(max-width: 1450px)");
+  const contentTrimValue = isViewportMedium ? 100 : 145;
 
   const mediaUrl = mediaEndpointUrl + question.media;
 
@@ -130,7 +133,7 @@ export default function QuestionItem(props: Props) {
           }}
         >
           <Typography variant="body1">
-            {trimText(question.content, 100)}
+            {trimText(question.content, contentTrimValue)}
           </Typography>
           {question.type === "basic" ? (
             <YesNoAnseswer
