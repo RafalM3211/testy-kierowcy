@@ -1,14 +1,27 @@
-import jsonServer from "json-server";
+import express from "express";
+import cors from "cors";
+import session from "express-session";
 import { getQuestionById } from "./dbApi.mjs";
 import { sendImage, streamVideo, allowedMediaExtensions } from "./media.mjs";
 
 console.log("START");
 
-const server = jsonServer.create();
-const middlewares = jsonServer.defaults();
+const server = express();
 
-server.use(middlewares);
-server.use(jsonServer.bodyParser);
+server.use(express.json());
+server.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
+server.use(
+  session({
+    secret: "randomvaluegeneratedinfuture",
+    saveUninitialized: true,
+    resave: false,
+  })
+);
 
 const tempQuestionsIDs = [
   6301, 6302, 6304, 7131, 2420, 2430, 2432, 2990, 2438, 6339, 7130, 10060,

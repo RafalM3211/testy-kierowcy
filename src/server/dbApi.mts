@@ -29,7 +29,6 @@ const questions = XLSX.utils.sheet_to_json(
 export function getQuestionById(id: number) {
   console.log(id);
   const rawQuestion = getQuestionRecordById(id);
-  console.log("rawQuestion: ", rawQuestion);
   const preparedQuestion = prepareQuestion(rawQuestion);
   console.log("preparedQuestion:", preparedQuestion);
   return preparedQuestion;
