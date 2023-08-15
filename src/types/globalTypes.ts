@@ -1,7 +1,7 @@
 interface QuestionBase {
   id: number;
   content: string;
-  value: number;
+  value: 1 | 2 | 3;
   media: string;
 }
 
