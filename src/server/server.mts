@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import session from "express-session";
 import cookieParser from "cookie-parser";
-import { getQuestionById } from "./dbApi.mjs";
+import { getNextQuestion, getQuestionById } from "./db/dbApi.mjs";
 import { sendImage, streamVideo, allowedMediaExtensions } from "./media.mjs";
 import type { Question } from "../types/globalTypes";
 
@@ -41,15 +41,16 @@ const tempQuestionsIDs = [
 ];
 
 server.get("/question", (req, res) => {
-  console.log(req.cookies);
   const session = req.session;
-  const questionId = Math.floor(Math.random() * 10);
-  const question = getQuestionById(tempQuestionsIDs[questionId]);
-  console.log(session, session.questions, session.id);
-
   if (!session.questions) {
     session.questions = [];
   }
+
+  const questionId = Math.floor(Math.random() * 10);
+  const question = getQuestionById(tempQuestionsIDs[questionId]);
+  //const question = getNextQuestion(session.questions);
+  console.log(session, session.id);
+
   session.questions.push(question);
   session.save();
   res.status(200).jsonp(question);
