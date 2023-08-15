@@ -1,14 +1,25 @@
 import express from "express";
 import cors from "cors";
 import session from "express-session";
+import cookieParser from "cookie-parser";
 import { getQuestionById } from "./dbApi.mjs";
 import { sendImage, streamVideo, allowedMediaExtensions } from "./media.mjs";
+import type { Question } from "../types/globalTypes";
+
+declare module "express-session" {
+  interface SessionData {
+    questions: Question[];
+  }
+}
 
 console.log("START");
 
 const server = express();
 
+const memoryStore = new session.MemoryStore();
+
 server.use(express.json());
+server.use(cookieParser("randomvaluegeneratedinfuture"));
 server.use(
   cors({
     origin: true,
@@ -19,6 +30,8 @@ server.use(
   session({
     secret: "randomvaluegeneratedinfuture",
     saveUninitialized: true,
+    cookie: { maxAge: 1000 * 60 * 60 },
+    store: memoryStore,
     resave: false,
   })
 );
@@ -28,8 +41,17 @@ const tempQuestionsIDs = [
 ];
 
 server.get("/question", (req, res) => {
+  console.log(req.cookies);
+  const session = req.session;
   const questionId = Math.floor(Math.random() * 10);
   const question = getQuestionById(tempQuestionsIDs[questionId]);
+  console.log(session, session.questions, session.id);
+
+  if (!session.questions) {
+    session.questions = [];
+  }
+  session.questions.push(question);
+  session.save();
   res.status(200).jsonp(question);
 });
 

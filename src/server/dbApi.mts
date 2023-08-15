@@ -30,7 +30,6 @@ export function getQuestionById(id: number) {
   console.log(id);
   const rawQuestion = getQuestionRecordById(id);
   const preparedQuestion = prepareQuestion(rawQuestion);
-  console.log("preparedQuestion:", preparedQuestion);
   return preparedQuestion;
 }
 
