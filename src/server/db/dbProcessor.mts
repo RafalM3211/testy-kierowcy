@@ -6,6 +6,10 @@ import type {
 import type { RawQuestionRecord } from "../types.mjs";
 
 export function prepareQuestion(rawQuestion: RawQuestionRecord): Question {
+  if (rawQuestion.media === undefined) {
+    rawQuestion.media = "";
+  }
+
   if (rawQuestion.type === "specialized") {
     const { A, B, C } = rawQuestion;
 

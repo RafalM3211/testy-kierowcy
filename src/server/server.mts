@@ -42,7 +42,6 @@ server.get("/question", (req, res) => {
   }
 
   const question = getNextQuestion(session.questions);
-  console.log(question, session.questions);
   session.questions.push(question);
   session.save();
   res.status(200).jsonp(question);

@@ -14,7 +14,7 @@ export interface RawQuestionRecord {
   id: number;
   content: string;
   correctAnsewer: Exclude<Ansewer, null | boolean> | 1 | 0;
-  media: string;
+  media?: string;
   type: Question["type"];
   value: number;
   A?: string;

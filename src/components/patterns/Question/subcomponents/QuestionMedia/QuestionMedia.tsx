@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import Image from "../Image/Image";
 import Video from "../Video/Video";
+import NoMedia from "../NoMedia/NoMedia";
 import { isImage } from "../../../../../utility/utils";
 import type { QuestionMode } from "../../types";
 import type { Question } from "../../../../../types/globalTypes";
@@ -17,11 +18,10 @@ const aspectRatio = 0.5625;
 const mediaHeight = mediaWidth * aspectRatio;
 
 export default function QuestionMedia(props: Props) {
+  const isMediaPresent = props.mediaFileName !== "";
   const isMediaImage = isImage(props.mediaFileName);
 
   const mediaUrl = mediaEndpointUrl + props.mediaFileName;
-
-  console.log(mediaUrl);
 
   return (
     <Box
@@ -33,16 +33,22 @@ export default function QuestionMedia(props: Props) {
         gridColumn: "1",
       }}
     >
-      {isMediaImage ? (
-        <Image type={props.type} mode={props.mode} src={mediaUrl} />
-      ) : (
+      {isMediaPresent ? (
         <>
-          {props.mode === "exam" ? (
-            <Video mode="exam" src={mediaUrl} />
+          {isMediaImage ? (
+            <Image type={props.type} mode={props.mode} src={mediaUrl} />
           ) : (
-            <Video mode="preview" src={mediaUrl} />
+            <>
+              {props.mode === "exam" ? (
+                <Video mode="exam" src={mediaUrl} />
+              ) : (
+                <Video mode="preview" src={mediaUrl} />
+              )}
+            </>
           )}
         </>
+      ) : (
+        <NoMedia />
       )}
     </Box>
   );
