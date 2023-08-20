@@ -1,5 +1,4 @@
 import { Box, Card, Typography, useMediaQuery } from "@mui/material";
-import VideocamIcon from "@mui/icons-material/Videocam";
 import YesNoAnseswer from "../YesNoAnsewer/YesNoAnsewer";
 import ABCAnsewer from "../ABCAnsewer/ABCAnsewer";
 import { flexCenter } from "../../../utility/styling";
@@ -10,6 +9,9 @@ import type {
   Question,
 } from "../../../types/globalTypes";
 import { Link } from "react-router-dom";
+import Image from "./subcomponents/Image/Image";
+import Video from "./subcomponents/Video/Video";
+import NoMedia from "./subcomponents/NoMedia/NoMedia";
 
 interface Props {
   data: Question | AnseweredQuestion;
@@ -17,6 +19,9 @@ interface Props {
 }
 
 const mediaEndpointUrl = process.env.REACT_APP_SERVER_URL + "media/";
+const mediaWidth = 200;
+const aspectRatio = 0.5625;
+const mediaHeight = mediaWidth * aspectRatio;
 
 function trimAnsewers(ansewers: ABCansewers): ABCansewers {
   const trimValue = 65;
@@ -32,6 +37,9 @@ export default function QuestionItem(props: Props) {
 
   const isViewportMedium = useMediaQuery("(max-width: 1450px)");
   const contentTrimValue = isViewportMedium ? 100 : 145;
+
+  const isMediaPresent = question.media !== "";
+  const isMediaImage = isImage(question.media);
 
   const mediaUrl = mediaEndpointUrl + question.media;
 
@@ -81,32 +89,22 @@ export default function QuestionItem(props: Props) {
             {props.number}
           </Typography>
         </Box>
-        {isImage(question.media) ? (
-          <Box
-            component="img"
-            src={mediaUrl}
-            alt={"miniaturka obrazu dla pytania egzaminacyjnego"}
-            sx={{
-              width: "200px",
-              height: "114px",
-              ml: "10px",
-              mr: "5px",
-            }}
-          ></Box>
-        ) : (
-          <Box
-            sx={{
-              width: "200px",
-              height: "114px",
-              ml: "10px",
-              mr: "5px",
-              bgcolor: "grey.300",
-              ...flexCenter,
-            }}
-          >
-            <VideocamIcon fontSize="large" />
-          </Box>
-        )}
+        <Box
+          sx={{
+            width: mediaWidth + "px",
+            height: mediaHeight + "px",
+            ml: "10px",
+            mr: "5px",
+            bgcolor: "grey.300",
+            ...flexCenter,
+          }}
+        >
+          {isMediaPresent ? (
+            <>{isMediaImage ? <Image mediaUrl={mediaUrl} /> : <Video />}</>
+          ) : (
+            <NoMedia />
+          )}
+        </Box>
 
         <Box
           sx={{
