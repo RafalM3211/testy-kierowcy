@@ -1,58 +1,30 @@
-import dbTranslations from "../dbTranslations.json" assert { type: "json" };
-import { hasKey, addPropToObject } from "../helpers.mjs";
-import type { Question } from "../../types/globalTypes";
+import type {
+  BasicQuestion,
+  Question,
+  SpecializedQuestion,
+} from "../../types/globalTypes";
 import type { RawQuestionRecord } from "../types.mjs";
 
-export function prepareQuestion(rawQuestion: RawQuestionRecord) {
-  const translatedPropsQuestion = extractAndTranslateProps(rawQuestion);
-  const finalQuestion = translateValues(translatedPropsQuestion);
-  return finalQuestion;
-}
+export function prepareQuestion(rawQuestion: RawQuestionRecord): Question {
+  if (rawQuestion.type === "specialized") {
+    const { A, B, C } = rawQuestion;
 
-function extractAndTranslateProps(rawQuestion: RawQuestionRecord) {
-  const newQuestion = {};
+    if (A && B && C) {
+      const ansewers = { A, B, C };
+      const preparedQuestion = { ...rawQuestion, ansewers };
+      delete preparedQuestion.A;
+      delete preparedQuestion.B;
+      delete preparedQuestion.C;
 
-  for (let key in dbTranslations.headers) {
-    const typedKey = key as keyof typeof dbTranslations.headers;
-    const value = rawQuestion[typedKey];
-    const translatedKey = dbTranslations.headers[typedKey];
-    addPropToObject(newQuestion, translatedKey, value);
+      return preparedQuestion as SpecializedQuestion;
+    } else
+      console.warn(
+        "Question with type specialized should have A, B and C ansewers. Question id: " +
+          rawQuestion.id
+      );
   }
 
-  const translatedQuesiton = newQuestion as Omit<Question, "ansewers">;
-  const ansewers = {
-    A: rawQuestion["Odpowiedź A"],
-    B: rawQuestion["Odpowiedź B"],
-    C: rawQuestion["Odpowiedź C"],
-  };
-  const preparedQuestion = {
-    ...translatedQuesiton,
-    ansewers:
-      translateSingleValue(translatedQuesiton.type) === "specialized"
-        ? ansewers
-        : undefined,
-  };
-  return preparedQuestion;
-}
-
-function translateValues(
-  question: Record<keyof Question, number | string | object | boolean>
-) {
-  for (let key in question) {
-    const typedKey = key as keyof typeof question;
-    const originalValue = question[typedKey];
-    if (typeof originalValue === "string") {
-      const translatedValue = translateSingleValue(originalValue);
-      if (translatedValue != undefined) {
-        question[typedKey] = translatedValue;
-      }
-    }
-  }
-  return question as Question;
-}
-
-function translateSingleValue(value: string): string | boolean | undefined {
-  if (hasKey(dbTranslations.values, value)) {
-    return dbTranslations.values[value];
-  } else return undefined;
+  const correctAnsewer = !!rawQuestion.correctAnsewer;
+  const preparedQuestion = { ...rawQuestion, correctAnsewer };
+  return preparedQuestion as BasicQuestion;
 }

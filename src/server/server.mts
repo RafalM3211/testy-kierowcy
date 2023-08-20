@@ -15,7 +15,6 @@ declare module "express-session" {
 console.log("START");
 
 const server = express();
-
 const memoryStore = new session.MemoryStore();
 
 server.use(express.json());
@@ -36,21 +35,14 @@ server.use(
   })
 );
 
-const tempQuestionsIDs = [
-  6301, 6302, 6304, 7131, 2420, 2430, 2432, 2990, 2438, 6339, 7130, 10060,
-];
-
 server.get("/question", (req, res) => {
   const session = req.session;
   if (!session.questions) {
     session.questions = [];
   }
 
-  const questionId = Math.floor(Math.random() * 10);
-  const question = getQuestionById(tempQuestionsIDs[questionId]);
-  //const question = getNextQuestion(session.questions);
-  console.log(session, session.id);
-
+  const question = getNextQuestion(session.questions);
+  console.log(question, session.questions);
   session.questions.push(question);
   session.save();
   res.status(200).jsonp(question);

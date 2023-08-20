@@ -10,7 +10,7 @@ export function hasKey<T extends object, K extends PropertyKey>(
 }
 
 export function addPropToObject<O extends string, V>(
-  obj: anyObject,
+  obj: any,
   key: O,
   value: V
 ) {

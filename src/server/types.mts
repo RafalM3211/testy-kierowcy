@@ -1,4 +1,5 @@
 import type { Application } from "express";
+import type { Ansewer, Question } from "../types/globalTypes";
 
 type AppGet = Application["get"];
 type AppGetParams = Parameters<AppGet>;
@@ -10,14 +11,13 @@ export type Res = GetHandlerParams[1];
 export type EndpointHandler = (req: Req, res: Res) => void;
 
 export interface RawQuestionRecord {
-  "Numer pytania": number;
-  Pytanie: string;
-  "Poprawna odp": string;
-  "Odpowiedź A": string | null;
-  "Odpowiedź B": string | null;
-  "Odpowiedź C": string | null;
-  Media: string;
-  "Zakres struktury": string;
-  "Liczba punktów": 1 | 2 | 3;
-  [key: string]: unknown;
+  id: number;
+  content: string;
+  correctAnsewer: Exclude<Ansewer, null | boolean> | 1 | 0;
+  media: string;
+  type: Question["type"];
+  value: number;
+  A?: string;
+  B?: string;
+  C?: string;
 }
