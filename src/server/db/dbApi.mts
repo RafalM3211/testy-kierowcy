@@ -42,8 +42,6 @@ export function getQuestionById(id: number) {
 }
 
 export function getNextQuestion(currentQuestions: Question[]) {
-  console.log("getquestion");
-
   const nextQuestionValue = calcNextQuestionValue(currentQuestions);
   const nextQuestionType = getNextQuestionType(currentQuestions);
   const usedIds = currentQuestions.map((question) => question.id);
@@ -62,9 +60,6 @@ export function getNextQuestion(currentQuestions: Question[]) {
     }
 
     i++;
-    if (i > 290) {
-      console.log("wtf", i);
-    }
   } while (!isQuestionFound && i < 300);
 
   if (!nextQuestion) {
@@ -84,7 +79,6 @@ function getProposedQuestionByType(type: Question["type"]) {
     Math.random() * questionsWithProvidedType.length
   );
   const proposedQuestion = questionsWithProvidedType[randomIndex];
-  console.log(proposedQuestion);
   return proposedQuestion;
 }
 

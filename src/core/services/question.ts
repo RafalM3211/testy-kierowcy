@@ -1,7 +1,11 @@
 import { isQuestion } from "../../types/typeGuards";
 
+const apiUrl = process.env.REACT_APP_SERVER_URL;
+
 export async function getQuestion() {
-  const res = await fetch("http://localhost:3001/question", {
+  console.log("query");
+
+  const res = await fetch(apiUrl + "question", {
     credentials: "include",
   });
   if (res.status >= 400) throw new Error("unknown error");
@@ -11,4 +15,10 @@ export async function getQuestion() {
   }
   console.log(data);
   return data;
+}
+
+export async function resetSession() {
+  await fetch(apiUrl + "resetEgzamSession", {
+    credentials: "include",
+  });
 }

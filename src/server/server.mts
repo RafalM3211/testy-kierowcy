@@ -65,6 +65,13 @@ server.get("/media/:fileName", (req, res) => {
   }
 });
 
+server.get("/resetEgzamSession", (req, res) => {
+  const session = req.session;
+  session.questions = [];
+  session.save();
+  res.sendStatus(200);
+});
+
 server.listen(3001, () => {
   console.log("server is running on port 3001!");
 });

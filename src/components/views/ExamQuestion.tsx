@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { getQuestion } from "../../core/services/question";
+import { useLayoutEffect } from "react";
+import { getQuestion, resetSession } from "../../core/services/question";
 import Loader from "../patterns/Loader/Loader";
 import Question from "../patterns/Question/Question";
 import ErrorBlock from "../patterns/ErrorBlock/ErrorBlock";
@@ -16,6 +17,10 @@ export default function ExamQuestion() {
   const dataControls = {
     refetch,
   };
+
+  useLayoutEffect(() => {
+    resetSession();
+  }, []);
 
   return (
     <>
