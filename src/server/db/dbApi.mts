@@ -4,7 +4,11 @@ import { Readable } from "stream";
 import { prepareQuestion } from "./dbProcessor.mjs";
 import { getDirname } from "../helpers.mjs";
 import type { RawQuestionRecord } from "../types.mjs";
-import { Question } from "../../types/globalTypes";
+import {
+  BasicQuestion,
+  Question,
+  SpecializedQuestion,
+} from "../../types/globalTypes";
 
 XLSX.set_fs(fs);
 XLSX.stream.set_readable(Readable);
@@ -17,6 +21,14 @@ const rawQuestions = XLSX.utils.sheet_to_json(
 const questions: Question[] = rawQuestions.map((rawQuestion) => {
   return prepareQuestion(rawQuestion);
 });
+
+const basicQuestions = questions.filter(
+  (question) => question.type === "basic"
+) as BasicQuestion[];
+
+const specializedQuestions = questions.filter(
+  (question) => question.type === "specialized"
+) as SpecializedQuestion[];
 
 export function getQuestionById(id: number) {
   const quesiton = questions.find((el) => el.id === id);
@@ -40,23 +52,16 @@ export function getNextQuestion(currentQuestions: Question[]) {
   let isQuestionFound = false;
   let nextQuestion: Question | undefined;
   do {
-    const randomIndex = Math.floor(Math.random() * questions.length);
-    const proposedQuestion = questions[randomIndex] as Question;
+    const proposedQuestion = getProposedQuestionByType(nextQuestionType);
     const valueMatches = proposedQuestion.value === nextQuestionValue;
-    const typeMatches = proposedQuestion.type === nextQuestionType;
     const idNotUsed = !usedIds.includes(proposedQuestion.id);
 
-    if (i > 10 && i < 20) {
-      console.log(proposedQuestion, nextQuestionValue, nextQuestionType);
-    }
-
-    if (valueMatches && typeMatches && idNotUsed) {
+    if (valueMatches && idNotUsed) {
       isQuestionFound = true;
       nextQuestion = proposedQuestion;
     }
 
     i++;
-
     if (i > 290) {
       console.log("wtf", i);
     }
@@ -71,6 +76,18 @@ export function getNextQuestion(currentQuestions: Question[]) {
   return nextQuestion;
 }
 
+function getProposedQuestionByType(type: Question["type"]) {
+  const questionsWithProvidedType =
+    type === "specialized" ? specializedQuestions : basicQuestions;
+
+  const randomIndex = Math.floor(
+    Math.random() * questionsWithProvidedType.length
+  );
+  const proposedQuestion = questionsWithProvidedType[randomIndex];
+  console.log(proposedQuestion);
+  return proposedQuestion;
+}
+
 function calcNextQuestionValue(currentQuestions: Question[]) {
   const threePointMaxCount = 16;
   const twoPointMaxCount = 10;
@@ -78,35 +95,6 @@ function calcNextQuestionValue(currentQuestions: Question[]) {
   if (currentQuestions.length + 1 < threePointMaxCount) return 3;
   if (currentQuestions.length + 1 < twoPointMaxCount) return 2;
   else return 1;
-
-  /* const threePointMaxCount = 16;
-  const twoPointMaxCount = 10;
-
-  let threePointCount = 0;
-  let twoPointCount = 0;
-  let onePointCount = 0;
-
-  questions.forEach((question) => {
-    const preparedQuestion = prepareQuestion(question);
-    const value = preparedQuestion.value;
-    switch (value) {
-      case 1: {
-        onePointCount++;
-        break;
-      }
-      case 2: {
-        twoPointCount++;
-        break;
-      }
-      case 3: {
-        threePointCount++;
-      }
-    }
-  });
-
-  if(threePointCount<threePointMaxCount) return 3
-  if(twoPointCount<twoPointMaxCount)return 2
-  else return 1 */
 }
 
 function getNextQuestionType(currentQuestions: Question[]): Question["type"] {
