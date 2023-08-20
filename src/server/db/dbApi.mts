@@ -89,11 +89,11 @@ function getProposedQuestionByType(type: Question["type"]) {
 }
 
 function calcNextQuestionValue(currentQuestions: Question[]) {
-  const threePointMaxCount = 16;
   const twoPointMaxCount = 10;
+  const threePointMaxCount = 16;
 
-  if (currentQuestions.length + 1 < threePointMaxCount) return 3;
   if (currentQuestions.length + 1 < twoPointMaxCount) return 2;
+  if (currentQuestions.length + 1 < threePointMaxCount) return 3;
   else return 1;
 }
 

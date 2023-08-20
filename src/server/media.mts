@@ -6,14 +6,16 @@ export const allowedMediaExtensions = ["jpg", "mp4"];
 
 export const streamVideo: EndpointHandler = function (req, res) {
   const { fileName } = req.params;
-  const range = req.headers.range;
-  if (range === undefined) {
-    res.status(400).send("Range header is not provided");
+  const rangee = req.headers.range;
+  if (rangee === undefined) {
+    console.error("Range header is not provided");
+    /* res.status(400).send("Range header is not provided"); */
   } else {
     const filePath = buildFilePath(fileName);
     if (!existsSync(filePath)) {
       sendFileNotFoundError(res, fileName);
     }
+    const range = rangee || "0";
     const fileSize = statSync(filePath).size;
     const chunkSize = 10 ** 6; //1Mb
     const start = Number(range.replace(/\D/g, ""));

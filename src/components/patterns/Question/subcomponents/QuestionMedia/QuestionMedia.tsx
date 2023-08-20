@@ -38,13 +38,7 @@ export default function QuestionMedia(props: Props) {
           {isMediaImage ? (
             <Image type={props.type} mode={props.mode} src={mediaUrl} />
           ) : (
-            <>
-              {props.mode === "exam" ? (
-                <Video mode="exam" src={mediaUrl} />
-              ) : (
-                <Video mode="preview" src={mediaUrl} />
-              )}
-            </>
+            <Video mode={props.mode} src={mediaUrl} />
           )}
         </>
       ) : (
