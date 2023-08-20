@@ -21,6 +21,8 @@ export default function QuestionMedia(props: Props) {
 
   const mediaUrl = mediaEndpointUrl + props.mediaFileName;
 
+  console.log(mediaUrl);
+
   return (
     <Box
       sx={{

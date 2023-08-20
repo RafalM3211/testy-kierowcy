@@ -8,7 +8,7 @@ import { Question } from "../../types/globalTypes";
 
 XLSX.set_fs(fs);
 XLSX.stream.set_readable(Readable);
-const workbook = XLSX.readFile(getDirname(import.meta.url) + "/extracted.ods");
+const workbook = XLSX.readFile(getDirname(import.meta.url) + "/db.ods");
 const questionsSheet = workbook.Sheets["questions"];
 const rawQuestions = XLSX.utils.sheet_to_json(
   questionsSheet
@@ -57,10 +57,10 @@ export function getNextQuestion(currentQuestions: Question[]) {
 
     i++;
 
-    if (i > 190) {
+    if (i > 290) {
       console.log("wtf", i);
     }
-  } while (!isQuestionFound && i < 200);
+  } while (!isQuestionFound && i < 300);
 
   if (!nextQuestion) {
     throw new Error(
