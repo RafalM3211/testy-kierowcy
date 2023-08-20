@@ -4,7 +4,7 @@ import { backgroundImg, flexCenter } from "../../utility/styling";
 import List from "../patterns/List/List";
 import Progress from "../patterns/Progress/Progress";
 import HighlitedText from "../atoms/HighlitedText/HighlitedText";
-import { useQuestionsContext } from "../../context/AnseweredQuestions/AnseweredQuestions";
+import { useAnsewersContext } from "../../context/Ansewers/Ansewers";
 import type { AnseweredQuestion } from "../../types/globalTypes";
 
 function calculateOutcome(questions: AnseweredQuestion[]) {
@@ -26,7 +26,7 @@ function calculateOutcome(questions: AnseweredQuestion[]) {
 }
 
 export default function Summary() {
-  const { anseweredQuestions } = useQuestionsContext();
+  const { anseweredQuestions } = useAnsewersContext();
 
   const { correct, wrong, points, passed } =
     calculateOutcome(anseweredQuestions);

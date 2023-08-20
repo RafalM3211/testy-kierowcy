@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQuestionsContext } from "../AnseweredQuestions/AnseweredQuestions";
+import { useAnsewersContext } from "../Ansewers/Ansewers";
 import type { Ansewer, Question, TimerState } from "../../types/globalTypes";
 import type { SetAnsewerFunction } from "./types";
 
@@ -54,7 +54,7 @@ export function useEgzamControlContext() {
 }
 
 export default function EgzamControlProvider(props: Props) {
-  const { addAnsewer, clearAnsewers } = useQuestionsContext();
+  const { addAnsewer, clearAnsewers } = useAnsewersContext();
   const navigate = useNavigate();
 
   const [questionCount, setQuestionCount] = useState(1);

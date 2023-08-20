@@ -12,16 +12,16 @@ interface Props {
   children: ReactNode;
 }
 
-interface QuesitonsContextType {
+interface AnsewersContextType {
   anseweredQuestions: AnseweredQuestion[];
   addAnsewer: (question: Question, chosenAnsewer: Ansewer) => void;
   clearAnsewers: () => void;
 }
 
-const QuestionsContext = createContext<QuesitonsContextType | null>(null);
+const AnsewersContext = createContext<AnsewersContextType | null>(null);
 
-export function useQuestionsContext() {
-  const contextValue = useContext(QuestionsContext);
+export function useAnsewersContext() {
+  const contextValue = useContext(AnsewersContext);
   if (contextValue === null) {
     throw new Error("do not use questions context outside provider");
   }
@@ -29,7 +29,7 @@ export function useQuestionsContext() {
   return contextValue;
 }
 
-export function QuestionsProvider(props: Props) {
+export function AnsewersProvider(props: Props) {
   const [anseweredQuestions, setAnseweredQuestions] = useState<
     AnseweredQuestion[]
   >([]);
@@ -53,10 +53,10 @@ export function QuestionsProvider(props: Props) {
   }
 
   return (
-    <QuestionsContext.Provider
+    <AnsewersContext.Provider
       value={{ anseweredQuestions, addAnsewer, clearAnsewers }}
     >
       {props.children}
-    </QuestionsContext.Provider>
+    </AnsewersContext.Provider>
   );
 }

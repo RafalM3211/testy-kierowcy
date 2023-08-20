@@ -16,7 +16,7 @@ import Error500 from "./components/views/errors/Error500";
 import Header from "./components/patterns/Header/Header";
 import SmallHeader from "./components/patterns/SmallHeader/SmallHeader";
 import AppThemeProvider from "./context/theme/theme";
-import { QuestionsProvider } from "./context/AnseweredQuestions/AnseweredQuestions";
+import { AnsewersProvider } from "./context/Ansewers/Ansewers";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -57,10 +57,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AppThemeProvider>
-        <QuestionsProvider>
+        <AnsewersProvider>
           <CssBaseline />
           <RouterProvider router={router} />
-        </QuestionsProvider>
+        </AnsewersProvider>
       </AppThemeProvider>
     </QueryClientProvider>
   );

@@ -2,11 +2,11 @@ import { useParams } from "react-router-dom";
 import { Box } from "@mui/material";
 import Question from "../patterns/Question/Question";
 import ErrorBlock from "../patterns/ErrorBlock/ErrorBlock";
-import { useQuestionsContext } from "../../context/AnseweredQuestions/AnseweredQuestions";
+import { useAnsewersContext } from "../../context/Ansewers/Ansewers";
 
 export default function PreviewQuestion() {
   const id = useParams().id as string;
-  const { anseweredQuestions } = useQuestionsContext();
+  const { anseweredQuestions } = useAnsewersContext();
   console.log(anseweredQuestions, id);
   const question = anseweredQuestions.find(
     (quesiton) => quesiton.id === parseInt(id)
