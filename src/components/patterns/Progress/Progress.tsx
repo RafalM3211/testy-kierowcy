@@ -11,8 +11,9 @@ interface Props {
 
 export default function Progress(props: Props) {
   const { correctPercent, wrongPercent, sx } = props;
-
   const unanseweredPercent = Math.floor(100 - correctPercent - wrongPercent);
+  const wrapLabel =
+    wrongPercent < 10 && (correctPercent < 15 || unanseweredPercent < 15);
 
   if (correctPercent + wrongPercent > 100) {
     console.warn(
@@ -55,6 +56,7 @@ export default function Progress(props: Props) {
             label="błędne"
             value={wrongPercent}
             color="error.main"
+            above={wrapLabel}
           />
         </Box>
         <Box
