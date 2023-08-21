@@ -31,10 +31,9 @@ export default function Summary() {
   const { correct, wrong, points, passed } =
     calculateOutcome(anseweredQuestions);
 
-  const maxPoints = 32;
-
-  const correctPercent = Math.floor((correct / maxPoints) * 100);
-  const wrongPercent = Math.floor((wrong / maxPoints) * 100);
+  const questionsNumber = 32;
+  const correctPercent = Math.round((correct / questionsNumber) * 100);
+  const wrongPercent = Math.round((wrong / questionsNumber) * 100);
 
   return (
     <Box sx={{ ...backgroundImg(bgImage), minHeight: "100vh", pt: "130px" }}>

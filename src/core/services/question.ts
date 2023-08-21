@@ -18,7 +18,9 @@ export async function getQuestion() {
 }
 
 export async function resetSession() {
+  console.log("reset");
   await fetch(apiUrl + "resetEgzamSession", {
     credentials: "include",
   });
+  return {};
 }

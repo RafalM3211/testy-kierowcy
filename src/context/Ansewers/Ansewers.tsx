@@ -43,6 +43,12 @@ export function AnsewersProvider(props: Props) {
       chosenAnsewer: chosenAnsewer,
     } as AnseweredQuestion;
 
+    let i = 0;
+    anseweredQuestions.forEach((a) => {
+      i += a.value;
+    });
+    i += newAnseweredQuestion.value;
+    console.log(i);
     setAnseweredQuestions([...anseweredQuestions, newAnseweredQuestion]);
   }
 

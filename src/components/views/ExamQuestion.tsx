@@ -1,26 +1,29 @@
-import { useQuery } from "@tanstack/react-query";
-import { useLayoutEffect } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useLayoutEffect, useEffect, useState } from "react";
 import { getQuestion, resetSession } from "../../core/services/question";
 import Loader from "../patterns/Loader/Loader";
 import Question from "../patterns/Question/Question";
 import ErrorBlock from "../patterns/ErrorBlock/ErrorBlock";
 import EgzamControlProvider from "../../context/egzamControls/egzamControls";
+import { useOnMount } from "../../utility/hooks";
 
 export default function ExamQuestion() {
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["question"],
     queryFn: getQuestion,
     retry: 0, //for developement only
-    refetchOnWindowFocus: false,
+    enabled: false,
   });
 
   const dataControls = {
     refetch,
   };
 
-  useLayoutEffect(() => {
-    resetSession();
-  }, []);
+  useOnMount(() => {
+    resetSession().then(() => {
+      refetch();
+    });
+  });
 
   return (
     <>
