@@ -31,6 +31,11 @@ export default function Summary() {
   const { correct, wrong, points, passed } =
     calculateOutcome(anseweredQuestions);
 
+  const maxPoints = 32;
+
+  const correctPercent = Math.floor((correct / maxPoints) * 100);
+  const wrongPercent = Math.floor((wrong / maxPoints) * 100);
+
   return (
     <Box sx={{ ...backgroundImg(bgImage), minHeight: "100vh", pt: "130px" }}>
       <Container
@@ -60,7 +65,7 @@ export default function Summary() {
             zdobyte punkty: <HighlitedText>{`${points}/74`}</HighlitedText>
           </Typography>
         </Box>
-        <Progress correct={correct} wrong={wrong} />
+        <Progress correctPercent={correctPercent} wrongPercent={wrongPercent} />
       </Container>
       <List questions={anseweredQuestions} />
     </Box>

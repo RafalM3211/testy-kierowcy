@@ -36,7 +36,7 @@ export default function Home() {
             Rozwiązuj testy a pasek progresu będzie uzupełniał się sam. Dzięki
             temu będziesz wiedział kiedy jesteś gotowy do egzaminu
           </SectionSubtitle>
-          <Progress correct={20} wrong={30} sx={{ mt: "60px" }} />
+          <Progress correctPercent={20} wrongPercent={30} sx={{ mt: "60px" }} />
         </Grid>
         <Grid
           sx={{ ...flexCenter, flexDirection: "column", mb: "100px" }}

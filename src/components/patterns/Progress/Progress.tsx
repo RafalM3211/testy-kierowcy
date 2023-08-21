@@ -4,15 +4,17 @@ import ProgressBackground from "./subcomponents/ProgressBackground/ProgressBackg
 import type { SxProps } from "@mui/material";
 
 interface Props {
-  correct: number;
-  wrong: number;
+  correctPercent: number;
+  wrongPercent: number;
   sx?: SxProps;
 }
 
 export default function Progress(props: Props) {
-  const { correct, wrong, sx } = props;
+  const { correctPercent, wrongPercent, sx } = props;
 
-  if (correct + wrong > 100) {
+  const unanseweredPercent = Math.floor(100 - correctPercent - wrongPercent);
+
+  if (correctPercent + wrongPercent > 100) {
     console.warn(
       "Progress value is displayed in percentages. Sum of correct and wrong ansewers shouldn't be more than 100"
     );
@@ -20,7 +22,7 @@ export default function Progress(props: Props) {
 
   return (
     <Box sx={{ position: "relative", width: "600px", ...sx }}>
-      <ProgressBackground stripesWidth={correct + wrong} />
+      <ProgressBackground stripesWidth={correctPercent + wrongPercent} />
       <Box
         sx={{
           display: "flex",
@@ -33,23 +35,27 @@ export default function Progress(props: Props) {
       >
         <Box
           sx={{
-            width: `${correct}%`,
+            width: `${correctPercent}%`,
             backgroundColor: "success.light",
           }}
         >
           <ProgressLabel
             label="poprawne"
-            value={correct}
+            value={correctPercent}
             color="success.light"
           />
         </Box>
         <Box
           sx={{
-            width: `${wrong}%`,
+            width: `${wrongPercent}%`,
             backgroundColor: "error.main",
           }}
         >
-          <ProgressLabel label="błędne" value={wrong} color="error.main" />
+          <ProgressLabel
+            label="błędne"
+            value={wrongPercent}
+            color="error.main"
+          />
         </Box>
         <Box
           sx={{
@@ -59,7 +65,7 @@ export default function Progress(props: Props) {
         >
           <ProgressLabel
             label="bez odpowiedzi"
-            value={100 - (correct + wrong)}
+            value={unanseweredPercent}
             color="grey.500"
           />
         </Box>

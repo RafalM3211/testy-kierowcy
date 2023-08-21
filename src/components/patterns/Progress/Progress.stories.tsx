@@ -11,5 +11,5 @@ export default metaData;
 type Story = StoryObj<typeof Progress>;
 
 export const Primary = {
-  args: { correct: 30, wrong: 20 },
+  args: { correctPercent: 30, wrongPercent: 20 },
 } satisfies Story;
