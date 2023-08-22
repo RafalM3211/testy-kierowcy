@@ -4,11 +4,11 @@ import Video from "../Video/Video";
 import NoMedia from "../NoMedia/NoMedia";
 import { isImage } from "../../../../../utility/utils";
 import type { QuestionMode } from "../../types";
-import type { Question } from "../../../../../types/globalTypes";
+import type { QuestionType } from "../../../../../types/globalTypes";
 
 interface Props {
   mediaFileName: string;
-  type: Question["type"];
+  type: QuestionType;
   mode: QuestionMode;
 }
 

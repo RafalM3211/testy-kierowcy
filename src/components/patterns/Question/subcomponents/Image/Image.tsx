@@ -2,12 +2,12 @@ import { useState, useEffect, useCallback } from "react";
 import { Box } from "@mui/system";
 import MediaCover from "../MediaCover/MediaCover";
 import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
-import { Question } from "../../../../../types/globalTypes";
+import { QuestionType } from "../../../../../types/globalTypes";
 import { QuestionMode } from "../../types";
 
 interface Props {
   src: string;
-  type: Question["type"];
+  type: QuestionType;
   mode: QuestionMode;
   alt?: string;
 }

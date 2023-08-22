@@ -1,5 +1,5 @@
 import type { Application } from "express";
-import type { Ansewer, Question } from "../types/globalTypes";
+import type { Ansewer, QuestionType } from "../types/globalTypes";
 
 type AppGet = Application["get"];
 type AppGetParams = Parameters<AppGet>;
@@ -15,7 +15,7 @@ export interface RawQuestionRecord {
   content: string;
   correctAnsewer: Exclude<Ansewer, null | boolean> | 1 | 0;
   media?: string;
-  type: Question["type"];
+  type: QuestionType;
   value: number;
   A?: string;
   B?: string;

@@ -4,10 +4,10 @@ import QuestionCount from "../../subcomponents/QuestionCount/QuestionCount";
 import TimeCount from "../../subcomponents/TimeCount/TimeCount";
 import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
 import type { QuestionMode, ExcludeUndefined } from "../../types";
-import type { Question } from "../../../../../types/globalTypes";
+import type { QuestionType } from "../../../../../types/globalTypes";
 
 interface Props {
-  type: Question["type"];
+  type: QuestionType;
   mode: QuestionMode;
 }
 

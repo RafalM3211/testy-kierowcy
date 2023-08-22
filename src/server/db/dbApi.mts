@@ -7,6 +7,7 @@ import type { RawQuestionRecord } from "../types.mjs";
 import {
   BasicQuestion,
   Question,
+  QuestionType,
   SpecializedQuestion,
 } from "../../types/globalTypes";
 
@@ -71,7 +72,7 @@ export function getNextQuestion(currentQuestions: Question[]) {
   return nextQuestion;
 }
 
-function getProposedQuestionByType(type: Question["type"]) {
+function getProposedQuestionByType(type: QuestionType) {
   const questionsWithProvidedType =
     type === "specialized" ? specializedQuestions : basicQuestions;
 
@@ -99,6 +100,6 @@ function calcNextQuestionValue(currentQuestions: Question[]) {
   }
 }
 
-function getNextQuestionType(currentQuestions: Question[]): Question["type"] {
+function getNextQuestionType(currentQuestions: Question[]): QuestionType {
   return currentQuestions.length < 20 ? "basic" : "specialized";
 }

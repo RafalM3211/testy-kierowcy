@@ -1,4 +1,3 @@
-import type { anyObject } from "../types/globalTypes";
 import path from "path";
 import { fileURLToPath } from "url";
 

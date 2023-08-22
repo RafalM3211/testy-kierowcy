@@ -3,14 +3,17 @@ import { useEffect } from "react";
 import { strippedBackground } from "../../../Progress/subcomponents/ProgressBackground/ProgressBackground";
 import { useTimer } from "react-timer-hook";
 import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
-import type { Question, TimerState } from "../../../../../types/globalTypes";
+import type {
+  QuestionType,
+  TimerState,
+} from "../../../../../types/globalTypes";
 import type { ExcludeUndefined } from "../../types";
 
 interface Props {
-  type: Question["type"];
+  type: QuestionType;
 }
 
-function getTotalTime(questionType: Question["type"], timerState: TimerState) {
+function getTotalTime(questionType: QuestionType, timerState: TimerState) {
   const prepareTime = 20;
   const basicAnsewerTime = 15;
   const specializedAnsewerTime = 50;

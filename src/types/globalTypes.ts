@@ -5,30 +5,32 @@ interface QuestionBase {
   media: string;
 }
 
+export type QuestionType = "basic" | "specialized";
+
 export interface BasicQuestion extends QuestionBase {
-  type: "basic";
+  type: Extract<QuestionType, "basic">;
   correctAnsewer: boolean;
 }
 
+export interface SpecializedQuestion extends QuestionBase {
+  type: Extract<QuestionType, "specialized">;
+  ansewers: ABCansewers;
+  correctAnsewer: keyof ABCansewers;
+}
+
+export type Question = BasicQuestion | SpecializedQuestion;
+
 export type BasicAnsewer = BasicQuestion["correctAnsewer"] | null;
+
+export type SpecializedAnsewer = SpecializedQuestion["correctAnsewer"] | null;
 
 export interface AnseweredBasicQuestion extends BasicQuestion {
   chosenAnsewer: BasicAnsewer;
 }
 
-export interface SpecializedQuestion extends QuestionBase {
-  type: "specialized";
-  ansewers: ABCansewers;
-  correctAnsewer: keyof ABCansewers;
-}
-
-export type SpecializedAnsewer = SpecializedQuestion["correctAnsewer"] | null;
-
 export interface AnseweredSpecializedQuestion extends SpecializedQuestion {
   chosenAnsewer: SpecializedAnsewer;
 }
-
-export type Question = BasicQuestion | SpecializedQuestion;
 
 export type AnseweredQuestion =
   | AnseweredBasicQuestion
@@ -43,7 +45,3 @@ export type ABCansewers = {
 export type Ansewer = BasicAnsewer | SpecializedAnsewer;
 
 export type TimerState = "prepare" | "wait" | "ansewer";
-
-export interface anyObject {
-  [key: string]: unknown;
-}
