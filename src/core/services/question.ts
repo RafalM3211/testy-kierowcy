@@ -3,8 +3,6 @@ import { isQuestion } from "../../types/typeGuards";
 const apiUrl = process.env.REACT_APP_SERVER_URL;
 
 export async function getQuestion() {
-  console.log("query");
-
   const res = await fetch(apiUrl + "question", {
     credentials: "include",
   });
@@ -18,7 +16,6 @@ export async function getQuestion() {
 }
 
 export async function resetSession() {
-  console.log("reset");
   await fetch(apiUrl + "resetEgzamSession", {
     credentials: "include",
   });

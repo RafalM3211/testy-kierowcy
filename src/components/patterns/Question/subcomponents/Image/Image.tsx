@@ -16,7 +16,7 @@ export default function Image(props: Props) {
   const [isQuestionStarted, setQuestionStarted] = useState(false);
   const [isError, setError] = useState(false);
 
-  const { setTimerState } = useEgzamControlContext();
+  const { setTimerState, timerState } = useEgzamControlContext();
 
   function handleError() {
     setError(true);
@@ -33,10 +33,10 @@ export default function Image(props: Props) {
   }, [setQuestionStarted, setTimerState]);
 
   useEffect(() => {
-    if (props.type === "specialized") {
+    if (props.type === "specialized" || timerState === "wait") {
       handleStart();
     }
-  }, [props.type, handleStart]);
+  }, [props.type, handleStart, timerState]);
 
   return (
     <MediaCover
