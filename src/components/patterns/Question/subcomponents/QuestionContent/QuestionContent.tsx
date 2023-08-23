@@ -18,10 +18,12 @@ interface PropsBase {
 
 interface BasicQuesitonProps extends PropsBase {
   type: BasicQuestion["type"];
+  correctAnsewer?: boolean;
 }
 
 interface SpecializedQuestionProps extends PropsBase {
   type: SpecializedQuestion["type"];
+  correctAnsewer?: keyof ABCansewers;
   ansewers: ABCansewers;
 }
 
@@ -48,6 +50,7 @@ export default function QuestionContent(props: Props) {
           <YesNoAnseswer
             setChosenAnsewer={setSelectedAnsewer}
             chosenAnsewer={chosenAnsewer as BasicAnsewer}
+            correctAnsewer={props.correctAnsewer}
             size={5}
             sx={{ mt: "35px" }}
           />
@@ -55,6 +58,7 @@ export default function QuestionContent(props: Props) {
           <ABCAnsewer
             ansewers={props.ansewers as ABCansewers}
             chosenAnsewer={chosenAnsewer as SpecializedAnsewer}
+            correctAnsewer={props.correctAnsewer}
             setChosenAnsewer={setSelectedAnsewer}
             sx={{ mt: "35px" }}
           />

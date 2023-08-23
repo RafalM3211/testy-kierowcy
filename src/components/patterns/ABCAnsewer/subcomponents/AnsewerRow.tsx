@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import AnsewerButton from "../../../atoms/AnsewerButton/AnsewerButton";
-import type { BoxProps } from "@mui/material";
+import type { ButtonProps } from "@mui/material";
 
-interface Props extends BoxProps {
+interface Props extends ButtonProps {
   checked?: boolean;
   label: "A" | "B" | "C";
   children: string;
@@ -23,14 +23,12 @@ export default function AnsewerRow(props: Props) {
         width: "fit-content",
         bgcolor: checked ? "grey.50" : "unset",
         transition: "background-color 0.25s ",
+        ...sx,
 
         "&:hover": {
           bgcolor: "grey.100",
         },
-
-        ...sx,
       }}
-      {...other}
     >
       <Typography
         sx={{
@@ -50,6 +48,7 @@ export default function AnsewerRow(props: Props) {
             height: "40px",
             display: "block",
           }}
+          {...other}
         >
           {label}
         </AnsewerButton>

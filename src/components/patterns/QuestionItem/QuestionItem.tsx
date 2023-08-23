@@ -117,16 +117,7 @@ export default function QuestionItem(props: Props) {
             justifyContent: "space-between",
 
             "& *:hover": {
-              backgroundColor: "inherit",
-              borderColor: "initial",
-            },
-
-            "& .MuiButton-contained:hover": {
-              backgroundColor: "primary.main",
-            },
-
-            "& .MuiButton-root:hover": {
-              borderColor: "primary.light",
+              transition: "all 10s ease 2s", //almost disable hover animation
             },
           }}
         >
@@ -140,6 +131,7 @@ export default function QuestionItem(props: Props) {
                   ? (question.chosenAnsewer as boolean)
                   : null
               }
+              correctAnsewer={question.correctAnsewer}
               size={3.4}
             />
           ) : (
@@ -150,6 +142,7 @@ export default function QuestionItem(props: Props) {
                   ? (question.chosenAnsewer as keyof ABCansewers)
                   : null
               }
+              correctAnsewer={question.correctAnsewer}
               sx={{ fontSize: "0.9em" }}
             />
           )}

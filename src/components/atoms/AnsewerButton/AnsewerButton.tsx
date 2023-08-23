@@ -10,7 +10,12 @@ export default function AnsewerButton(props: Props) {
   return (
     <Button
       variant={checked ? "contained" : "outlined"}
-      sx={{ textTransform: "capitalize", mx: "10px", fontSize: "1em", ...sx }}
+      sx={{
+        textTransform: "capitalize",
+        mx: "10px",
+        fontSize: "1em",
+        ...sx,
+      }}
       {...other}
     >
       {children}

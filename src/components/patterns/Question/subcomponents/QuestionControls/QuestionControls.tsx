@@ -21,6 +21,8 @@ function drawSpecializedQuestionCount(count: number) {
   else return "0/12";
 }
 
+//nastepne poprzednie pytanie i powrot do podsumowania tutaj w preview
+
 export default function QuestionControls(props: Props) {
   const controls = useEgzamControlContext();
 
