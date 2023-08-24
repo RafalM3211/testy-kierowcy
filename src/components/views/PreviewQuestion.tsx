@@ -7,7 +7,6 @@ import { useAnsewersContext } from "../../context/Ansewers/Ansewers";
 export default function PreviewQuestion() {
   const id = useParams().id as string;
   const { anseweredQuestions } = useAnsewersContext();
-  console.log(anseweredQuestions, id);
   const question = anseweredQuestions.find(
     (quesiton) => quesiton.id === parseInt(id)
   );

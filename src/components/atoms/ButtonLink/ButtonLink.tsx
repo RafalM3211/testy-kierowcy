@@ -7,9 +7,9 @@ interface Props extends ButtonProps {
 }
 
 export default function ButtonLink(props: Props) {
-  const { sx, children, to, ...buttonProps } = props;
+  const { sx, children, to, disabled, ...buttonProps } = props;
   return (
-    <Link to={to}>
+    <Link to={disabled ? "#" : to}>
       <Button
         size="large"
         sx={{
@@ -18,6 +18,7 @@ export default function ButtonLink(props: Props) {
           mx: "5px",
           ...sx,
         }}
+        disabled={disabled}
         {...buttonProps}
       >
         {props.children}
