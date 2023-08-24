@@ -4,6 +4,9 @@ import Question from "../patterns/Question/Question";
 import ErrorBlock from "../patterns/ErrorBlock/ErrorBlock";
 import { useAnsewersContext } from "../../context/Ansewers/Ansewers";
 
+import bgImage from "../../images/backgrounds/wave.svg";
+import { backgroundImg } from "../../utility/styling";
+
 export default function PreviewQuestion() {
   const id = useParams().id as string;
   const { anseweredQuestions } = useAnsewersContext();
@@ -14,7 +17,7 @@ export default function PreviewQuestion() {
   //todo: kiedy pytanie nie bedzie w kontekscie to rob requesta po te pyanie
 
   return (
-    <Box sx={{ minHeight: "100vh" }}>
+    <Box sx={{ minHeight: "100vh", ...backgroundImg(bgImage) }}>
       {!question ? (
         <ErrorBlock
           sx={{

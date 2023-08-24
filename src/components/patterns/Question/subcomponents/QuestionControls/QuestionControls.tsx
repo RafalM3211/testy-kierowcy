@@ -1,9 +1,6 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { flexCenter } from "../../../../../utility/styling";
-import QuestionCount from "../../subcomponents/QuestionCount/QuestionCount";
-import TimeCount from "../../subcomponents/TimeCount/TimeCount";
-import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
-import type { QuestionMode, ExcludeUndefined } from "../../types";
+import type { QuestionMode } from "../../types";
 import type { QuestionType } from "../../../../../types/globalTypes";
 import ExamMode from "./subcomponents/ExamMode";
 import PreviewMode from "./subcomponents/PreviewMode";

@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import QuestionCount from "../../../subcomponents/QuestionCount/QuestionCount";
 import { useAnsewersContext } from "../../../../../../context/Ansewers/Ansewers";
 import ButtonLink from "../../../../../atoms/ButtonLink/ButtonLink";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { AnseweredQuestion } from "../../../../../../types/globalTypes";
+import { useEffect } from "react";
 
 function drawBasicQuestionCount(count: number) {
   if (count > 20) return "20/20";
@@ -24,11 +24,14 @@ export default function PreviewMode() {
     (quesiton) => quesiton.id === parseInt(questionId)
   );
   const questionCount = questionIndex + 1;
+  const questionsAmount = anseweredQuestions.length;
 
   const previousQuestionId =
     questionCount === 1 ? null : anseweredQuestions[questionIndex - 1].id;
   const nextQuestionId =
-    questionCount === 32 ? null : anseweredQuestions[questionIndex + 1].id;
+    questionCount === questionsAmount
+      ? null
+      : anseweredQuestions[questionIndex + 1].id;
 
   return (
     <>
@@ -47,7 +50,7 @@ export default function PreviewMode() {
 
       <ButtonLink
         to="/summary"
-        onClick={() => {}}
+        size="small"
         variant="outlined"
         sx={{
           mt: "50px",
