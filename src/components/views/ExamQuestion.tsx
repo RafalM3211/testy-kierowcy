@@ -1,11 +1,10 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useLayoutEffect, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { getQuestion, resetSession } from "../../core/services/question";
 import Loader from "../patterns/Loader/Loader";
 import Question from "../patterns/Question/Question";
-import ErrorBlock from "../patterns/ErrorBlock/ErrorBlock";
 import EgzamControlProvider from "../../context/egzamControls/egzamControls";
 import { useOnMount } from "../../utility/hooks";
+import ErrorScreen from "../patterns/ErrorScreen/ErrorScreen";
 
 export default function ExamQuestion() {
   const { data, isLoading, isError, refetch } = useQuery({
@@ -30,9 +29,7 @@ export default function ExamQuestion() {
       {isLoading ? (
         <Loader />
       ) : isError ? (
-        <ErrorBlock
-          sx={{ height: "100vh", pb: "50px", boxSizing: "border-box" }}
-        />
+        <ErrorScreen />
       ) : (
         <EgzamControlProvider dataControls={dataControls} questionData={data}>
           <Question question={{ ...data }} mode="exam" />

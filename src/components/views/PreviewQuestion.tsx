@@ -1,11 +1,10 @@
 import { useParams } from "react-router-dom";
 import { Box } from "@mui/material";
 import Question from "../patterns/Question/Question";
-import ErrorBlock from "../patterns/ErrorBlock/ErrorBlock";
 import { useAnsewersContext } from "../../context/Ansewers/Ansewers";
-
 import bgImage from "../../images/backgrounds/wave.svg";
 import { backgroundImg } from "../../utility/styling";
+import ErrorScreen from "../patterns/ErrorScreen/ErrorScreen";
 
 export default function PreviewQuestion() {
   const id = useParams().id as string;
@@ -19,11 +18,7 @@ export default function PreviewQuestion() {
   return (
     <Box sx={{ minHeight: "100vh", ...backgroundImg(bgImage) }}>
       {!question ? (
-        <ErrorBlock
-          sx={{
-            height: "100vh",
-          }}
-        />
+        <ErrorScreen />
       ) : (
         <Question
           question={question}
