@@ -6,6 +6,8 @@ import QuestionControls from "./subcomponents/QuestionControls/QuestionControls"
 import { Ansewer, Question as QuestionType } from "../../../types/globalTypes";
 import { SxProps } from "@mui/material";
 import { QuestionMode } from "./types";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorScreen from "../ErrorScreen/ErrorScreen";
 
 interface Props {
   question: QuestionType;
@@ -18,34 +20,36 @@ export default function Question(props: Props) {
   const { question, chosenAnsewer, mode } = props;
 
   return (
-    <QuestionContainer sx={props.sx}>
-      <QuestionDetails id={question.id} value={question.value} />
-      <QuestionMedia
-        type={question.type}
-        mode={mode}
-        mediaFileName={question.media}
-      />
-      {question.type === "basic" ? (
-        <QuestionContent
-          chosenAnsewer={chosenAnsewer}
-          correctAnsewer={
-            mode === "preview" ? question.correctAnsewer : undefined
-          }
-          content={question.content}
-          type={"basic"}
+    <ErrorBoundary fallback={<ErrorScreen />}>
+      <QuestionContainer sx={props.sx}>
+        <QuestionDetails id={question.id} value={question.value} />
+        <QuestionMedia
+          type={question.type}
+          mode={mode}
+          mediaFileName={question.media}
         />
-      ) : (
-        <QuestionContent
-          chosenAnsewer={chosenAnsewer}
-          correctAnsewer={
-            mode === "preview" ? question.correctAnsewer : undefined
-          }
-          content={question.content}
-          type="specialized"
-          ansewers={question.ansewers}
-        />
-      )}
-      <QuestionControls type={question.type} mode={mode} />
-    </QuestionContainer>
+        {question.type === "basic" ? (
+          <QuestionContent
+            chosenAnsewer={chosenAnsewer}
+            correctAnsewer={
+              mode === "preview" ? question.correctAnsewer : undefined
+            }
+            content={question.content}
+            type={"basic"}
+          />
+        ) : (
+          <QuestionContent
+            chosenAnsewer={chosenAnsewer}
+            correctAnsewer={
+              mode === "preview" ? question.correctAnsewer : undefined
+            }
+            content={question.content}
+            type="specialized"
+            ansewers={question.ansewers}
+          />
+        )}
+        <QuestionControls type={question.type} mode={mode} />
+      </QuestionContainer>
+    </ErrorBoundary>
   );
 }
