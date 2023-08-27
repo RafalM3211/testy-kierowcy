@@ -1,4 +1,4 @@
-import { isQuestion } from "../../types/typeGuards";
+import { isQuestion } from "../../types/typeGuards/typeGuards";
 
 const apiUrl = process.env.REACT_APP_SERVER_URL;
 

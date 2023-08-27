@@ -1,4 +1,5 @@
 import type { Ansewer } from "../types/globalTypes";
+import type { GenericObject } from "../types/utilityTypes";
 
 export function trimText(text: string, limit: number) {
   let returnedText = text;
@@ -25,4 +26,13 @@ export function getColorForAnsewerButton(
     if (!isButtonCorrectAnsewer && isButtonCkecked) return "error";
   }
   return "primary";
+}
+
+export function withoutProperty<O extends GenericObject, S extends string>(
+  obj: O,
+  property: Extract<keyof O, S>
+): Omit<O, S> {
+  const objCopy = { ...obj };
+  delete objCopy[property];
+  return objCopy;
 }

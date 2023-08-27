@@ -36,7 +36,14 @@ export default function Summary() {
   const wrongPercent = Math.round((wrong / questionsNumber) * 100);
 
   return (
-    <Box sx={{ ...backgroundImg(bgImage), minHeight: "100vh", pt: "130px" }}>
+    <Box
+      sx={{
+        ...backgroundImg(bgImage),
+        minHeight: "100vh",
+        pt: "130px",
+        pb: "50px",
+      }}
+    >
       <Container
         sx={{
           ...flexCenter,
