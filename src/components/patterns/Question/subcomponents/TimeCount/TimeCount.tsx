@@ -74,6 +74,12 @@ export default function TimeCount(props: Props) {
     }
   }, [questionCount, props.type, timerState, restart, pause]);
 
+  useEffect(() => {
+    if (props.type === "specialized") {
+      setTimerState("ansewer");
+    }
+  }, [questionCount, props.type, setTimerState]);
+
   return (
     <>
       <Typography variant="subtitle2" sx={{ color: "grey.800" }}>
