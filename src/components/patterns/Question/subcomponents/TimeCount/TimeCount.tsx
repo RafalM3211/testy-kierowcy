@@ -95,7 +95,11 @@ export default function TimeCount(props: Props) {
           position: "relative",
         }}
       >
-        <Typography sx={{ position: "relative", zIndex: 5 }} variant="h6">
+        <Typography
+          sx={{ position: "relative", zIndex: 5 }}
+          variant="h6"
+          component="p"
+        >
           {timerState === "wait" ? "- " : seconds}s
         </Typography>
         <Box
