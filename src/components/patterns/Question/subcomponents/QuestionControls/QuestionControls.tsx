@@ -10,8 +10,6 @@ interface Props {
   mode: QuestionMode;
 }
 
-//nastepne poprzednie pytanie i powrot do podsumowania tutaj w preview
-
 export default function QuestionControls(props: Props) {
   return (
     <Box
