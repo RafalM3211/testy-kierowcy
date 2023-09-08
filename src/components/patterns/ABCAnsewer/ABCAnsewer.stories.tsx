@@ -1,5 +1,5 @@
 import ABCAnsewer from "./ABCAnsewer";
-import { specialized } from "../../../utility/dummyQuestion/dummyQuestions";
+import { specialized } from "../../../tests/dummyQuestion/dummyQuestions";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const metaData = {

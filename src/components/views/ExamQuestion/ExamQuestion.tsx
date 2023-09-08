@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { getQuestion, resetSession } from "../../core/services/question";
-import Loader from "../patterns/Loader/Loader";
-import Question from "../patterns/Question/Question";
-import EgzamControlProvider from "../../context/egzamControls/egzamControls";
-import { useOnMount } from "../../utility/hooks";
-import ErrorScreen from "../patterns/ErrorScreen/ErrorScreen";
+import { getQuestion, resetSession } from "../../../core/services/question";
+import Loader from "../../patterns/Loader/Loader";
+import Question from "../../patterns/Question/Question";
+import EgzamControlProvider from "../../../context/egzamControls/egzamControls";
+import { useOnMount } from "../../../utility/hooks";
+import ErrorScreen from "../../patterns/ErrorScreen/ErrorScreen";
 
 export default function ExamQuestion() {
   const { data, isLoading, isError, refetch } = useQuery({

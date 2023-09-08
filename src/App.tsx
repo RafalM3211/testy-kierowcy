@@ -8,8 +8,8 @@ import {
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { CssBaseline } from "@mui/material";
 import Home from "./components/views/Home";
-import ExamQuestion from "./components/views/ExamQuestion";
-import PreviewQuestion from "./components/views/PreviewQuestion";
+import ExamQuestion from "./components/views/ExamQuestion/ExamQuestion";
+import PreviewQuestion from "./components/views/PreviewQuestion/PreviewQuestion";
 import Summary from "./components/views/Summary";
 import Error404 from "./components/views/errors/Error404";
 import Error500 from "./components/views/errors/Error500";

@@ -1,5 +1,5 @@
 import ButtonLink from "./ButtonLink";
-import { wrapInDummyProviders } from "../../../utility/dummyProviders/DummyProviders";
+import { wrapInDummyProviders } from "../../../tests/dummyProviders/DummyProviders";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const ButtonLinkWrapped = wrapInDummyProviders(ButtonLink);

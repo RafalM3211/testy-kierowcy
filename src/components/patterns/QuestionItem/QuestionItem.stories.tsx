@@ -2,8 +2,8 @@ import QuestionItem from "./QuestionItem";
 import {
   basic,
   specialized,
-} from "../../../utility/dummyQuestion/dummyQuestions";
-import { wrapInDummyProviders } from "../../../utility/dummyProviders/DummyProviders";
+} from "../../../tests/dummyQuestion/dummyQuestions";
+import { wrapInDummyProviders } from "../../../tests/dummyProviders/DummyProviders";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const QuestionItemWrapped = wrapInDummyProviders(QuestionItem);

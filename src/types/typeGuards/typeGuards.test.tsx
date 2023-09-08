@@ -1,5 +1,5 @@
 import { isQuestion } from "./typeGuards";
-import { basic, specialized } from "../../utility/dummyQuestion/dummyQuestions";
+import { basic, specialized } from "../../tests/dummyQuestion/dummyQuestions";
 import { withoutProperty } from "../../utility/utils";
 import { useProvider } from "test-data-provider";
 

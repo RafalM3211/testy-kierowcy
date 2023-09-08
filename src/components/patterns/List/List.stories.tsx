@@ -2,9 +2,9 @@ import List from "./List";
 import {
   basic,
   specialized,
-} from "../../../utility/dummyQuestion/dummyQuestions";
+} from "../../../tests/dummyQuestion/dummyQuestions";
 import type { Meta, StoryObj } from "@storybook/react";
-import { wrapInDummyProviders } from "../../../utility/dummyProviders/DummyProviders";
+import { wrapInDummyProviders } from "../../../tests/dummyProviders/DummyProviders";
 import { Question } from "../../../types/globalTypes";
 
 const ListWrapped = wrapInDummyProviders((props: { questions: Question[] }) => (

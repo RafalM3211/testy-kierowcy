@@ -1,4 +1,4 @@
-import { wrapInDummyProviders } from "../../../utility/dummyProviders/DummyProviders";
+import { wrapInDummyProviders } from "../../../tests/dummyProviders/DummyProviders";
 import SmallHeader from "./SmallHeader";
 import type { Meta, StoryObj } from "@storybook/react";
 
