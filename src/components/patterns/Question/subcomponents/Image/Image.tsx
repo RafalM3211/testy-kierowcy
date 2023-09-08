@@ -13,10 +13,10 @@ interface Props {
 }
 
 export default function Image(props: Props) {
-  const [isQuestionStarted, setQuestionStarted] = useState(false);
   const [isError, setError] = useState(false);
 
   const { setTimerState, timerState } = useEgzamControlContext();
+  const isQuestionStarted = timerState === "ansewer";
 
   function handleError() {
     setError(true);
@@ -26,11 +26,10 @@ export default function Image(props: Props) {
   }
 
   const handleStart = useCallback(() => {
-    setQuestionStarted(true);
     if (setTimerState) {
       setTimerState("ansewer");
     }
-  }, [setQuestionStarted, setTimerState]);
+  }, [setTimerState]);
 
   useEffect(() => {
     if (props.type === "specialized" || timerState === "wait") {
