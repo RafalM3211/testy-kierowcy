@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useAnsewersContext } from "../Ansewers/Ansewers";
 import type { Ansewer, Question, TimerState } from "../../types/globalTypes";
 import type { SetAnsewerFunction } from "./types";
+import { useOnMount } from "../../utility/hooks";
 
 interface Controls {
   nextQuestion: () => void;
@@ -54,10 +55,11 @@ export function useEgzamControlContext() {
 }
 
 export default function EgzamControlProvider(props: Props) {
-  const { addAnsewer, clearAnsewers } = useAnsewersContext();
+  const { addAnsewer, clearAnsewers, anseweredQuestions } =
+    useAnsewersContext();
   const navigate = useNavigate();
+  const questionCount = anseweredQuestions.length + 1;
 
-  const [questionCount, setQuestionCount] = useState(1);
   const [selectedAnsewer, setSelectedAnsewer] = useState<Ansewer>(null);
   const [isStarted, setStarted] = useState(false);
   const [timerState, setTimerState] = useState<TimerState>("prepare");
@@ -74,7 +76,6 @@ export default function EgzamControlProvider(props: Props) {
     }
 
     setStarted(false);
-    setQuestionCount(questionCount + 1);
     setSelectedAnsewer(null);
     setTimerState("prepare");
   }
@@ -83,11 +84,9 @@ export default function EgzamControlProvider(props: Props) {
     navigate("/summary");
   }
 
-  useEffect(() => {
-    if (questionCount === 1) {
-      clearAnsewers();
-    }
-  }, [questionCount, clearAnsewers]);
+  useOnMount(() => {
+    clearAnsewers();
+  });
 
   const controls = {
     nextQuestion,

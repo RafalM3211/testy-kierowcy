@@ -56,28 +56,30 @@ export default function Video(props: Props) {
   }, [timerState, handleVideoStart]);
 
   return (
-    <MediaCover
-      isError={isError}
-      handleStart={handleVideoStart}
-      isStarted={isVideoStarted}
-      mode={props.mode}
-      mediaType="video"
-      mediaElement={
-        <ReactPlayer
-          url={props.src}
-          width="100%"
-          height="100%"
-          muted
-          controls={props.mode === "preview"}
-          {...(props.mode === "exam" && {
-            onError: handleError,
-            onEnded: handleVideoEnd,
-            ref: videoRef,
-            playing: !!isVideoStarted,
-            style: { display: !!isVideoStarted ? "block" : "none" },
-          })}
-        />
-      }
-    />
+    <>
+      <MediaCover
+        isError={isError}
+        handleStart={handleVideoStart}
+        isStarted={isVideoStarted}
+        mode={props.mode}
+        mediaType="video"
+        mediaElement={
+          <ReactPlayer
+            url={props.src}
+            width="100%"
+            height="100%"
+            muted
+            controls={props.mode === "preview"}
+            {...(props.mode === "exam" && {
+              onError: handleError,
+              onEnded: handleVideoEnd,
+              ref: videoRef,
+              playing: !!isVideoStarted,
+              style: { display: !!isVideoStarted ? "block" : "none" },
+            })}
+          />
+        }
+      />
+    </>
   );
 }
