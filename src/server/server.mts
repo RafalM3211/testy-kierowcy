@@ -40,6 +40,10 @@ server.get("/question", (req, res) => {
   if (!session.questions) {
     session.questions = [];
   }
+  const enviroment = process.env.NODE_ENV;
+  if (enviroment === "development" && session.questions.length === 1) {
+    session.questions.pop();
+  }
 
   const question = getNextQuestion(session.questions);
   session.questions.push(question);

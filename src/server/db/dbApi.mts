@@ -88,14 +88,11 @@ function calcNextQuestionValue(currentQuestions: Question[]) {
   const threePointMaxCount = 16;
 
   if (currentQuestions.length < twoPointMaxCount) {
-    console.log(2, currentQuestions.length);
     return 2;
   }
   if (currentQuestions.length < threePointMaxCount + twoPointMaxCount) {
-    console.log(3, currentQuestions.length);
     return 3;
   } else {
-    console.log(1, currentQuestions.length);
     return 1;
   }
 }
