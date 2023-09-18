@@ -27,6 +27,7 @@ export default function ABCAnsewer(props: Props) {
             chosenAnsewer
           )}
           label={letter}
+          disableRipple={!props.setChosenAnsewer}
           onClick={() => {
             if (props.setChosenAnsewer) props.setChosenAnsewer(letter);
           }}

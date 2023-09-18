@@ -16,6 +16,7 @@ export default function AnsewerButton(props: Props) {
         fontSize: "1em",
         ...sx,
       }}
+      aria-pressed={checked}
       {...other}
     >
       {children}

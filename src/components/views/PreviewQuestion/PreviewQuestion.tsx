@@ -7,7 +7,7 @@ import { backgroundImg } from "../../../utility/styling";
 import ErrorScreen from "../../patterns/ErrorScreen/ErrorScreen";
 
 export default function PreviewQuestion() {
-  const id = "2"; //useParams().id as string;
+  const id = useParams().id as string;
   const { anseweredQuestions } = useAnsewersContext();
   const question = anseweredQuestions.find(
     (quesiton) => quesiton.id === parseInt(id)

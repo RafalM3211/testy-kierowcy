@@ -1,4 +1,5 @@
 import type {
+  ABCansewers,
   BasicQuestion,
   SpecializedQuestion,
 } from "../../types/globalTypes";
@@ -12,6 +13,8 @@ export const basic = {
   type: "basic",
   value: 1,
 } satisfies BasicQuestion;
+
+export const anseweredBasic = { ...basic, chosenAnsewer: true };
 
 export const specialized = {
   id: 10060,
@@ -27,3 +30,8 @@ export const specialized = {
     C: "W dowolnym miejscu na autostradzie.",
   },
 } satisfies SpecializedQuestion;
+
+export const anseweredSpecialized = {
+  ...specialized,
+  chosenAnsewer: "A" as const,
+};
