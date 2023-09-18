@@ -1,5 +1,5 @@
 import {
-  createBrowserRouter,
+  createMemoryRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
@@ -14,6 +14,7 @@ const queryClient = new QueryClient();
 interface Props {
   children: ReactNode;
   routes?: ReactNode;
+  initialEntries?: string[];
 }
 
 export function wrapInDummyProviders<P extends {}>(
@@ -36,7 +37,9 @@ export default function DummyProviders(props: Props) {
   const routeElements = props.routes || (
     <Route path="*" element={props.children} />
   );
-  const router = createBrowserRouter(createRoutesFromElements(routeElements));
+  const router = createMemoryRouter(createRoutesFromElements(routeElements), {
+    initialEntries: props.initialEntries,
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
