@@ -1,17 +1,23 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Route } from "react-router-dom";
 import * as ansewersContext from "../../../context/Ansewers/Ansewers";
 import PreviewQuestion from "./PreviewQuestion";
 import {
   anseweredBasic,
+  basicWithVideo,
   anseweredSpecialized,
 } from "../../../tests/dummyQuestion/dummyQuestions";
 import DummyProviders from "../../../tests/dummyProviders/DummyProviders";
 
 const dummyId = anseweredBasic.id + 342;
 const anotherBasic = { ...anseweredBasic, id: dummyId };
-const dummyAnsewers = [anseweredSpecialized, anseweredBasic, anotherBasic];
+const dummyAnsewers = [
+  anseweredSpecialized,
+  anseweredBasic,
+  basicWithVideo,
+  anotherBasic,
+];
 const ansewersSpyBase = {
   anseweredQuestions: dummyAnsewers,
   addAnsewer: jest.fn(),
@@ -35,7 +41,7 @@ function renderQuestionWithId(id: number = anseweredBasic.id) {
 }
 
 describe("ansewer button click", () => {
-  test("ansewer button does not click on basic question", async () => {
+  it("ansewer button does not click on basic question", async () => {
     //arrange
     renderQuestionWithId();
     const yesAnsewerButton = screen.getByRole("button", { name: "tak" });
@@ -48,7 +54,7 @@ describe("ansewer button click", () => {
     expect(yesAnsewerButton).not.toHaveAttribute("aria-pressed", true);
   });
 
-  test("ansewer button does not click on specialized question", async () => {
+  it("ansewer button does not click on specialized question", async () => {
     //arrange
     renderQuestionWithId(anseweredSpecialized.id);
     const ansewerButton = screen.getByText("A", { exact: true });
@@ -63,7 +69,7 @@ describe("ansewer button click", () => {
 });
 
 describe("next and previous quesiton buttons", () => {
-  test("Next question button is disabled on last question", () => {
+  it("Next question button is disabled on last question", () => {
     //arrange
     const lastAnsewer = dummyAnsewers[dummyAnsewers.length - 1];
     renderQuestionWithId(lastAnsewer.id);
@@ -77,7 +83,7 @@ describe("next and previous quesiton buttons", () => {
     expect(previousButton).not.toBeDisabled();
   });
 
-  test("Previous button is disabled on last question", async () => {
+  it("Previous button is disabled on last question", async () => {
     //arrange
     const firstAnsewer = dummyAnsewers[0];
     renderQuestionWithId(firstAnsewer.id);
@@ -90,5 +96,18 @@ describe("next and previous quesiton buttons", () => {
     //assert
     expect(previousButton).toBeDisabled();
     expect(nextButton).not.toBeDisabled();
+  });
+});
+
+describe("question media", () => {
+  it("doesn't show media cover", () => {
+    //arrange
+    renderQuestionWithId();
+
+    //act
+    const mediaCover = screen.queryByText(/Kliknij aby wyświetlić/i);
+
+    //assert
+    expect(mediaCover).not.toBeInTheDocument();
   });
 });
