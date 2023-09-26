@@ -2,8 +2,10 @@ import express from "express";
 import cors from "cors";
 import session from "express-session";
 import cookieParser from "cookie-parser";
-import { getNextQuestion, getQuestionById } from "./db/dbApi.mjs";
+import dotEnv from "dotenv";
+import { getNextQuestion } from "./db/dbApi.mjs";
 import { sendImage, streamVideo, allowedMediaExtensions } from "./media.mjs";
+import { isDev } from "./helpers.mjs";
 import type { Question } from "../types/globalTypes";
 
 declare module "express-session" {
@@ -13,6 +15,8 @@ declare module "express-session" {
 }
 
 console.log("START");
+
+dotEnv.config();
 
 const server = express();
 const memoryStore = new session.MemoryStore();
@@ -40,13 +44,14 @@ server.get("/question", (req, res) => {
   if (!session.questions) {
     session.questions = [];
   }
-  const enviroment = process.env.NODE_ENV;
-  if (enviroment === "development" && session.questions.length === 1) {
-    session.questions.pop();
-  }
 
-  const question = getNextQuestion(session.questions);
+  const wihoutFirst = [...session.questions].splice(1);
+
+  const question = getNextQuestion(isDev() ? wihoutFirst : session.questions);
   session.questions.push(question);
+
+  console.log(session.questions.length, wihoutFirst.length);
+
   session.save();
   res.status(200).jsonp(question);
 });

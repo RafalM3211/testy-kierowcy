@@ -21,3 +21,7 @@ export function getDirname(importMetaUrl: string) {
   const dirname = path.dirname(filename);
   return dirname;
 }
+
+export function isDev() {
+  return process.env.REACT_APP_NODE_ENV === "development";
+}
