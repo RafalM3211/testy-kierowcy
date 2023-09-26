@@ -25,7 +25,9 @@ export default function ProgressLabel(props: Props) {
         }),
       }}
     >
-      {props.above || (
+      {props.above ? (
+        <></>
+      ) : (
         <Typography
           sx={{ lineHeight: "1.1em" }}
         >{`${props.value}%`}</Typography>
@@ -33,10 +35,12 @@ export default function ProgressLabel(props: Props) {
       <Typography sx={{ lineHeight: "1em" }} variant="body2">
         {props.label}
       </Typography>
-      {props.above && (
+      {props.above ? (
         <Typography
           sx={{ lineHeight: "1.1em" }}
         >{`${props.value}%`}</Typography>
+      ) : (
+        <></>
       )}
     </Box>
   );
