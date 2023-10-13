@@ -1,4 +1,5 @@
 import ReactPlayer from "react-player";
+import Player, { canPlay } from "../../../Player/Player";
 import { useCallback, useEffect, useRef, useState } from "react";
 import MediaCover from "../MediaCover/MediaCover";
 import { QuestionMode } from "../../types";
@@ -39,13 +40,14 @@ export default function Video(props: Props) {
   }, [setError, setTimerState]);
 
   useEffect(() => {
-    if (!ReactPlayer.canPlay(props.src)) {
+    if (!canPlay(props.src)) {
       handleError();
     }
   }, [props.src, handleError]);
 
   useEffect(() => {
     setVideoStarted(false);
+    console.log(videoRef.current?.seekTo);
     videoRef.current?.seekTo(0);
   }, [questionCount]);
 
@@ -64,7 +66,7 @@ export default function Video(props: Props) {
         mode={props.mode}
         mediaType="video"
         mediaElement={
-          <ReactPlayer
+          <Player
             url={props.src}
             width="100%"
             height="100%"
