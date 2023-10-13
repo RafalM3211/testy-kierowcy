@@ -1,5 +1,4 @@
 import TimeCount from "./TimeCount";
-import * as timerHook from "react-timer-hook";
 import { useProvider } from "test-data-provider";
 import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
 import type {

@@ -1,3 +1,5 @@
+import * as path from "path";
+import * as fs from "fs";
 import { rest } from "msw";
 import { basic } from "./dummyQuestion/dummyQuestions";
 
@@ -27,7 +29,24 @@ export const handlers = [
     return res(ctx.json(basic), ctx.delay(0), ctx.status(200));
   }),
   rest.get(apiUrl + "resetEgzamSession", (req, res, ctx) => {
-    console.log("mocked!");
+    console.log("mocked session reset!");
     return res(ctx.delay(0), ctx.status(200));
+  }),
+  rest.get(apiUrl + "media/:fileName", (req, res, ctx) => {
+    console.log("mock media");
+    const { fileName } = req.params;
+    const fileExtension = fileName.slice(fileName.lastIndexOf(".") + 1);
+    if (fileExtension === "mp4") {
+      const imageBuffer = fs.readFileSync(
+        path.resolve(__dirname, "../fixtures/image.jpg")
+      );
+
+      return res(
+        ctx.set("Content-Length", imageBuffer.byteLength.toString()),
+        ctx.set("Content-Type", "image/jpeg"),
+        ctx.body(imageBuffer)
+      );
+    } else {
+    }
   }),
 ];

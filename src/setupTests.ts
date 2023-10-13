@@ -7,7 +7,7 @@ import { setupServer } from "msw/node";
 import { handlers } from "./tests/mocks";
 import { mockWindowLocation, restoreWindowLocation } from "./tests/mocks";
 
-const server = setupServer(...handlers);
+export const server = setupServer(...handlers);
 
 beforeAll(() => {
   mockWindowLocation();
