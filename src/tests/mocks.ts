@@ -23,6 +23,8 @@ export const restoreWindowLocation = () => {
 
 const apiUrl = process.env.REACT_APP_SERVER_URL;
 
+//todo: wywal wideo z media endpointu bo i tak trzeba mockowac video.
+
 export const handlers = [
   rest.get(apiUrl + "question", (req, res, ctx) => {
     console.log("mocked!");
@@ -35,18 +37,15 @@ export const handlers = [
   rest.get(apiUrl + "media/:fileName", (req, res, ctx) => {
     console.log("mock media");
     const { fileName } = req.params;
-    const fileExtension = fileName.slice(fileName.lastIndexOf(".") + 1);
-    if (fileExtension === "mp4") {
-      const imageBuffer = fs.readFileSync(
-        path.resolve(__dirname, "../fixtures/image.jpg")
-      );
 
-      return res(
-        ctx.set("Content-Length", imageBuffer.byteLength.toString()),
-        ctx.set("Content-Type", "image/jpeg"),
-        ctx.body(imageBuffer)
-      );
-    } else {
-    }
+    const imageBuffer = fs.readFileSync(
+      path.resolve(__dirname, "../fixtures/image.jpg")
+    );
+
+    return res(
+      ctx.set("Content-Length", imageBuffer.byteLength.toString()),
+      ctx.set("Content-Type", "image/jpeg"),
+      ctx.body(imageBuffer)
+    );
   }),
 ];
