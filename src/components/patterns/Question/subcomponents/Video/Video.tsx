@@ -47,7 +47,6 @@ export default function Video(props: Props) {
 
   useEffect(() => {
     setVideoStarted(false);
-    console.log(videoRef.current?.seekTo);
     videoRef.current?.seekTo(0);
   }, [questionCount]);
 

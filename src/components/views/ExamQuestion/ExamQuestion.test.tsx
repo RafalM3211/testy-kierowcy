@@ -2,8 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { rest } from "msw";
 import ExamQuestion from "./ExamQuestion";
 import DummyProviders from "../../../tests/dummyProviders/DummyProviders";
-import { server } from "../../../setupTests";
-import { basicWithVideo } from "../../../tests/dummyQuestion/dummyQuestions";
+import { mockVideoQuestionOnce } from "../../../tests/mocks";
 
 jest.mock("react", () => {
   const original = jest.requireActual("react");
@@ -35,7 +34,6 @@ jest.mock("../../patterns/Player/Player", () => {
 });
 
 async function assertPrepareState() {
-  screen.debug();
   const mediaCover = await screen.findByText(/Kliknij aby wyświetlić/i);
   const prepareStateLabel = await screen.findByText(
     /Czas na zapoznanie się z pytaniem/i
@@ -43,16 +41,6 @@ async function assertPrepareState() {
 
   expect(mediaCover).toBeInTheDocument();
   expect(prepareStateLabel).toBeInTheDocument();
-}
-
-const apiUrl = process.env.REACT_APP_SERVER_URL;
-
-function mockVideoQuestionOnce() {
-  server.use(
-    rest.get(apiUrl + "question", (req, res, ctx) => {
-      return res.once(ctx.json(basicWithVideo), ctx.delay(0), ctx.status(200));
-    })
-  );
 }
 
 test("displays media cover and correct timer label on prepare state in basic video qustion", async () => {
@@ -67,5 +55,6 @@ test("displays media cover and correct timer label on prepare state in basic vid
   );
 
   //assert
+  await assertPrepareState();
   await screen.findByText(/Następne pytanie/i);
 });

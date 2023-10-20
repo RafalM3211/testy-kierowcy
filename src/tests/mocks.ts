@@ -1,7 +1,8 @@
 import * as path from "path";
 import * as fs from "fs";
 import { rest } from "msw";
-import { basic } from "./dummyQuestion/dummyQuestions";
+import { basic, basicWithVideo } from "./dummyQuestion/dummyQuestions";
+import { server } from "../setupTests";
 
 const originalLocation = window.location;
 
@@ -21,9 +22,15 @@ export const restoreWindowLocation = () => {
   window.location = originalLocation;
 };
 
-const apiUrl = process.env.REACT_APP_SERVER_URL;
+export function mockVideoQuestionOnce() {
+  server.use(
+    rest.get(apiUrl + "question", (req, res, ctx) => {
+      return res.once(ctx.json(basicWithVideo), ctx.delay(0), ctx.status(200));
+    })
+  );
+}
 
-//todo: wywal wideo z media endpointu bo i tak trzeba mockowac video.
+const apiUrl = process.env.REACT_APP_SERVER_URL;
 
 export const handlers = [
   rest.get(apiUrl + "question", (req, res, ctx) => {

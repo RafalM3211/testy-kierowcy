@@ -7,6 +7,8 @@ import { useOnMount } from "../../../utility/hooks";
 import ErrorScreen from "../../patterns/ErrorScreen/ErrorScreen";
 
 export default function ExamQuestion() {
+  //todo: error handling dla resetSession
+
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["question"],
     queryFn: getQuestion,
