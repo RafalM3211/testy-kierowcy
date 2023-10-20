@@ -12,6 +12,7 @@ export const server = setupServer(...handlers);
 beforeAll(() => {
   mockWindowLocation();
   server.listen();
+  jest.useFakeTimers();
 });
 
 afterEach(() => {
@@ -21,4 +22,5 @@ afterEach(() => {
 afterAll(() => {
   restoreWindowLocation();
   server.close();
+  jest.useRealTimers();
 });

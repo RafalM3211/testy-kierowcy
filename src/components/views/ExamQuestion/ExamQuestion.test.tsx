@@ -21,16 +21,6 @@ jest.mock("../../patterns/Player/Player", () => {
   };
 });
 
-//todo: daj te usefaketimers do setuptest
-
-beforeAll(() => {
-  jest.useFakeTimers();
-});
-
-afterAll(() => {
-  jest.useRealTimers();
-});
-
 const user = userEvent.setup({ delay: null });
 
 async function assertPrepareState() {
@@ -105,7 +95,6 @@ describe("prepare state and transition to answer state", () => {
         <ExamQuestion />
       </DummyProviders>
     );
-    screen.debug();
     const mediaCover = await screen.findByText(/Kliknij aby wyświetlić/i);
 
     //act
@@ -117,3 +106,5 @@ describe("prepare state and transition to answer state", () => {
     assertAnswerState();
   });
 });
+
+describe("answer state and transition to next question", () => {});

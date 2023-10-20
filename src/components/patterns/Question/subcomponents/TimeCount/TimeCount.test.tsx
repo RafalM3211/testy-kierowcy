@@ -13,16 +13,11 @@ jest.mock("../../../../../context/egzamControls/egzamControls", () => {
   };
 });
 
-beforeAll(() => {
-  jest.useFakeTimers();
-});
-
 afterEach(() => {
   jest.clearAllMocks();
 });
 
 afterAll(() => {
-  jest.useRealTimers();
   jest.restoreAllMocks();
 });
 
