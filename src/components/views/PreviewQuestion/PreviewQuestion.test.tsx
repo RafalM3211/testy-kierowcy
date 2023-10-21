@@ -45,7 +45,7 @@ describe("ansewer button click", () => {
     //arrange
     renderQuestionWithId();
     const yesAnsewerButton = screen.getByRole("button", { name: "tak" });
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
 
     //act
     await user.click(yesAnsewerButton);
@@ -58,7 +58,7 @@ describe("ansewer button click", () => {
     //arrange
     renderQuestionWithId(anseweredSpecialized.id);
     const ansewerButton = screen.getByText("A", { exact: true });
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
 
     //act
     await user.click(ansewerButton);
