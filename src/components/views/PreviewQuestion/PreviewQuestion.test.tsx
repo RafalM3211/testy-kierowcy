@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Route } from "react-router-dom";
 import * as ansewersContext from "../../../context/Ansewers/Ansewers";
@@ -9,6 +9,7 @@ import {
   anseweredSpecialized,
 } from "../../../tests/dummyQuestion/dummyQuestions";
 import DummyProviders from "../../../tests/dummyProviders/DummyProviders";
+import { act } from "react-dom/test-utils";
 
 const dummyId = anseweredBasic.id + 342;
 const anotherBasic = { ...anseweredBasic, id: dummyId };
@@ -24,6 +25,8 @@ const ansewersSpyBase = {
   clearAnsewers: jest.fn(),
 };
 const ansewersSpy = jest.spyOn(ansewersContext, "useAnsewersContext");
+
+const user = userEvent.setup({ delay: null });
 
 beforeEach(() => {
   ansewersSpy.mockReturnValue(ansewersSpyBase);
@@ -45,10 +48,11 @@ describe("ansewer button click", () => {
     //arrange
     renderQuestionWithId();
     const yesAnsewerButton = screen.getByRole("button", { name: "tak" });
-    const user = userEvent.setup({ delay: null });
 
     //act
-    await user.click(yesAnsewerButton);
+    await act(async () => {
+      await user.click(yesAnsewerButton);
+    });
 
     //assert
     expect(yesAnsewerButton).not.toHaveAttribute("aria-pressed", true);
@@ -58,13 +62,16 @@ describe("ansewer button click", () => {
     //arrange
     renderQuestionWithId(anseweredSpecialized.id);
     const ansewerButton = screen.getByText("A", { exact: true });
-    const user = userEvent.setup({ delay: null });
 
     //act
-    await user.click(ansewerButton);
+    act(() => {
+      user.click(ansewerButton);
+    });
 
     //assert
-    expect(ansewerButton).not.toHaveAttribute("aria-pressed", true);
+    await waitFor(() => {
+      expect(ansewerButton).not.toHaveAttribute("aria-pressed", true);
+    });
   });
 });
 
@@ -83,7 +90,7 @@ describe("next and previous quesiton buttons", () => {
     expect(previousButton).not.toBeDisabled();
   });
 
-  it("Previous button is disabled on last question", async () => {
+  it("Previous button is disabled on last question", () => {
     //arrange
     const firstAnsewer = dummyAnsewers[0];
     renderQuestionWithId(firstAnsewer.id);
