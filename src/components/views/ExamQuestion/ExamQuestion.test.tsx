@@ -1,8 +1,20 @@
 import { render, screen, act } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import ExamQuestion from "./ExamQuestion";
 import DummyProviders from "../../../tests/dummyProviders/DummyProviders";
-import { mockVideoQuestionOnce } from "../../../tests/mocks";
-import userEvent from "@testing-library/user-event";
+import {
+  mockVideoQuestionOnce,
+  mockSpecializedQuestionOnce,
+} from "../../../tests/mocks";
+import * as AnsewersContext from "../../../context/Ansewers/Ansewers";
+
+import { rest } from "msw";
+import {
+  basic,
+  basicWithVideo,
+  specialized,
+} from "../../../tests/dummyQuestion/dummyQuestions";
+import { server } from "../../../setupTests";
 
 jest.mock("../../patterns/Player/Player", () => {
   const { forwardRef } = jest.requireActual("react");
@@ -41,7 +53,7 @@ function assertAnswerState() {
 }
 
 describe("prepare state and transition to answer state", () => {
-  test("displays media cover and correct timer label on prepare state in basic image qustion", async () => {
+  it("displays media cover and correct timer label on prepare state in basic image qustion", async () => {
     //arrange
 
     //act
@@ -55,7 +67,7 @@ describe("prepare state and transition to answer state", () => {
     await assertPrepareState();
   });
 
-  test("displays media cover and correct timer label on prepare state in basic video qustion", async () => {
+  it("displays media cover and correct timer label on prepare state in basic video qustion", async () => {
     //arrange
     mockVideoQuestionOnce();
 
@@ -70,7 +82,7 @@ describe("prepare state and transition to answer state", () => {
     await assertPrepareState();
   });
 
-  test("after 20 seconds media cover disappears and timer label changes", async () => {
+  it("after 20 seconds media cover disappears and timer label changes", async () => {
     //arrange
     render(
       <DummyProviders>
@@ -87,9 +99,8 @@ describe("prepare state and transition to answer state", () => {
     assertAnswerState();
   });
 
-  test("when user clicks media cover it disappears and timer label changes", async () => {
+  it("when user clicks media cover it disappears and timer label changes", async () => {
     //arrange
-
     render(
       <DummyProviders>
         <ExamQuestion />
@@ -107,4 +118,76 @@ describe("prepare state and transition to answer state", () => {
   });
 });
 
-describe("answer state and transition to next question", () => {});
+describe("answer state and transition to next question", () => {
+  it("calls addAnsewer with false when selected 'nie' answer and clicked next question", async () => {
+    //arrange
+    const addAnsewerMock = jest.fn();
+    const ansewersSpy = jest
+      .spyOn(AnsewersContext, "useAnsewersContext")
+      .mockReturnValue({
+        anseweredQuestions: [],
+        addAnsewer: addAnsewerMock,
+        clearAnsewers: jest.fn(),
+      });
+
+    render(
+      <DummyProviders>
+        <ExamQuestion />
+      </DummyProviders>
+    );
+
+    const trueButton = await screen.findByRole("button", { name: "tak" });
+    const nextQuestionButton = await screen.findByRole("button", {
+      name: "Następne pytanie",
+    });
+
+    //act
+    await act(async () => {
+      await user.click(trueButton);
+    });
+    await act(async () => {
+      await user.click(nextQuestionButton);
+    });
+
+    //assert
+    expect(addAnsewerMock).toBeCalledWith(expect.anything(), true);
+    ansewersSpy.mockRestore();
+  });
+
+  it("calls addAnsewer with B when selected 'B' answer and clicked next question", async () => {
+    //arrange
+    mockSpecializedQuestionOnce();
+
+    const addAnsewerMock = jest.fn();
+    const ansewersSpy = jest
+      .spyOn(AnsewersContext, "useAnsewersContext")
+      .mockReturnValue({
+        anseweredQuestions: [],
+        addAnsewer: addAnsewerMock,
+        clearAnsewers: jest.fn(),
+      });
+
+    render(
+      <DummyProviders>
+        <ExamQuestion />
+      </DummyProviders>
+    );
+
+    const trueButton = await screen.findByRole("button", { name: "B" });
+    const nextQuestionButton = await screen.findByRole("button", {
+      name: "Następne pytanie",
+    });
+
+    //act
+    await act(async () => {
+      await user.click(trueButton);
+    });
+    await act(async () => {
+      await user.click(nextQuestionButton);
+    });
+
+    //assert
+    expect(addAnsewerMock).toBeCalledWith(expect.anything(), "B");
+    ansewersSpy.mockRestore();
+  });
+});

@@ -41,6 +41,7 @@ export default function AnsewerRow(props: Props) {
       >
         <AnsewerButton
           checked={checked}
+          aria-label={label}
           sx={{
             minWidth: "40px",
             width: "40px",

@@ -5,6 +5,7 @@ import Question from "../../patterns/Question/Question";
 import EgzamControlProvider from "../../../context/egzamControls/egzamControls";
 import { useOnMount } from "../../../utility/hooks";
 import ErrorScreen from "../../patterns/ErrorScreen/ErrorScreen";
+import { useEffect } from "react";
 
 export default function ExamQuestion() {
   //todo: error handling dla resetSession
