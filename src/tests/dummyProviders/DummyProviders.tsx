@@ -9,7 +9,15 @@ import AppThemeProvider from "../../context/theme/theme";
 import { AnsewersProvider } from "../../context/Ansewers/Ansewers";
 import type { ReactNode, ComponentProps, JSX } from "react";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+      cacheTime: 0,
+    },
+  },
+});
 
 interface Props {
   children: ReactNode;
