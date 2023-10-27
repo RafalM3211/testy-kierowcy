@@ -9,15 +9,17 @@ import AppThemeProvider from "../../context/theme/theme";
 import { AnsewersProvider } from "../../context/Ansewers/Ansewers";
 import type { ReactNode, ComponentProps, JSX } from "react";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: false,
-      cacheTime: 0,
+function createQueryClient() {
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        retry: false,
+        cacheTime: 0,
+      },
     },
-  },
-});
+  });
+}
 
 interface Props {
   children: ReactNode;
@@ -50,7 +52,7 @@ export default function DummyProviders(props: Props) {
   });
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={createQueryClient()}>
       <AppThemeProvider>
         <AnsewersProvider>
           <RouterProvider router={router} />
