@@ -7,14 +7,8 @@ import {
   mockSpecializedQuestionOnce,
 } from "../../../tests/mocks";
 import * as AnsewersContext from "../../../context/Ansewers/Ansewers";
-
-import { rest } from "msw";
-import {
-  basic,
-  basicWithVideo,
-  specialized,
-} from "../../../tests/dummyQuestion/dummyQuestions";
-import { server } from "../../../setupTests";
+import { waitForQuestionLoad } from "../../../tests/utils";
+import { canPlay } from "../../patterns/Player/Player";
 
 jest.mock("../../patterns/Player/Player", () => {
   const { forwardRef } = jest.requireActual("react");
@@ -28,7 +22,7 @@ jest.mock("../../patterns/Player/Player", () => {
 
   return {
     __esModule: true,
-    canPlay: jest.fn(() => true),
+    canPlay: jest.fn(),
     default: PlayerMock,
   };
 });
@@ -45,9 +39,9 @@ async function assertPrepareState() {
   expect(prepareStateLabel).toBeInTheDocument();
 }
 
-function assertAnswerState() {
+async function assertAnswerState() {
   const mediaCover = screen.queryByText(/Kliknij aby wyświetlić/i);
-  const answerStateLabel = screen.getByText(/Czas na odpowiedź/i);
+  const answerStateLabel = await screen.findByText(/Czas na odpowiedź/i);
   expect(mediaCover).not.toBeInTheDocument();
   expect(answerStateLabel).toBeInTheDocument();
 }
@@ -69,6 +63,7 @@ describe("prepare state and transition to answer state", () => {
 
   it("displays media cover and correct timer label on prepare state in basic video qustion", async () => {
     //arrange
+    (canPlay as jest.Mock).mockReturnValue(true);
     mockVideoQuestionOnce();
 
     //act
@@ -89,6 +84,7 @@ describe("prepare state and transition to answer state", () => {
         <ExamQuestion />
       </DummyProviders>
     );
+    await waitForQuestionLoad();
 
     //act
     act(() => {
@@ -96,7 +92,7 @@ describe("prepare state and transition to answer state", () => {
     });
 
     //assert
-    assertAnswerState();
+    await assertAnswerState();
   });
 
   it("when user clicks media cover it disappears and timer label changes", async () => {
@@ -189,5 +185,58 @@ describe("answer state and transition to next question", () => {
     //assert
     expect(addAnsewerMock).toBeCalledWith(expect.anything(), "B");
     ansewersSpy.mockRestore();
+  });
+
+  it("moves to next question after 50 seconds on specialized question", async () => {
+    //arrange
+    mockSpecializedQuestionOnce();
+    render(
+      <DummyProviders>
+        <ExamQuestion />
+      </DummyProviders>
+    );
+
+    const timerLabel = await screen.findByRole("heading", {
+      name: /czas na odpowiedź/i,
+    });
+    const questionCount = await screen.findByText(/\d\/20/i);
+
+    //act
+    expect(questionCount.innerHTML).toBe("1/20");
+    act(() => {
+      jest.advanceTimersByTime(50 * 1000 + 1);
+    });
+
+    //assert
+    expect(timerLabel.innerHTML).toBe("Czas na odpowiedź");
+    expect(questionCount.innerHTML).toBe("2/20");
+  });
+
+  it("moves to next question after next question clicked", async () => {
+    //arrange
+    render(
+      <DummyProviders>
+        <ExamQuestion />
+      </DummyProviders>
+    );
+    const nextButton = await screen.findByRole("button", {
+      name: /następne pytanie/i,
+    });
+    const questionCount = await screen.findByText(/\d\/20/i);
+
+    //act
+
+    expect(questionCount.innerHTML).toBe("1/20");
+    await act(async () => {
+      await user.click(nextButton);
+    });
+
+    //assert
+
+    const timerLabel = await screen.findByRole("heading", {
+      name: /czas na zapoznanie się z pytaniem/i,
+    });
+    expect(timerLabel).toBeInTheDocument();
+    expect(questionCount.innerHTML).toBe("2/20");
   });
 });
