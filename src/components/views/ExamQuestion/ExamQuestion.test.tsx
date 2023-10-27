@@ -212,6 +212,33 @@ describe("answer state and transition to next question", () => {
     expect(questionCount.innerHTML).toBe("2/20");
   });
 
+  it("moves to next question after 20 seconds on basic question", async () => {
+    //arrange
+    render(
+      <DummyProviders>
+        <ExamQuestion />
+      </DummyProviders>
+    );
+    const questionCount = await screen.findByText(/\d\/20/i);
+    const mediaCover = await screen.findByText(/Kliknij aby wyświetlić/i);
+    await act(async () => {
+      await user.click(mediaCover); //move to answer state
+    });
+
+    //act
+    expect(questionCount.innerHTML).toBe("1/20");
+    act(() => {
+      jest.advanceTimersByTime(20 * 1000 + 1);
+    });
+
+    //assert
+    const timerLabel = await screen.findByRole("heading", {
+      name: /czas na zapoznanie się z pytaniem/i,
+    });
+    expect(timerLabel).toBeInTheDocument();
+    expect(questionCount.innerHTML).toBe("2/20");
+  });
+
   it("moves to next question after next question clicked", async () => {
     //arrange
     render(
@@ -225,14 +252,12 @@ describe("answer state and transition to next question", () => {
     const questionCount = await screen.findByText(/\d\/20/i);
 
     //act
-
     expect(questionCount.innerHTML).toBe("1/20");
     await act(async () => {
       await user.click(nextButton);
     });
 
     //assert
-
     const timerLabel = await screen.findByRole("heading", {
       name: /czas na zapoznanie się z pytaniem/i,
     });
