@@ -6,17 +6,17 @@ import {
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAnsewersContext } from "../Ansewers/Ansewers";
-import type { Ansewer, Question, TimerState } from "../../types/globalTypes";
-import type { SetAnsewerFunction } from "./types";
+import { useAnswersContext } from "../Answers/Answers";
+import type { Answer, Question, TimerState } from "../../types/globalTypes";
+import type { SetAnswerFunction } from "./types";
 import { useOnMount } from "../../utility/hooks";
 
 interface Controls {
   nextQuestion: () => void;
   endExam: () => void;
   questionCount: number;
-  selectedAnsewer: Ansewer;
-  setSelectedAnsewer: SetAnsewerFunction;
+  selectedAnswer: Answer;
+  setSelectedAnswer: SetAnswerFunction;
   isStarted: boolean;
   setStarted: (value: boolean) => void;
   timerState: TimerState;
@@ -41,8 +41,8 @@ export function useExamControlContext() {
     const emptyControls = {
       nextQuestion: undefined,
       questionCount: undefined,
-      selectedAnsewer: undefined,
-      setSelectedAnsewer: undefined,
+      selectedAnswer: undefined,
+      setSelectedAnswer: undefined,
       isStarted: undefined,
       setStarted: undefined,
       timerState: undefined,
@@ -55,12 +55,11 @@ export function useExamControlContext() {
 }
 
 export default function ExamControlProvider(props: Props) {
-  const { addAnsewer, clearAnsewers, anseweredQuestions } =
-    useAnsewersContext();
+  const { addAnswer, clearAnswers, answeredQuestions } = useAnswersContext();
   const navigate = useNavigate();
-  const questionCount = anseweredQuestions.length + 1;
+  const questionCount = answeredQuestions.length + 1;
 
-  const [selectedAnsewer, setSelectedAnsewer] = useState<Ansewer>(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<Answer>(null);
   const [isStarted, setStarted] = useState(false);
   const [timerState, setTimerState] = useState<TimerState>("prepare");
 
@@ -69,14 +68,14 @@ export default function ExamControlProvider(props: Props) {
     if (!props.questionData) {
       throw new Error("question is undefined");
     }
-    addAnsewer(props.questionData, selectedAnsewer);
+    addAnswer(props.questionData, selectedAnswer);
     props.dataControls.refetch();
     if (questionCount === 32) {
       navigate("/summary");
     }
 
     setStarted(false);
-    setSelectedAnsewer(null);
+    setSelectedAnswer(null);
     setTimerState("prepare");
   }
 
@@ -85,15 +84,15 @@ export default function ExamControlProvider(props: Props) {
   }
 
   useOnMount(() => {
-    clearAnsewers();
+    clearAnswers();
   });
 
   const controls = {
     nextQuestion,
     endExam,
     questionCount,
-    selectedAnsewer,
-    setSelectedAnsewer,
+    selectedAnswer,
+    setSelectedAnswer,
     isStarted,
     setStarted,
     timerState,

@@ -1,38 +1,38 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Route } from "react-router-dom";
-import * as ansewersContext from "../../../context/Ansewers/Ansewers";
+import * as answersContext from "../../../context/Answers/Answers";
 import PreviewQuestion from "./PreviewQuestion";
 import {
-  anseweredBasic,
+  answeredBasic,
   basicWithVideo,
-  anseweredSpecialized,
+  answeredSpecialized,
 } from "../../../tests/dummyQuestion/dummyQuestions";
 import DummyProviders from "../../../tests/dummyProviders/DummyProviders";
 import { act } from "react-dom/test-utils";
 
-const dummyId = anseweredBasic.id + 342;
-const anotherBasic = { ...anseweredBasic, id: dummyId };
-const dummyAnsewers = [
-  anseweredSpecialized,
-  anseweredBasic,
+const dummyId = answeredBasic.id + 342;
+const anotherBasic = { ...answeredBasic, id: dummyId };
+const dummyAnswers = [
+  answeredSpecialized,
+  answeredBasic,
   basicWithVideo,
   anotherBasic,
 ];
-const ansewersSpyBase = {
-  anseweredQuestions: dummyAnsewers,
-  addAnsewer: jest.fn(),
-  clearAnsewers: jest.fn(),
+const answersSpyBase = {
+  answeredQuestions: dummyAnswers,
+  addAnswer: jest.fn(),
+  clearAnswers: jest.fn(),
 };
-const ansewersSpy = jest.spyOn(ansewersContext, "useAnsewersContext");
+const answersSpy = jest.spyOn(answersContext, "useAnswersContext");
 
 const user = userEvent.setup({ delay: null });
 
 beforeEach(() => {
-  ansewersSpy.mockReturnValue(ansewersSpyBase);
+  answersSpy.mockReturnValue(answersSpyBase);
 });
 
-function renderQuestionWithId(id: number = anseweredBasic.id) {
+function renderQuestionWithId(id: number = answeredBasic.id) {
   const routeElements = (
     <Route path="/question/:id" element={<PreviewQuestion />} />
   );
@@ -43,34 +43,34 @@ function renderQuestionWithId(id: number = anseweredBasic.id) {
   );
 }
 
-describe("ansewer button click", () => {
-  it("ansewer button does not click on basic question", async () => {
+describe("answer button click", () => {
+  it("answer button does not click on basic question", async () => {
     //arrange
     renderQuestionWithId();
-    const yesAnsewerButton = screen.getByRole("button", { name: "tak" });
+    const yesAnswerButton = screen.getByRole("button", { name: "tak" });
 
     //act
     await act(async () => {
-      await user.click(yesAnsewerButton);
+      await user.click(yesAnswerButton);
     });
 
     //assert
-    expect(yesAnsewerButton).not.toHaveAttribute("aria-pressed", true);
+    expect(yesAnswerButton).not.toHaveAttribute("aria-pressed", true);
   });
 
-  it("ansewer button does not click on specialized question", async () => {
+  it("answer button does not click on specialized question", async () => {
     //arrange
-    renderQuestionWithId(anseweredSpecialized.id);
-    const ansewerButton = screen.getByText("A", { exact: true });
+    renderQuestionWithId(answeredSpecialized.id);
+    const answerButton = screen.getByText("A", { exact: true });
 
     //act
     act(() => {
-      user.click(ansewerButton);
+      user.click(answerButton);
     });
 
     //assert
     await waitFor(() => {
-      expect(ansewerButton).not.toHaveAttribute("aria-pressed", true);
+      expect(answerButton).not.toHaveAttribute("aria-pressed", true);
     });
   });
 });
@@ -78,8 +78,8 @@ describe("ansewer button click", () => {
 describe("next and previous quesiton buttons", () => {
   it("Next question button is disabled on last question", () => {
     //arrange
-    const lastAnsewer = dummyAnsewers[dummyAnsewers.length - 1];
-    renderQuestionWithId(lastAnsewer.id);
+    const lastAnswer = dummyAnswers[dummyAnswers.length - 1];
+    renderQuestionWithId(lastAnswer.id);
 
     //act
     const previousButton = screen.getByRole("button", { name: /poprzednie/i });
@@ -92,8 +92,8 @@ describe("next and previous quesiton buttons", () => {
 
   it("Previous button is disabled on last question", () => {
     //arrange
-    const firstAnsewer = dummyAnsewers[0];
-    renderQuestionWithId(firstAnsewer.id);
+    const firstAnswer = dummyAnswers[0];
+    renderQuestionWithId(firstAnswer.id);
 
     //act
 

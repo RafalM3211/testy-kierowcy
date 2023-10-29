@@ -31,7 +31,7 @@ interface ProviderEntry {
 
 const prepareLabel = "Czas na zapoznanie się z pytaniem";
 const waitLabel = "Trwa odtwarzanie";
-const ansewerLabel = "Czas na odpowiedź";
+const answerLabel = "Czas na odpowiedź";
 
 const timerAppereanceProvider: ProviderEntry[] = [
   {
@@ -51,20 +51,20 @@ const timerAppereanceProvider: ProviderEntry[] = [
       "timer label matches and displayed time is ' - s' when timer state is 'wait' and type basic",
   },
   {
-    timerState: "ansewer",
+    timerState: "answer",
     questionType: "basic",
     expectedTime: "15s",
-    expectedTimerLabel: ansewerLabel,
+    expectedTimerLabel: answerLabel,
     description:
-      "timer label matches and displayed time is '15s' when timer state is 'ansewer' and type basic ",
+      "timer label matches and displayed time is '15s' when timer state is 'answer' and type basic ",
   },
   {
-    timerState: "ansewer",
+    timerState: "answer",
     questionType: "specialized",
     expectedTime: "50s",
-    expectedTimerLabel: ansewerLabel,
+    expectedTimerLabel: answerLabel,
     description:
-      "timer label matches and displayed time is '50s' when timer state is 'ansewer' and type specialized ",
+      "timer label matches and displayed time is '50s' when timer state is 'answer' and type specialized ",
   },
 ];
 
@@ -95,12 +95,12 @@ describe("on expire behavior", () => {
     expect(dummyContextValue.nextQuestion).not.toBeCalled();
     expect(dummyContextValue.setTimerState).toBeCalledWith("wait");
   });
-  it("calls nextQuestion if previous timer state was 'ansewer' after 15 seconds", () => {
+  it("calls nextQuestion if previous timer state was 'answer' after 15 seconds", () => {
     //arrange
     const context = useExamControlContext as jest.Mock;
     context.mockReturnValue({
       ...dummyContextValue,
-      timerState: "ansewer",
+      timerState: "answer",
     });
     render(<TimeCount type="basic" />);
 
@@ -149,7 +149,7 @@ describe("on expire behavior", () => {
     act(() => {
       jest.advanceTimersByTime(10001);
     });
-    expect(dummyContextValue.setTimerState).toBeCalledWith("ansewer");
+    expect(dummyContextValue.setTimerState).toBeCalledWith("answer");
   });
 });
 

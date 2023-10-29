@@ -1,3 +1,3 @@
-import type { Ansewer } from "../../types/globalTypes";
+import type { Answer } from "../../types/globalTypes";
 
-export type SetAnsewerFunction = (ansewer: Exclude<Ansewer, null>) => void;
+export type SetAnswerFunction = (answer: Exclude<Answer, null>) => void;

@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import QuestionCount from "../../../subcomponents/QuestionCount/QuestionCount";
-import { useAnsewersContext } from "../../../../../../context/Ansewers/Ansewers";
+import { useAnswersContext } from "../../../../../../context/Answers/Answers";
 import ButtonLink from "../../../../../atoms/ButtonLink/ButtonLink";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -20,20 +20,20 @@ function drawSpecializedQuestionCount(count: number, total: number) {
 }
 
 export default function PreviewMode() {
-  const { anseweredQuestions } = useAnsewersContext();
+  const { answeredQuestions } = useAnswersContext();
   const questionId = useParams().id as string;
-  const questionIndex = anseweredQuestions.findIndex(
+  const questionIndex = answeredQuestions.findIndex(
     (quesiton) => quesiton.id === parseInt(questionId)
   );
   const questionCount = questionIndex + 1;
-  const questionsAmount = anseweredQuestions.length;
+  const questionsAmount = answeredQuestions.length;
 
   const previousQuestionId =
-    questionCount === 1 ? null : anseweredQuestions[questionIndex - 1].id;
+    questionCount === 1 ? null : answeredQuestions[questionIndex - 1].id;
   const nextQuestionId =
     questionCount === questionsAmount
       ? null
-      : anseweredQuestions[questionIndex + 1].id;
+      : answeredQuestions[questionIndex + 1].id;
 
   return (
     <>

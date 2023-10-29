@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import AppThemeProvider from "../../context/theme/theme";
-import { AnsewersProvider } from "../../context/Ansewers/Ansewers";
+import { AnswersProvider } from "../../context/Answers/Answers";
 import type { ReactNode, ComponentProps, JSX } from "react";
 
 function createQueryClient() {
@@ -54,9 +54,9 @@ export default function DummyProviders(props: Props) {
   return (
     <QueryClientProvider client={createQueryClient()}>
       <AppThemeProvider>
-        <AnsewersProvider>
+        <AnswersProvider>
           <RouterProvider router={router} />
-        </AnsewersProvider>
+        </AnswersProvider>
       </AppThemeProvider>
     </QueryClientProvider>
   );

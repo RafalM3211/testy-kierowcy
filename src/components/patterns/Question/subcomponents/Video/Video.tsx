@@ -19,7 +19,7 @@ export default function Video(props: Props) {
 
   function handleVideoEnd() {
     if (setTimerState) {
-      setTimerState("ansewer");
+      setTimerState("answer");
     }
   }
 

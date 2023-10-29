@@ -14,8 +14,8 @@ export function prepareQuestion(rawQuestion: RawQuestionRecord): Question {
     const { A, B, C } = rawQuestion;
 
     if (A && B && C) {
-      const ansewers = { A, B, C };
-      const preparedQuestion = { ...rawQuestion, ansewers };
+      const answers = { A, B, C };
+      const preparedQuestion = { ...rawQuestion, answers };
       delete preparedQuestion.A;
       delete preparedQuestion.B;
       delete preparedQuestion.C;
@@ -23,12 +23,12 @@ export function prepareQuestion(rawQuestion: RawQuestionRecord): Question {
       return preparedQuestion as SpecializedQuestion;
     } else
       console.warn(
-        "Question with type specialized should have A, B and C ansewers. Question id: " +
+        "Question with type specialized should have A, B and C answers. Question id: " +
           rawQuestion.id
       );
   }
 
-  const correctAnsewer = !!rawQuestion.correctAnsewer;
-  const preparedQuestion = { ...rawQuestion, correctAnsewer };
+  const correctAnswer = !!rawQuestion.correctAnswer;
+  const preparedQuestion = { ...rawQuestion, correctAnswer };
   return preparedQuestion as BasicQuestion;
 }

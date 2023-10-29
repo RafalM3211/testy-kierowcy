@@ -5,7 +5,7 @@ interface Props extends ButtonProps {
   checked?: boolean;
 }
 
-export default function AnsewerButton(props: Props) {
+export default function AnswerButton(props: Props) {
   const { checked, sx, children, ...other } = props;
   return (
     <Button

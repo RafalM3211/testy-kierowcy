@@ -6,7 +6,7 @@ import {
   mockVideoQuestionOnce,
   mockSpecializedQuestionOnce,
 } from "../../../tests/mocks";
-import * as AnsewersContext from "../../../context/Ansewers/Ansewers";
+import * as AnswersContext from "../../../context/Answers/Answers";
 import { waitForQuestionLoad } from "../../../tests/utils";
 import { canPlay } from "../../patterns/Player/Player";
 
@@ -115,15 +115,15 @@ describe("prepare state and transition to answer state", () => {
 });
 
 describe("answer state and transition to next question", () => {
-  it("calls addAnsewer with false when selected 'nie' answer and clicked next question", async () => {
+  it("calls addAnswer with false when selected 'nie' answer and clicked next question", async () => {
     //arrange
-    const addAnsewerMock = jest.fn();
-    const ansewersSpy = jest
-      .spyOn(AnsewersContext, "useAnsewersContext")
+    const addAnswerMock = jest.fn();
+    const answersSpy = jest
+      .spyOn(AnswersContext, "useAnswersContext")
       .mockReturnValue({
-        anseweredQuestions: [],
-        addAnsewer: addAnsewerMock,
-        clearAnsewers: jest.fn(),
+        answeredQuestions: [],
+        addAnswer: addAnswerMock,
+        clearAnswers: jest.fn(),
       });
 
     render(
@@ -146,21 +146,21 @@ describe("answer state and transition to next question", () => {
     });
 
     //assert
-    expect(addAnsewerMock).toBeCalledWith(expect.anything(), true);
-    ansewersSpy.mockRestore();
+    expect(addAnswerMock).toBeCalledWith(expect.anything(), true);
+    answersSpy.mockRestore();
   });
 
-  it("calls addAnsewer with B when selected 'B' answer and clicked next question", async () => {
+  it("calls addAnswer with B when selected 'B' answer and clicked next question", async () => {
     //arrange
     mockSpecializedQuestionOnce();
 
-    const addAnsewerMock = jest.fn();
-    const ansewersSpy = jest
-      .spyOn(AnsewersContext, "useAnsewersContext")
+    const addAnswerMock = jest.fn();
+    const answersSpy = jest
+      .spyOn(AnswersContext, "useAnswersContext")
       .mockReturnValue({
-        anseweredQuestions: [],
-        addAnsewer: addAnsewerMock,
-        clearAnsewers: jest.fn(),
+        answeredQuestions: [],
+        addAnswer: addAnswerMock,
+        clearAnswers: jest.fn(),
       });
 
     render(
@@ -183,8 +183,8 @@ describe("answer state and transition to next question", () => {
     });
 
     //assert
-    expect(addAnsewerMock).toBeCalledWith(expect.anything(), "B");
-    ansewersSpy.mockRestore();
+    expect(addAnswerMock).toBeCalledWith(expect.anything(), "B");
+    answersSpy.mockRestore();
   });
 
   it("moves to next question after 50 seconds on specialized question", async () => {

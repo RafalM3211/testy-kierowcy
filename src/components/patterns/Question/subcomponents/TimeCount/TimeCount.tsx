@@ -15,14 +15,14 @@ interface Props {
 
 function getTotalTime(questionType: QuestionType, timerState: TimerState) {
   const prepareTime = 20;
-  const basicAnsewerTime = 15;
-  const specializedAnsewerTime = 50;
+  const basicAnswerTime = 15;
+  const specializedAnswerTime = 50;
 
   if (questionType === "basic") {
     if (timerState === "prepare") return prepareTime;
-    else return basicAnsewerTime;
+    else return basicAnswerTime;
   } else {
-    return specializedAnsewerTime;
+    return specializedAnswerTime;
   }
 }
 
@@ -30,9 +30,9 @@ function calcTimeProgresPercent(currentTime: number, maxTime: number) {
   return Math.floor(100 - (currentTime / maxTime) * 100) + "%";
 }
 
-function getExpiryTimeStamp(timeForAnsewer: number) {
+function getExpiryTimeStamp(timeForAnswer: number) {
   const time = new Date();
-  time.setSeconds(time.getSeconds() + timeForAnsewer);
+  time.setSeconds(time.getSeconds() + timeForAnswer);
   return time;
 }
 
@@ -42,7 +42,7 @@ function getTimerLabel(timerState: TimerState) {
       return "Czas na zapoznanie się z pytaniem";
     case "wait":
       return "Trwa odtwarzanie";
-    case "ansewer":
+    case "answer":
       return "Czas na odpowiedź";
   }
 }
@@ -59,7 +59,7 @@ export default function TimeCount(props: Props) {
       if (timerState === "prepare") {
         setTimerState("wait");
       }
-      if (timerState === "ansewer") {
+      if (timerState === "answer") {
         nextQuestion();
       }
     },
@@ -76,7 +76,7 @@ export default function TimeCount(props: Props) {
 
   useEffect(() => {
     if (props.type === "specialized") {
-      setTimerState("ansewer");
+      setTimerState("answer");
     }
   }, [questionCount, props.type, setTimerState]);
 

@@ -16,7 +16,7 @@ export default function Image(props: Props) {
   const [isError, setError] = useState(false);
 
   const { setTimerState, timerState } = useExamControlContext();
-  const isQuestionStarted = timerState === "ansewer";
+  const isQuestionStarted = timerState === "answer";
 
   function handleError() {
     setError(true);
@@ -27,7 +27,7 @@ export default function Image(props: Props) {
 
   const handleStart = useCallback(() => {
     if (setTimerState) {
-      setTimerState("ansewer");
+      setTimerState("answer");
     }
   }, [setTimerState]);
 

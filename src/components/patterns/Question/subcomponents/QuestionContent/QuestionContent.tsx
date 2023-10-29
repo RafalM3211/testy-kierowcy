@@ -1,38 +1,38 @@
 import { Box, Typography } from "@mui/material";
-import ABCAnsewer from "../../../ABCAnsewer/ABCAnsewer";
-import YesNoAnseswer from "../../../YesNoAnsewer/YesNoAnsewer";
+import ABCAnswer from "../../../ABCAnswer/ABCAnswer";
+import YesNoAnseswer from "../../../YesNoAnswer/YesNoAnswer";
 import { useExamControlContext } from "../../../../../context/examControls/examControls";
 import type {
   BasicQuestion,
   SpecializedQuestion,
-  ABCansewers,
-  Ansewer,
-  BasicAnsewer,
-  SpecializedAnsewer,
+  ABCanswers,
+  Answer,
+  BasicAnswer,
+  SpecializedAnswer,
 } from "../../../../../types/globalTypes";
 
 interface PropsBase {
   content: string;
-  chosenAnsewer?: Ansewer;
+  chosenAnswer?: Answer;
 }
 
 interface BasicQuesitonProps extends PropsBase {
   type: BasicQuestion["type"];
-  correctAnsewer?: boolean;
+  correctAnswer?: boolean;
 }
 
 interface SpecializedQuestionProps extends PropsBase {
   type: SpecializedQuestion["type"];
-  correctAnsewer?: keyof ABCansewers;
-  ansewers: ABCansewers;
+  correctAnswer?: keyof ABCanswers;
+  answers: ABCanswers;
 }
 
 type Props = SpecializedQuestionProps | BasicQuesitonProps;
 
 export default function QuestionContent(props: Props) {
-  const { selectedAnsewer, setSelectedAnsewer } = useExamControlContext();
+  const { selectedAnswer, setSelectedAnswer } = useExamControlContext();
 
-  const chosenAnsewer = selectedAnsewer ?? props.chosenAnsewer;
+  const chosenAnswer = selectedAnswer ?? props.chosenAnswer;
 
   return (
     <Box sx={{ gridRow: "3", gridColumn: "1/3", mt: "20px" }}>
@@ -48,18 +48,18 @@ export default function QuestionContent(props: Props) {
       <Box>
         {props.type === "basic" ? (
           <YesNoAnseswer
-            setChosenAnsewer={setSelectedAnsewer}
-            chosenAnsewer={chosenAnsewer as BasicAnsewer}
-            correctAnsewer={props.correctAnsewer}
+            setChosenAnswer={setSelectedAnswer}
+            chosenAnswer={chosenAnswer as BasicAnswer}
+            correctAnswer={props.correctAnswer}
             size={5}
             sx={{ mt: "35px" }}
           />
         ) : (
-          <ABCAnsewer
-            ansewers={props.ansewers as ABCansewers}
-            chosenAnsewer={chosenAnsewer as SpecializedAnsewer}
-            correctAnsewer={props.correctAnsewer}
-            setChosenAnsewer={setSelectedAnsewer}
+          <ABCAnswer
+            answers={props.answers as ABCanswers}
+            chosenAnswer={chosenAnswer as SpecializedAnswer}
+            correctAnswer={props.correctAnswer}
+            setChosenAnswer={setSelectedAnswer}
             sx={{ mt: "35px" }}
           />
         )}

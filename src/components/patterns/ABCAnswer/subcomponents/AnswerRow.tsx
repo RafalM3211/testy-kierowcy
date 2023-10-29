@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import AnsewerButton from "../../../atoms/AnsewerButton/AnsewerButton";
+import AnswerButton from "../../../atoms/AnswerButton/AnswerButton";
 import type { ButtonProps } from "@mui/material";
 
 interface Props extends ButtonProps {
@@ -8,7 +8,7 @@ interface Props extends ButtonProps {
   children: string;
 }
 
-export default function AnsewerRow(props: Props) {
+export default function AnswerRow(props: Props) {
   const { checked, label, children, sx, ...other } = props;
 
   return (
@@ -39,7 +39,7 @@ export default function AnsewerRow(props: Props) {
         }}
         component="label"
       >
-        <AnsewerButton
+        <AnswerButton
           checked={checked}
           aria-label={label}
           sx={{
@@ -52,7 +52,7 @@ export default function AnsewerRow(props: Props) {
           {...other}
         >
           {label}
-        </AnsewerButton>
+        </AnswerButton>
         {children}
       </Typography>
     </Box>

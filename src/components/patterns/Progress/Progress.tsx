@@ -11,13 +11,13 @@ interface Props {
 
 export default function Progress(props: Props) {
   const { correctPercent, wrongPercent, sx } = props;
-  const unanseweredPercent = Math.floor(100 - correctPercent - wrongPercent);
+  const unansweredPercent = Math.floor(100 - correctPercent - wrongPercent);
   const wrapLabel =
-    wrongPercent < 10 && (correctPercent < 15 || unanseweredPercent < 15);
+    wrongPercent < 10 && (correctPercent < 15 || unansweredPercent < 15);
 
   if (correctPercent + wrongPercent > 100) {
     console.warn(
-      "Progress value is displayed in percentages. Sum of correct and wrong ansewers shouldn't be more than 100"
+      "Progress value is displayed in percentages. Sum of correct and wrong answers shouldn't be more than 100"
     );
   }
 
@@ -67,7 +67,7 @@ export default function Progress(props: Props) {
         >
           <ProgressLabel
             label="bez odpowiedzi"
-            value={unanseweredPercent}
+            value={unansweredPercent}
             color="grey.500"
           />
         </Box>

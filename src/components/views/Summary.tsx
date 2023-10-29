@@ -4,19 +4,19 @@ import { backgroundImg, flexCenter } from "../../utility/styling";
 import List from "../patterns/List/List";
 import Progress from "../patterns/Progress/Progress";
 import HighlitedText from "../atoms/HighlitedText/HighlitedText";
-import { useAnsewersContext } from "../../context/Ansewers/Ansewers";
-import type { AnseweredQuestion } from "../../types/globalTypes";
+import { useAnswersContext } from "../../context/Answers/Answers";
+import type { AnsweredQuestion } from "../../types/globalTypes";
 
-function calculateOutcome(questions: AnseweredQuestion[]) {
+function calculateOutcome(questions: AnsweredQuestion[]) {
   let points = 0;
   let correct = 0;
   let wrong = 0;
   questions.forEach((question) => {
-    const { chosenAnsewer, correctAnsewer, value: questionValue } = question;
-    if (chosenAnsewer === correctAnsewer) {
+    const { chosenAnswer, correctAnswer, value: questionValue } = question;
+    if (chosenAnswer === correctAnswer) {
       correct++;
       points += questionValue;
-    } else if (chosenAnsewer !== null) {
+    } else if (chosenAnswer !== null) {
       wrong++;
     }
   });
@@ -26,10 +26,10 @@ function calculateOutcome(questions: AnseweredQuestion[]) {
 }
 
 export default function Summary() {
-  const { anseweredQuestions } = useAnsewersContext();
+  const { answeredQuestions } = useAnswersContext();
 
   const { correct, wrong, points, passed } =
-    calculateOutcome(anseweredQuestions);
+    calculateOutcome(answeredQuestions);
 
   const questionsNumber = 32;
   const correctPercent = Math.round((correct / questionsNumber) * 100);
@@ -73,7 +73,7 @@ export default function Summary() {
         </Box>
         <Progress correctPercent={correctPercent} wrongPercent={wrongPercent} />
       </Container>
-      <List questions={anseweredQuestions} />
+      <List questions={answeredQuestions} />
     </Box>
   );
 }

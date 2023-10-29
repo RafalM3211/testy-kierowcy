@@ -1,4 +1,4 @@
-import type { Ansewer } from "../types/globalTypes";
+import type { Answer } from "../types/globalTypes";
 import type { GenericObject } from "../types/utilityTypes";
 
 export function trimText(text: string, limit: number) {
@@ -14,16 +14,16 @@ export function isImage(name: string) {
   return extension === "jpg";
 }
 
-export function getColorForAnsewerButton(
-  buttonValue: Exclude<Ansewer, null>,
-  correctAnsewer: Exclude<Ansewer, null> | undefined,
-  chosenAnsewer: Ansewer
+export function getColorForAnswerButton(
+  buttonValue: Exclude<Answer, null>,
+  correctAnswer: Exclude<Answer, null> | undefined,
+  chosenAnswer: Answer
 ) {
-  if (correctAnsewer !== undefined) {
-    const isButtonCorrectAnsewer = buttonValue === correctAnsewer;
-    const isButtonCkecked = buttonValue === chosenAnsewer;
-    if (isButtonCorrectAnsewer) return "success";
-    if (!isButtonCorrectAnsewer && isButtonCkecked) return "error";
+  if (correctAnswer !== undefined) {
+    const isButtonCorrectAnswer = buttonValue === correctAnswer;
+    const isButtonCkecked = buttonValue === chosenAnswer;
+    if (isButtonCorrectAnswer) return "success";
+    if (!isButtonCorrectAnswer && isButtonCkecked) return "error";
   }
   return "primary";
 }

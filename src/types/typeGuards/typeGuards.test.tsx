@@ -36,8 +36,8 @@ const questionsProvider: QuestionsProviderEntry[] = [
     false
   ),
   createEntry(
-    { ...basic, correctAnsewer: "B" },
-    "detects basic question type not matching with correctAnsewer property",
+    { ...basic, correctAnswer: "B" },
+    "detects basic question type not matching with correctAnswer property",
     false
   ),
   createEntry(
@@ -46,13 +46,13 @@ const questionsProvider: QuestionsProviderEntry[] = [
     false
   ),
   createEntry(
-    { ...specialized, correctAnsewer: true },
-    "detects specialized question type not matching with correctAnsewer property",
+    { ...specialized, correctAnswer: true },
+    "detects specialized question type not matching with correctAnswer property",
     false
   ),
   createEntry(
-    { ...specialized, ansewers: { A: "a", C: "c" } },
-    "detects wrong ansewers structure in specialized question",
+    { ...specialized, answers: { A: "a", C: "c" } },
+    "detects wrong answers structure in specialized question",
     false
   ),
 ];

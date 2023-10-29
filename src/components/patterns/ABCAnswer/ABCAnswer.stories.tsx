@@ -1,25 +1,25 @@
-import ABCAnsewer from "./ABCAnsewer";
+import ABCAnswer from "./ABCAnswer";
 import { specialized } from "../../../tests/dummyQuestion/dummyQuestions";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const metaData = {
-  title: "ABC ansewer",
-  component: ABCAnsewer,
+  title: "ABC answer",
+  component: ABCAnswer,
   argTypes: {
-    chosenAnsewer: {
+    chosenAnswer: {
       options: ["A", "B", "C"],
       control: { type: "select" },
     },
   },
-} satisfies Meta<typeof ABCAnsewer>;
+} satisfies Meta<typeof ABCAnswer>;
 
 export default metaData;
 
-type Story = StoryObj<typeof ABCAnsewer>;
+type Story = StoryObj<typeof ABCAnswer>;
 
 export const Primary = {
   args: {
-    ansewers: specialized.ansewers,
-    chosenAnsewer: "A",
+    answers: specialized.answers,
+    chosenAnswer: "A",
   },
 } satisfies Story;

@@ -1,11 +1,11 @@
 import { Box, Card, Typography, useMediaQuery } from "@mui/material";
-import YesNoAnseswer from "../YesNoAnsewer/YesNoAnsewer";
-import ABCAnsewer from "../ABCAnsewer/ABCAnsewer";
+import YesNoAnseswer from "../YesNoAnswer/YesNoAnswer";
+import ABCAnswer from "../ABCAnswer/ABCAnswer";
 import { flexCenter } from "../../../utility/styling";
 import { trimText, isImage } from "../../../utility/utils";
 import type {
-  ABCansewers,
-  AnseweredQuestion,
+  ABCanswers,
+  AnsweredQuestion,
   Question,
 } from "../../../types/globalTypes";
 import { Link } from "react-router-dom";
@@ -14,7 +14,7 @@ import Video from "./subcomponents/Video/Video";
 import NoMedia from "./subcomponents/NoMedia/NoMedia";
 
 interface Props {
-  data: Question | AnseweredQuestion;
+  data: Question | AnsweredQuestion;
   number?: number;
 }
 
@@ -23,12 +23,12 @@ const mediaWidth = 200;
 const aspectRatio = 0.5625;
 const mediaHeight = mediaWidth * aspectRatio;
 
-function trimAnsewers(ansewers: ABCansewers): ABCansewers {
+function trimAnswers(answers: ABCanswers): ABCanswers {
   const trimValue = 65;
   return {
-    A: trimText(ansewers.A, trimValue),
-    B: trimText(ansewers.B, trimValue),
-    C: trimText(ansewers.C, trimValue),
+    A: trimText(answers.A, trimValue),
+    B: trimText(answers.B, trimValue),
+    C: trimText(answers.C, trimValue),
   };
 }
 
@@ -126,23 +126,23 @@ export default function QuestionItem(props: Props) {
           </Typography>
           {question.type === "basic" ? (
             <YesNoAnseswer
-              chosenAnsewer={
-                "chosenAnsewer" in question
-                  ? (question.chosenAnsewer as boolean)
+              chosenAnswer={
+                "chosenAnswer" in question
+                  ? (question.chosenAnswer as boolean)
                   : null
               }
-              correctAnsewer={question.correctAnsewer}
+              correctAnswer={question.correctAnswer}
               size={3.4}
             />
           ) : (
-            <ABCAnsewer
-              ansewers={trimAnsewers(question.ansewers)}
-              chosenAnsewer={
-                "chosenAnsewer" in question
-                  ? (question.chosenAnsewer as keyof ABCansewers)
+            <ABCAnswer
+              answers={trimAnswers(question.answers)}
+              chosenAnswer={
+                "chosenAnswer" in question
+                  ? (question.chosenAnswer as keyof ABCanswers)
                   : null
               }
-              correctAnsewer={question.correctAnsewer}
+              correctAnswer={question.correctAnswer}
               sx={{ fontSize: "0.9em" }}
             />
           )}
