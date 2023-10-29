@@ -3,7 +3,7 @@ import Player, { canPlay } from "../../../Player/Player";
 import { useCallback, useEffect, useRef, useState } from "react";
 import MediaCover from "../MediaCover/MediaCover";
 import { QuestionMode } from "../../types";
-import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
+import { useExamControlContext } from "../../../../../context/examControls/examControls";
 
 interface Props {
   src: string;
@@ -14,7 +14,7 @@ export default function Video(props: Props) {
   const [isVideoStarted, setVideoStarted] = useState(false);
   const [isError, setError] = useState(false);
 
-  const { questionCount, setTimerState, timerState } = useEgzamControlContext();
+  const { questionCount, setTimerState, timerState } = useExamControlContext();
   const videoRef = useRef<ReactPlayer>(null);
 
   function handleVideoEnd() {

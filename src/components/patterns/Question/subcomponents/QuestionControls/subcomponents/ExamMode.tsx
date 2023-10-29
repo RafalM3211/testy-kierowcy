@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import QuestionCount from "../../../subcomponents/QuestionCount/QuestionCount";
 import TimeCount from "../../../subcomponents/TimeCount/TimeCount";
-import { useEgzamControlContext } from "../../../../../../context/egzamControls/egzamControls";
+import { useExamControlContext } from "../../../../../../context/examControls/examControls";
 import type { ExcludeUndefined } from "../../../types";
 import type { QuestionType } from "../../../../../../types/globalTypes";
 
@@ -20,7 +20,7 @@ function drawSpecializedQuestionCount(count: number) {
 }
 
 export default function ExamMode(props: Props) {
-  const controls = useEgzamControlContext();
+  const controls = useExamControlContext();
   const { questionCount, nextQuestion, endExam } = controls as ExcludeUndefined<
     typeof controls
   >;

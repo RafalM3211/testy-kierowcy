@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Box } from "@mui/system";
 import MediaCover from "../MediaCover/MediaCover";
-import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
+import { useExamControlContext } from "../../../../../context/examControls/examControls";
 import { QuestionType } from "../../../../../types/globalTypes";
 import { QuestionMode } from "../../types";
 
@@ -15,7 +15,7 @@ interface Props {
 export default function Image(props: Props) {
   const [isError, setError] = useState(false);
 
-  const { setTimerState, timerState } = useEgzamControlContext();
+  const { setTimerState, timerState } = useExamControlContext();
   const isQuestionStarted = timerState === "ansewer";
 
   function handleError() {

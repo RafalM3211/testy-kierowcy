@@ -74,7 +74,7 @@ server.get("/media/:fileName", (req, res) => {
   }
 });
 
-server.get("/resetEgzamSession", (req, res) => {
+server.get("/resetExamSession", (req, res) => {
   const session = req.session;
   session.questions = [];
   session.save();

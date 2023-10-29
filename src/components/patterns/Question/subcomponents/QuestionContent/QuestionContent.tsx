@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import ABCAnsewer from "../../../ABCAnsewer/ABCAnsewer";
 import YesNoAnseswer from "../../../YesNoAnsewer/YesNoAnsewer";
-import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
+import { useExamControlContext } from "../../../../../context/examControls/examControls";
 import type {
   BasicQuestion,
   SpecializedQuestion,
@@ -30,7 +30,7 @@ interface SpecializedQuestionProps extends PropsBase {
 type Props = SpecializedQuestionProps | BasicQuesitonProps;
 
 export default function QuestionContent(props: Props) {
-  const { selectedAnsewer, setSelectedAnsewer } = useEgzamControlContext();
+  const { selectedAnsewer, setSelectedAnsewer } = useExamControlContext();
 
   const chosenAnsewer = selectedAnsewer ?? props.chosenAnsewer;
 

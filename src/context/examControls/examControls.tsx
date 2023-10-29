@@ -33,10 +33,10 @@ interface Props {
   children: ReactNode;
 }
 
-const EgzamControlContext = createContext<Controls | null>(null);
+const ExamControlContext = createContext<Controls | null>(null);
 
-export function useEgzamControlContext() {
-  const contextValue = useContext(EgzamControlContext);
+export function useExamControlContext() {
+  const contextValue = useContext(ExamControlContext);
   if (!contextValue) {
     const emptyControls = {
       nextQuestion: undefined,
@@ -54,7 +54,7 @@ export function useEgzamControlContext() {
   return contextValue;
 }
 
-export default function EgzamControlProvider(props: Props) {
+export default function ExamControlProvider(props: Props) {
   const { addAnsewer, clearAnsewers, anseweredQuestions } =
     useAnsewersContext();
   const navigate = useNavigate();
@@ -101,8 +101,8 @@ export default function EgzamControlProvider(props: Props) {
   } satisfies Controls;
 
   return (
-    <EgzamControlContext.Provider value={controls}>
+    <ExamControlContext.Provider value={controls}>
       {props.children}
-    </EgzamControlContext.Provider>
+    </ExamControlContext.Provider>
   );
 }

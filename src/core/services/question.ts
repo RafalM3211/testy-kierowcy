@@ -15,7 +15,7 @@ export async function getQuestion() {
 }
 
 export async function resetSession() {
-  await fetch(apiUrl + "resetEgzamSession", {
+  await fetch(apiUrl + "resetExamSession", {
     credentials: "include",
   });
   return {};

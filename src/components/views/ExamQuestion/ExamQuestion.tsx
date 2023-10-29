@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getQuestion, resetSession } from "../../../core/services/question";
 import Loader from "../../patterns/Loader/Loader";
 import Question from "../../patterns/Question/Question";
-import EgzamControlProvider from "../../../context/egzamControls/egzamControls";
+import ExamControlProvider from "../../../context/examControls/examControls";
 import { useOnMount } from "../../../utility/hooks";
 import ErrorScreen from "../../patterns/ErrorScreen/ErrorScreen";
 import { useEffect } from "react";
@@ -34,9 +34,9 @@ export default function ExamQuestion() {
       ) : isError ? (
         <ErrorScreen />
       ) : (
-        <EgzamControlProvider dataControls={dataControls} questionData={data}>
+        <ExamControlProvider dataControls={dataControls} questionData={data}>
           <Question question={{ ...data }} mode="exam" />
-        </EgzamControlProvider>
+        </ExamControlProvider>
       )}
     </>
   );
