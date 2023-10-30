@@ -22,7 +22,9 @@ export default function Progress(props: Props) {
   }
 
   return (
-    <Box sx={{ position: "relative", width: "600px", ...sx }}>
+    <Box
+      sx={{ position: "relative", width: "clamp(100px, 100%, 600px)", ...sx }}
+    >
       <ProgressBackground stripesWidth={correctPercent + wrongPercent} />
       <Box
         sx={{
