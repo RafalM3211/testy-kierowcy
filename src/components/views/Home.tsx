@@ -13,34 +13,40 @@ export default function Home() {
     <Box
       sx={{
         ...backgroundImg(bgImage),
-        height: "100vh",
+        minHeight: "100vh",
       }}
     >
       <Grid
         sx={{
-          height: "100%",
-          px: { xs: "100px", lg: "150px" },
+          width: "100%",
+          minHeight: "100vh",
+          px: { xs: "80px", md: "50px", lg: "150px" },
+          pt: { xs: "100px", md: "0" },
         }}
+        columnSpacing={{ md: 5, lg: 0 }}
+        rowGap={10}
         container
       >
         <Grid
           sx={{
             ...flexCenter,
             flexDirection: "column",
-            mb: "100px",
+            mb: { xs: 0, md: "50px" },
           }}
-          xs={6}
+          xs={12}
+          md={6}
         >
           <SectionHeader>Twój progres</SectionHeader>
-          <SectionSubtitle>
+          <SectionSubtitle variant="subtitle1">
             Rozwiązuj testy a pasek progresu będzie uzupełniał się sam. Dzięki
             temu będziesz wiedział kiedy jesteś gotowy do egzaminu
           </SectionSubtitle>
-          <Progress correctPercent={20} wrongPercent={30} sx={{ mt: "60px" }} />
+          <Progress correctPercent={20} wrongPercent={30} sx={{ mt: "40px" }} />
         </Grid>
         <Grid
-          sx={{ ...flexCenter, flexDirection: "column", mb: "100px" }}
-          xs={6}
+          sx={{ ...flexCenter, flexDirection: "column", mb: "50px" }}
+          xs={12}
+          md={6}
         >
           <SectionHeader sx={{ mb: "5px" }}>
             Kategoria: <HighlitedText variant="h1">B</HighlitedText>
