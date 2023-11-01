@@ -1,16 +1,23 @@
 import { Box, Typography, Avatar } from "@mui/material";
+import type { SxProps } from "@mui/material";
 
-export default function UserChip() {
+interface Props {
+  sx?: SxProps;
+}
+
+export default function UserChip(props: Props) {
+  const { sx } = props;
+
   return (
     <Box
       sx={{
         display: "flex",
         alignItems: "center",
         mx: "10px",
-        ml: "30px",
         borderRadius: "50px",
         bgcolor: "primary.light",
         height: "min-content",
+        ...sx,
       }}
     >
       <Typography
