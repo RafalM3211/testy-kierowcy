@@ -8,6 +8,7 @@ import type {
   TimerState,
 } from "../../../../../types/globalTypes";
 import type { ExcludeUndefined } from "../../types";
+import { flexCenter } from "../../../../../utility/styling";
 
 interface Props {
   type: QuestionType;
@@ -81,13 +82,20 @@ export default function TimeCount(props: Props) {
   }, [questionCount, props.type, setTimerState]);
 
   return (
-    <>
+    <Box
+      sx={{
+        ...flexCenter,
+        flexDirection: "column",
+        textAlign: "center",
+        maxWidth: "45%",
+      }}
+    >
       <Typography variant="subtitle2" sx={{ color: "grey.800" }}>
         {getTimerLabel(timerState)}
       </Typography>
       <Box
         sx={{
-          width: "200px",
+          width: "clamp(100px, 100%, 200px)",
           textAlign: "center",
           backgroundColor: "grey.300",
           borderRadius: "10px",
@@ -114,6 +122,6 @@ export default function TimeCount(props: Props) {
           }}
         ></Box>
       </Box>
-    </>
+    </Box>
   );
 }

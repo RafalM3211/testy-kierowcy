@@ -1,4 +1,10 @@
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import QuestionCount from "../../../subcomponents/QuestionCount/QuestionCount";
 import TimeCount from "../../../subcomponents/TimeCount/TimeCount";
 import { useExamControlContext } from "../../../../../../context/examControls/examControls";
@@ -25,9 +31,21 @@ export default function ExamMode(props: Props) {
     typeof controls
   >;
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <>
-      <Box sx={{ display: "flex", alignItems: "center", mb: "20px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "95%",
+          mb: { xs: "0", md: "20px" },
+          fontSize: { xs: "0.6em", sm: "0.8em", md: "rem" },
+        }}
+      >
         <QuestionCount
           label="Pytania podstawowe"
           value={drawBasicQuestionCount(questionCount)}
@@ -51,19 +69,23 @@ export default function ExamMode(props: Props) {
         <Typography>Zakończ egzamin</Typography>
       </Button>
 
-      <Button
-        onClick={nextQuestion}
-        size="large"
-        variant="contained"
-        sx={{
-          textTransform: "unset",
-          mt: "100px",
-          px: "35px",
-          py: "10px",
-        }}
-      >
-        <Typography variant="h6">Następne pytanie</Typography>
-      </Button>
+      {isMobile ? (
+        <></>
+      ) : (
+        <Button
+          onClick={nextQuestion}
+          size="large"
+          variant="contained"
+          sx={{
+            textTransform: "unset",
+            mt: "100px",
+            px: "35px",
+            py: "10px",
+          }}
+        >
+          <Typography variant="h6">Następne pytanie</Typography>
+        </Button>
+      )}
     </>
   );
 }

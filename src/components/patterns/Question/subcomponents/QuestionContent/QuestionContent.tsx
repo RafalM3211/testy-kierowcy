@@ -1,4 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import ABCAnswer from "../../../ABCAnswer/ABCAnswer";
 import YesNoAnseswer from "../../../YesNoAnswer/YesNoAnswer";
 import { useExamControlContext } from "../../../../../context/examControls/examControls";
@@ -30,22 +36,39 @@ interface SpecializedQuestionProps extends PropsBase {
 type Props = SpecializedQuestionProps | BasicQuesitonProps;
 
 export default function QuestionContent(props: Props) {
-  const { selectedAnswer, setSelectedAnswer } = useExamControlContext();
-
+  const { selectedAnswer, setSelectedAnswer, nextQuestion } =
+    useExamControlContext();
   const chosenAnswer = selectedAnswer ?? props.chosenAnswer;
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
-    <Box sx={{ gridRow: "3", gridColumn: "1/3", mt: "20px" }}>
+    <Box
+      sx={{
+        gridRow: "3",
+        gridColumn: "1/3",
+        mt: "20px",
+        mb: "10px",
+
+        [theme.breakpoints.down("md")]: {
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        },
+      }}
+    >
       <Typography
         sx={(theme) => ({
           borderLeft: `3px solid ${theme.palette.primary.main}`,
           p: "5px",
+          fontSize: { xs: "1em", md: "1.25em" },
         })}
         variant="h6"
       >
         {props.content}
       </Typography>
-      <Box>
+      <Box sx={{ fontSize: { xs: "0.7em", md: "1em" }, mb: "10px" }}>
         {props.type === "basic" ? (
           <YesNoAnseswer
             setChosenAnswer={setSelectedAnswer}
@@ -64,6 +87,25 @@ export default function QuestionContent(props: Props) {
           />
         )}
       </Box>
+
+      {isMobile ? (
+        <Button
+          onClick={nextQuestion}
+          size="medium"
+          variant="contained"
+          sx={{
+            textTransform: "unset",
+            px: "35px",
+            py: "10px",
+            mx: "auto",
+            mt: "auto",
+          }}
+        >
+          <Typography>Następne pytanie</Typography>
+        </Button>
+      ) : (
+        <></>
+      )}
     </Box>
   );
 }

@@ -50,7 +50,7 @@ server.get("/question", (req, res) => {
   const question = getNextQuestion(isDev() ? wihoutFirst : session.questions);
   session.questions.push(question);
 
-  console.log(session.questions.length, wihoutFirst.length);
+  console.log(session.questions[session.questions.length - 1].id);
 
   session.save();
   res.status(200).jsonp(question);

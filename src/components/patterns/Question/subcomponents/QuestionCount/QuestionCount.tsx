@@ -17,13 +17,14 @@ export default function QuestionCount(props: Props) {
         mx: "15px",
         color: active ? "unset" : "grey.500",
         transition: "color 0.2s",
+        flexShrink: "2",
         ...sx,
       }}
       {...boxProps}
     >
       <Typography
         sx={{
-          fontSize: active ? "1.25rem" : "1.1rem",
+          fontSize: active ? "1.25em" : "1.1em",
           transition: "font-size 0.3s",
         }}
         variant="h6"
@@ -33,7 +34,7 @@ export default function QuestionCount(props: Props) {
       </Typography>
       <Typography
         sx={{
-          fontSize: active ? "3rem" : "2.64rem",
+          fontSize: active ? "3em" : "2.64em",
           transition: "font-size 0.1s",
         }}
         variant="h3"

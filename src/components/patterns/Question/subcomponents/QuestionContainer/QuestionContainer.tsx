@@ -11,10 +11,15 @@ export default function QuestionContainer(props: Props) {
     <Container
       sx={{
         display: "grid",
-        gridTemplateColumns: "921px 1fr",
-        gridTemplateRows: "min-content 540px auto",
+        gridTemplateColumns: { xs: "1fr", md: "min-content auto" },
+        gridTemplateRows: {
+          xs: "min-content min-content 1fr",
+          md: "min-content min-content auto",
+        },
         minHeight: "100vh",
-        pt: "60px",
+        pt: { xs: "15px", sm: "60px" },
+        px: { xs: "5px", sm: "16px", md: "24px" },
+        boxSizing: "border-box",
         maxWidth: { lg: "1400px" },
         ...props.sx,
       }}

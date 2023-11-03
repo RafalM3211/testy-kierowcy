@@ -5,6 +5,7 @@ import NoMedia from "../NoMedia/NoMedia";
 import { isImage } from "../../../../../utility/utils";
 import type { QuestionMode } from "../../types";
 import type { QuestionType } from "../../../../../types/globalTypes";
+import { flexCenter } from "../../../../../utility/styling";
 
 interface Props {
   mediaFileName: string;
@@ -13,9 +14,9 @@ interface Props {
 }
 
 const mediaEndpointUrl = process.env.REACT_APP_SERVER_URL + "media/";
-const mediaWidth = 921;
+const maxMediaWidth = 921;
 const aspectRatio = 0.5625;
-const mediaHeight = mediaWidth * aspectRatio;
+const maxMediaHeight = maxMediaWidth * aspectRatio;
 
 export default function QuestionMedia(props: Props) {
   const isMediaPresent = props.mediaFileName !== "";
@@ -26,11 +27,20 @@ export default function QuestionMedia(props: Props) {
   return (
     <Box
       sx={{
-        width: mediaWidth + "px",
-        height: mediaHeight + "px",
-        bgcolor: "grey.300",
+        width: {
+          xs: "90vw",
+          md: "70vw",
+          lg: `clamp(850px, 70vw, ${maxMediaWidth}px)`,
+        },
+        height: {
+          xs: aspectRatio * 90 + "vw",
+          md: aspectRatio * 70 + "vw",
+          lg: maxMediaHeight + "px",
+        },
         gridRow: "2",
         gridColumn: "1",
+        bgcolor: "grey.300",
+        mx: "auto",
       }}
     >
       {isMediaPresent ? (
