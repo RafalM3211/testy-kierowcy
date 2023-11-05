@@ -10,6 +10,7 @@ export default function SectionSubtitle(props: TypographyProps) {
         textAlign: "center",
         px: { sx: "5%", md: "18%" },
         mb: "5px",
+        fontSize: "1em",
         ...sx,
       }}
       variant="subtitle2"

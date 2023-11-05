@@ -20,13 +20,33 @@ export default function Home() {
         sx={{
           width: "100%",
           minHeight: "100vh",
-          px: { xs: "80px", md: "50px", lg: "150px" },
+          px: { xs: "40px", md: "50px", lg: "150px" },
           pt: { xs: "100px", md: "0" },
+          fontSize: { xs: "0.9em", sm: "1em" },
+          alignItems: "baseline",
+          alignContent: "center",
         }}
-        columnSpacing={{ md: 5, lg: 0 }}
+        columnSpacing={{ md: 5, lg: 1 }}
         rowGap={10}
         container
       >
+        <Grid
+          sx={{
+            ...flexCenter,
+            flexDirection: "column",
+            mb: { xs: "80px", md: "50px" },
+            order: { xs: 2, md: 0 },
+          }}
+          xs={12}
+          md={6}
+        >
+          <SectionHeader>Twój progres</SectionHeader>
+          <SectionSubtitle>
+            Rozwiązuj testy a pasek progresu będzie uzupełniał się sam. Dzięki
+            temu będziesz wiedział kiedy jesteś gotowy do egzaminu
+          </SectionSubtitle>
+          <Progress correctPercent={20} wrongPercent={30} sx={{ mt: "40px" }} />
+        </Grid>
         <Grid
           sx={{
             ...flexCenter,
@@ -36,22 +56,13 @@ export default function Home() {
           xs={12}
           md={6}
         >
-          <SectionHeader>Twój progres</SectionHeader>
-          <SectionSubtitle variant="subtitle1">
-            Rozwiązuj testy a pasek progresu będzie uzupełniał się sam. Dzięki
-            temu będziesz wiedział kiedy jesteś gotowy do egzaminu
-          </SectionSubtitle>
-          <Progress correctPercent={20} wrongPercent={30} sx={{ mt: "40px" }} />
-        </Grid>
-        <Grid
-          sx={{ ...flexCenter, flexDirection: "column", mb: "50px" }}
-          xs={12}
-          md={6}
-        >
           <SectionHeader sx={{ mb: "5px" }}>
-            Kategoria: <HighlitedText variant="h1">B</HighlitedText>
+            Kategoria:{" "}
+            <HighlitedText sx={{ fontSize: "2em" }} variant="h1">
+              B
+            </HighlitedText>
           </SectionHeader>
-          <SectionSubtitle variant="subtitle1">
+          <SectionSubtitle>
             Spróbuj swoich sił w egzaminie próbnym lub rozwiązuj pojedyńczo
             najtrudniejsze i niepoznane wcześniej pytania
           </SectionSubtitle>
@@ -62,16 +73,19 @@ export default function Home() {
               borderRadius: "15px",
               px: "50px",
               mb: "20px",
-              mt: "40px",
+              mt: { xs: "20px", sm: "40px" },
             }}
             variant="contained"
           >
-            <Typography variant="h5" component={"p"}>
+            <Typography
+              component={"p"}
+              sx={{ fontSize: { xs: "1em", md: "1.35em" } }}
+            >
               Rozwiaż test na kategorię B
             </Typography>
           </ButtonLink>
           <ButtonLink to="#" sx={{ borderRadius: "15px" }} variant="outlined">
-            <Typography variant="h6" component={"p"}>
+            <Typography component={"p"} sx={{ fontSize: "1.1em" }}>
               Zobacz ulubione pytania
             </Typography>
           </ButtonLink>
