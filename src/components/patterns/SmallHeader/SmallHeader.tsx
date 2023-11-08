@@ -15,28 +15,33 @@ export default function SmallHeader() {
       sx={{
         boxShadow: 0,
         bgcolor: "rgb(108, 65, 0, 0.02)",
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: { xs: "flex-end", sm: "space-between" },
+        alignItems: "center",
+        px: { xs: "5px", sm: "30px" },
+        pt: "15px",
+        pb: "5px",
       }}
       position="absolute"
     >
       {isSmallMobile ? (
-        <MenuButton
-          sx={{
-            mt: "10px",
-            ml: "10px",
-          }}
-          onClick={() => setDrawerOpen(true)}
-        />
+        <></>
       ) : (
-        <Box
-          sx={{
-            py: "15px",
-            px: "30px",
-          }}
-        >
+        <Box>
           <Logo />
         </Box>
       )}
-      <Drawer open={isDrawerOpen} setOpen={setDrawerOpen} anchor="left" />
+
+      <MenuButton
+        sx={{
+          mr: "5px",
+          px: { xs: "10px", sm: "15px" },
+        }}
+        onClick={() => setDrawerOpen(true)}
+      />
+      <Drawer open={isDrawerOpen} setOpen={setDrawerOpen} />
     </AppBar>
   );
 }

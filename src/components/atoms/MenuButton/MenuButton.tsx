@@ -14,7 +14,6 @@ export default function MenuButton(props: Props) {
       variant="outlined"
       sx={{
         borderRadius: "50px",
-        ml: "15px",
         py: "5px",
         minWidth: "min-content",
         width: "min-content",

@@ -50,7 +50,14 @@ export default function Header() {
                 ml: "30px",
               }}
             />
-            {isXs ? <MenuButton onClick={() => setDrawerOpen(true)} /> : <></>}
+            {isXs ? (
+              <MenuButton
+                sx={{ ml: "15px" }}
+                onClick={() => setDrawerOpen(true)}
+              />
+            ) : (
+              <></>
+            )}
           </Box>
         </Container>
       </AppBar>
