@@ -1,5 +1,5 @@
 import { AppBar, Container, Box, Button, useTheme } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useState } from "react";
 import UserChip from "./subcomponents/UserChip";
@@ -7,6 +7,7 @@ import ButtonLink from "../../atoms/ButtonLink/ButtonLink";
 import Logo from "../../atoms/Logo/Logo";
 import { mainMenuStructure } from "../../../Router";
 import Drawer from "../Drawer/Drawer";
+import MenuButton from "../../atoms/MenuButton/MenuButton";
 
 export default function Header() {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -49,27 +50,12 @@ export default function Header() {
                 ml: "30px",
               }}
             />
-            {isXs ? (
-              <Button
-                variant="outlined"
-                sx={{
-                  borderRadius: "50px",
-                  ml: "15px",
-                  p: "5px",
-                  width: "min-content",
-                }}
-                onClick={() => setDrawerOpen(true)}
-              >
-                <MenuIcon color="primary" />
-              </Button>
-            ) : (
-              <></>
-            )}
+            {isXs ? <MenuButton onClick={() => setDrawerOpen(true)} /> : <></>}
           </Box>
         </Container>
       </AppBar>
 
-      <Drawer isOpen={isDrawerOpen} setOpen={setDrawerOpen} />
+      <Drawer open={isDrawerOpen} setOpen={setDrawerOpen} />
     </>
   );
 }

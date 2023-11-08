@@ -1,10 +1,14 @@
 import { AppBar, Box, Button, useTheme, useMediaQuery } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "../../atoms/Logo/Logo";
+import Drawer from "../Drawer/Drawer";
+import { useState } from "react";
+import MenuButton from "../../atoms/MenuButton/MenuButton";
 
 export default function SmallHeader() {
   const theme = useTheme();
   const isSmallMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <AppBar
@@ -15,9 +19,13 @@ export default function SmallHeader() {
       position="absolute"
     >
       {isSmallMobile ? (
-        <Button sx={{ maxWidth: "min-content", mt: "10px" }}>
-          <MenuIcon sx={{ fontSize: "2em" }} />
-        </Button>
+        <MenuButton
+          sx={{
+            mt: "10px",
+            ml: "10px",
+          }}
+          onClick={() => setDrawerOpen(true)}
+        />
       ) : (
         <Box
           sx={{
@@ -28,6 +36,7 @@ export default function SmallHeader() {
           <Logo />
         </Box>
       )}
+      <Drawer open={isDrawerOpen} setOpen={setDrawerOpen} anchor="left" />
     </AppBar>
   );
 }
