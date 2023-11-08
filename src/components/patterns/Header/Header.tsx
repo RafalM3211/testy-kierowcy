@@ -1,32 +1,12 @@
-import {
-  AppBar,
-  Grid,
-  Container,
-  Box,
-  Drawer,
-  Button,
-  List,
-  ListItem,
-  useTheme,
-} from "@mui/material";
+import { AppBar, Container, Box, Button, useTheme } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
+import { useState } from "react";
 import UserChip from "./subcomponents/UserChip";
 import ButtonLink from "../../atoms/ButtonLink/ButtonLink";
 import Logo from "../../atoms/Logo/Logo";
-import { useState } from "react";
-import type { MenuItem } from "./types";
-
-const menuStructure: MenuItem[] = [
-  { title: "ulubione", to: "/" },
-  { title: "test", to: "/" },
-];
-
-const userMenuStructure: MenuItem[] = [
-  { title: "wyloguj", to: "/" },
-  { title: "costam", to: "/" },
-];
+import { mainMenuStructure } from "../../../Router";
+import Drawer from "../Drawer/Drawer";
 
 export default function Header() {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -56,7 +36,7 @@ export default function Header() {
             {isXs ? (
               <></>
             ) : (
-              menuStructure.map((item, index) => {
+              mainMenuStructure.map((item, index) => {
                 return (
                   <ButtonLink to={item.to} key={index}>
                     {item.title}
@@ -89,74 +69,7 @@ export default function Header() {
         </Container>
       </AppBar>
 
-      <Drawer
-        anchor="right"
-        open={isDrawerOpen}
-        onClose={() => setDrawerOpen(false)}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            my: "10px",
-            mx: "16px",
-          }}
-        >
-          <UserChip />
-          <Button
-            onClick={() => setDrawerOpen(false)}
-            sx={{
-              color: "primary.dark",
-              minWidth: "min-content",
-            }}
-          >
-            <CloseIcon />
-          </Button>
-        </Box>
-
-        <List
-          sx={{
-            borderRight: (theme) => `1px solid ${theme.palette.grey[400]}`,
-            mr: "35px",
-            pr: "10px",
-          }}
-          disablePadding
-          dense
-        >
-          {userMenuStructure.map((item, index) => {
-            return (
-              <ListItem
-                key={index}
-                sx={{ pr: "8px", pt: "0px", justifyContent: "center" }}
-              >
-                <ButtonLink sx={{ color: "grey.500" }} to={item.to}>
-                  {item.title}
-                </ButtonLink>
-              </ListItem>
-            );
-          })}
-        </List>
-
-        <List>
-          {menuStructure.map((item, index) => {
-            return (
-              <ListItem
-                key={index}
-                sx={{
-                  borderLeft: (theme) => `5px solid ${theme.palette.grey[300]}`,
-                  py: "5px",
-                  my: "20px",
-                }}
-              >
-                <ButtonLink sx={{ py: "0" }} to={item.to}>
-                  {item.title}
-                </ButtonLink>
-              </ListItem>
-            );
-          })}
-        </List>
-      </Drawer>
+      <Drawer isOpen={isDrawerOpen} setOpen={setDrawerOpen} />
     </>
   );
 }
