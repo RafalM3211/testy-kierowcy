@@ -9,6 +9,8 @@ interface Props extends ButtonProps {
 }
 
 export default function MenuButton(props: Props) {
+  const { onClick, sx, ...other } = props;
+
   return (
     <Button
       variant="outlined"
@@ -17,9 +19,10 @@ export default function MenuButton(props: Props) {
         py: "5px",
         minWidth: "min-content",
         width: "min-content",
-        ...props.sx,
+        ...sx,
       }}
-      onClick={props.onClick}
+      onClick={onClick}
+      {...other}
     >
       <MenuIcon color="primary" />
     </Button>

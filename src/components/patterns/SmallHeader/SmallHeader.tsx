@@ -35,6 +35,7 @@ export default function SmallHeader() {
       )}
 
       <MenuButton
+        variant={isSmallMobile ? "text" : "outlined"}
         sx={{
           mr: "5px",
           px: { xs: "10px", sm: "15px" },
