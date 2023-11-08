@@ -2,7 +2,7 @@ import YesNoAnswer from "./YesNoAnswer";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const metaData = {
-  title: "YesNoAnswer",
+  title: "patters/YesNoAnswer",
   component: YesNoAnswer,
 } satisfies Meta<typeof YesNoAnswer>;
 

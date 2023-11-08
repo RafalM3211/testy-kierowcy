@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 const MenuButtonWrapped = wrapInDummyProviders(MenuButton);
 
 const metaData = {
-  title: "MenuButton",
+  title: "atoms/MenuButton",
   component: MenuButtonWrapped,
 } satisfies Meta<typeof MenuButton>;
 

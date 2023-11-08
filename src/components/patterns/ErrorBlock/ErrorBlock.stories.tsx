@@ -2,7 +2,7 @@ import ErrorBlock from "./ErrorBlock";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const metaData = {
-  title: "Error block",
+  title: "patters/Error block",
   component: ErrorBlock,
 } satisfies Meta<typeof ErrorBlock>;
 

@@ -3,7 +3,7 @@ import { specialized } from "../../../tests/dummyQuestion/dummyQuestions";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const metaData = {
-  title: "ABC answer",
+  title: "patters/ABC answer",
   component: ABCAnswer,
   argTypes: {
     chosenAnswer: {

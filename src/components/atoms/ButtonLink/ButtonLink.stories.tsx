@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 const ButtonLinkWrapped = wrapInDummyProviders(ButtonLink);
 
 const metaData = {
-  title: "ButtonLink",
+  title: "atoms/ButtonLink",
   component: ButtonLinkWrapped,
 } satisfies Meta<typeof ButtonLink>;
 

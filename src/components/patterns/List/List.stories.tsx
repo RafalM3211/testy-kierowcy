@@ -12,7 +12,7 @@ const ListWrapped = wrapInDummyProviders((props: { questions: Question[] }) => (
 ));
 
 const metaData = {
-  title: "Questions list",
+  title: "patters/Questions list",
   component: ListWrapped,
 } satisfies Meta<typeof ListWrapped>;
 

@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 const DrawerWrapped = wrapInDummyProviders(Drawer);
 
 const metaData = {
-  title: "Drawer",
+  title: "patters/Drawer",
   component: DrawerWrapped,
 } satisfies Meta<typeof Drawer>;
 
