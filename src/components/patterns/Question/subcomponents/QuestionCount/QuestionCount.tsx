@@ -18,6 +18,7 @@ export default function QuestionCount(props: Props) {
         color: active ? "unset" : "grey.500",
         transition: "color 0.2s",
         flexShrink: "2",
+        fontSize: { xs: "0.6em", sm: "0.8em", lg: "1em" },
         ...sx,
       }}
       {...boxProps}

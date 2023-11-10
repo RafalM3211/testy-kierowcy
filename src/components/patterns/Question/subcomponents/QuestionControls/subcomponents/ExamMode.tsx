@@ -43,7 +43,6 @@ export default function ExamMode(props: Props) {
           justifyContent: "center",
           width: "95%",
           mb: { xs: "0", md: "20px" },
-          fontSize: { xs: "0.6em", sm: "0.8em", md: "rem" },
         }}
       >
         <QuestionCount
