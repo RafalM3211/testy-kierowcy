@@ -13,6 +13,5 @@ type Story = StoryObj<typeof YesNoAnswer>;
 export const Primary = {
   args: {
     chosenAnswer: true,
-    size: 5,
   },
 } satisfies Story;

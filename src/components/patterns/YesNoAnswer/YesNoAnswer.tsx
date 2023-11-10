@@ -8,16 +8,10 @@ interface Props {
   setChosenAnswer?: (chosenAnswer: boolean) => void;
   chosenAnswer: BasicAnswer;
   correctAnswer?: boolean;
-  size: number;
   sx?: SxProps;
 }
 
 export default function YesNoAnseswer(props: Props) {
-  const px = props.size * 8 + "px";
-  const py = props.size + "px";
-  const fontSize = props.size * 0.34 + "em";
-  const mr = props.size * 10 + "px";
-
   function handleAnswerChange(answer: boolean) {
     if (props.setChosenAnswer) {
       props.setChosenAnswer(answer);
@@ -33,10 +27,10 @@ export default function YesNoAnseswer(props: Props) {
         checked={props.chosenAnswer === true}
         size="large"
         sx={{
-          px: px,
-          py: py,
-          fontSize: fontSize,
-          mr: mr,
+          px: "1.1em",
+          py: "0.15em",
+          fontSize: "1em",
+          mr: "1.2em",
         }}
         disableRipple={!props.setChosenAnswer}
         color={getColorForAnswerButton(
@@ -53,7 +47,7 @@ export default function YesNoAnseswer(props: Props) {
         }}
         checked={props.chosenAnswer === false}
         size="large"
-        sx={{ px: px, py: py, fontSize: fontSize }}
+        sx={{ px: "1em", py: "0.15em", fontSize: "1em" }}
         disableRipple={!props.setChosenAnswer}
         color={getColorForAnswerButton(
           false,
