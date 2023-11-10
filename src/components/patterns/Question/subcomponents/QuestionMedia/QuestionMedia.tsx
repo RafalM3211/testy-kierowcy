@@ -29,12 +29,12 @@ export default function QuestionMedia(props: Props) {
       sx={{
         width: {
           xs: "90vw",
-          md: "70vw",
+          md: "68vw",
           lg: `clamp(850px, 70vw, ${maxMediaWidth}px)`,
         },
         height: {
           xs: aspectRatio * 90 + "vw",
-          md: aspectRatio * 70 + "vw",
+          md: aspectRatio * 68 + "vw",
           lg: maxMediaHeight + "px",
         },
         gridRow: "2",

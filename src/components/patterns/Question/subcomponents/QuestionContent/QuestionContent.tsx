@@ -42,6 +42,7 @@ export default function QuestionContent(props: Props) {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isExamMode = props.correctAnswer === undefined;
 
   return (
     <Box
@@ -54,7 +55,7 @@ export default function QuestionContent(props: Props) {
         [theme.breakpoints.down("md")]: {
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
+          justifyContent: isExamMode ? "space-between" : "flex-start",
         },
       }}
     >
@@ -82,12 +83,12 @@ export default function QuestionContent(props: Props) {
             chosenAnswer={chosenAnswer as SpecializedAnswer}
             correctAnswer={props.correctAnswer}
             setChosenAnswer={setSelectedAnswer}
-            sx={{ mt: "35px" }}
+            sx={{ mt: "35px", fontSize: "1.2em" }}
           />
         )}
       </Box>
 
-      {isMobile ? (
+      {isMobile && isExamMode ? (
         <Button
           onClick={nextQuestion}
           size="medium"

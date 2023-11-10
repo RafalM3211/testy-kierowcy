@@ -55,13 +55,18 @@ export default function PreviewMode() {
         size="small"
         variant="outlined"
         sx={{
-          mt: "50px",
+          mt: { xs: "20px", md: "50px" },
           mb: "20px",
         }}
       >
-        <Typography variant="h6">Powrót do podsumowania</Typography>
+        <Typography
+          sx={{ fontSize: { xs: "0.95em", lg: "1.05em" } }}
+          variant="h6"
+        >
+          Powrót do podsumowania
+        </Typography>
       </ButtonLink>
-      <Box>
+      <Box sx={{ textAlign: "center" }}>
         <ButtonLink
           disabled={!previousQuestionId}
           to={"/question/" + previousQuestionId}

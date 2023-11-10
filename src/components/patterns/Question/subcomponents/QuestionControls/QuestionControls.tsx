@@ -18,9 +18,9 @@ export default function QuestionControls(props: Props) {
         justifyContent: "center",
         flexDirection: "column",
         flexWrap: "nowrap",
-        ml: "30px",
         gridRow: "2",
         gridColumn: "2",
+        fontSize: "1.1em",
 
         [theme.breakpoints.down("md")]: {
           flexDirection: "row",
@@ -30,6 +30,7 @@ export default function QuestionControls(props: Props) {
           mb: "20px",
           gridRow: "1",
           gridColumn: "1",
+          fontSize: "1em",
         },
       })}
     >

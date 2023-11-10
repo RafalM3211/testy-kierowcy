@@ -11,7 +11,7 @@ export default function QuestionContainer(props: Props) {
     <Container
       sx={{
         display: "grid",
-        gridTemplateColumns: { xs: "1fr", md: "min-content auto" },
+        gridTemplateColumns: { xs: "1fr", md: "min-content 1fr" },
         gridTemplateRows: {
           xs: "min-content min-content 1fr",
           md: "min-content min-content auto",

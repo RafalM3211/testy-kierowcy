@@ -14,7 +14,7 @@ export default function QuestionCount(props: Props) {
     <Box
       sx={{
         textAlign: "center",
-        mx: "15px",
+        mx: { xs: "15px", md: "5px", lg: "15px" },
         color: active ? "unset" : "grey.500",
         transition: "color 0.2s",
         flexShrink: "2",
