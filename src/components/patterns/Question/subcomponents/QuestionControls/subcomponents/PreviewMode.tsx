@@ -37,7 +37,13 @@ export default function PreviewMode() {
 
   return (
     <>
-      <Box sx={{ display: "flex", alignItems: "center", mb: "20px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          mb: { xs: "0px", md: "20px" },
+        }}
+      >
         <QuestionCount
           label="Pytania podstawowe"
           value={drawBasicQuestionCount(questionCount, questionsAmount)}
