@@ -14,7 +14,7 @@ interface Props {
 }
 
 const mediaEndpointUrl = process.env.REACT_APP_SERVER_URL + "media/";
-const maxMediaWidth = 921;
+const maxMediaWidth = 900;
 const aspectRatio = 0.5625;
 const maxMediaHeight = maxMediaWidth * aspectRatio;
 
