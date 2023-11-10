@@ -83,7 +83,7 @@ export default function QuestionContent(props: Props) {
             chosenAnswer={chosenAnswer as SpecializedAnswer}
             correctAnswer={props.correctAnswer}
             setChosenAnswer={setSelectedAnswer}
-            sx={{ mt: "35px", fontSize: "1.2em" }}
+            sx={{ mt: "35px", fontSize: "1.05em" }}
           />
         )}
       </Box>
