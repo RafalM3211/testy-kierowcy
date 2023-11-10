@@ -13,7 +13,7 @@ export default function AnswerButton(props: Props) {
       sx={{
         textTransform: "capitalize",
         mx: "10px",
-        fontSize: { xs: "0.2em", md: "1em" },
+        fontSize: "1em",
         ...sx,
       }}
       aria-pressed={checked}

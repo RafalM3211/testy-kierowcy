@@ -32,6 +32,8 @@ export default memo(function List(props: Props) {
         display: "flex",
         flexWrap: "wrap",
         alignContent: "baseline",
+        alignItems: "center",
+        flexDirection: { xs: "column", md: "row" },
         width: "90%",
         mx: "auto",
         ...props.sx,

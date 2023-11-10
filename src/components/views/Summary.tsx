@@ -40,7 +40,7 @@ export default function Summary() {
       sx={{
         ...backgroundImg(bgImage),
         minHeight: "100vh",
-        pt: "130px",
+        pt: { xs: "90px", sm: "130px" },
         pb: "50px",
       }}
     >
@@ -48,21 +48,40 @@ export default function Summary() {
         sx={{
           ...flexCenter,
           justifyContent: "space-between",
+          flexDirection: { xs: "column", sm: "row" },
           mb: "50px",
+          fontSize: "1em",
         }}
         maxWidth="xl"
       >
-        <Box sx={{ textAlign: "center" }}>
-          <Typography variant="h4" component="h2">
+        <Box
+          sx={{
+            textAlign: { xs: "left", sm: "center" },
+            mr: "20px",
+            mb: { xs: "70px", sm: "0px" },
+          }}
+        >
+          <Typography
+            variant="h4"
+            component="h2"
+            sx={{
+              fontSize: "2.2em",
+              textAlign: "center",
+              mb: { xs: "10px", sm: "0px" },
+            }}
+          >
             Wynik egzaminu:{" "}
             <Typography
               variant="h2"
               component="span"
-              sx={{ color: passed ? "success.light" : "error.main" }}
+              sx={{
+                color: passed ? "success.light" : "error.main",
+              }}
             >
               {passed ? "zaliczony" : "niezaliczony"}
             </Typography>
           </Typography>
+
           <Typography variant="subtitle1">
             poprawnie udzielone odpowiedzi:{" "}
             <HighlitedText>{`${correct}/32`}</HighlitedText>

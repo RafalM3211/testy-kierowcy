@@ -43,10 +43,10 @@ export default function AnswerRow(props: Props) {
           checked={checked}
           aria-label={label}
           sx={{
-            minWidth: "40px",
-            width: "40px",
+            minWidth: "2.7em",
+            width: "2.7em",
             ml: "0",
-            height: "40px",
+            height: "2.7em",
             display: "block",
           }}
           {...other}
