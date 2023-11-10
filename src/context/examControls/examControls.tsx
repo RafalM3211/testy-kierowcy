@@ -74,9 +74,14 @@ export default function ExamControlProvider(props: Props) {
       navigate("/summary");
     }
 
-    setStarted(false);
     setSelectedAnswer(null);
-    setTimerState("prepare");
+    if (props.questionData.type === "basic") {
+      setStarted(false);
+      setTimerState("prepare");
+    } else {
+      setStarted(true);
+      setTimerState("answer");
+    }
   }
 
   function endExam() {

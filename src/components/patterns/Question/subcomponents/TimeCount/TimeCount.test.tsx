@@ -135,7 +135,10 @@ describe("on expire behavior", () => {
   it("expires afrer 50 seconds when type is 'specialized'", () => {
     //arrange
     const context = useExamControlContext as jest.Mock;
-    context.mockReturnValue(dummyContextValue);
+    context.mockReturnValue({
+      ...dummyContextValue,
+      timerState: "answer",
+    });
     render(<TimeCount type="specialized" />);
 
     //act
@@ -149,7 +152,7 @@ describe("on expire behavior", () => {
     act(() => {
       jest.advanceTimersByTime(10001);
     });
-    expect(dummyContextValue.setTimerState).toBeCalledWith("answer");
+    expect(dummyContextValue.nextQuestion).toBeCalled();
   });
 });
 

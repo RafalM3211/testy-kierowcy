@@ -75,12 +75,6 @@ export default function TimeCount(props: Props) {
     }
   }, [questionCount, props.type, timerState, restart, pause]);
 
-  useEffect(() => {
-    if (props.type === "specialized") {
-      setTimerState("answer");
-    }
-  }, [questionCount, props.type, setTimerState]);
-
   return (
     <Box
       sx={{
