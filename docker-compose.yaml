@@ -1,0 +1,20 @@
+version: "0.1"
+
+services:
+  db:
+    restart: always
+    container_name: database
+    image: postgres:16.1
+    environment:
+      POSTGRES_PASSWORD: qwerty
+      POSTGRES_USER: postgres
+      POSTGRES_DB: test
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/db-data.txt:/data-import/db-data.txt
+      - ./docker/init-db.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    ports:
+      - 5432:5432
+
+volumes:
+  pgdata:

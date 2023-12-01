@@ -1,0 +1,2 @@
+12;0;asd.img;basic;3;\N;\N;\N
+13;A;afsd2.img;specialized;1;aaa;bbb;ccc
