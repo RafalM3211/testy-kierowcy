@@ -12,7 +12,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./database/db-data.txt:/data-import/db-data.txt
-      - ./database/init-db.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./database/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     ports:
       - 5432:5432
 

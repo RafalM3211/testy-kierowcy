@@ -1,12 +1,13 @@
 CREATE TABLE IF NOT EXISTS questions(
     id SMALLINT PRIMARY KEY,
+    content VARCHAR NOT NULL,
     correct_answer CHAR(1) NOT NULL,
-    media VARCHAR,
     type VARCHAR(11) NOT NULL,
     value SMALLINT NOT NULL,
+    media VARCHAR,
     A VARCHAR,
     B VARCHAR,
     C VARCHAR
 );
 
-COPY questions FROM '/data-import/db-data.txt' WITH DELIMITER ';';
+COPY questions FROM '/data-import/db-data.txt' WITH DELIMITER '|';
