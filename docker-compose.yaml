@@ -1,4 +1,4 @@
-version: "0.1"
+version: "1.0"
 
 services:
   db:
@@ -6,15 +6,15 @@ services:
     container_name: database
     image: postgres:16.1
     environment:
-      POSTGRES_PASSWORD: ${PG_PASSWORD}
-      POSTGRES_USER: ${PG_USER}
-      POSTGRES_DB: ${PG_DB}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${PGDATABASE}
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./database/db-data.txt:/data-import/db-data.txt
       - ./database/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     ports:
-      - 5432:5432
+      - ${PGPORT}:${PGPORT}
 
 volumes:
   pgdata:
