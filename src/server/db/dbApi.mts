@@ -1,6 +1,7 @@
 import * as XLSX from "xlsx";
 import * as fs from "fs";
 import { Readable } from "stream";
+import dotEnv from "dotenv";
 import { prepareQuestion } from "./dbProcessor.mjs";
 import { getDirname } from "../helpers.mjs";
 import type { RawQuestionRecord } from "../types.mjs";
@@ -10,6 +11,21 @@ import {
   QuestionType,
   SpecializedQuestion,
 } from "../../types/globalTypes";
+
+import pg from "pg";
+const { Pool } = pg;
+
+dotEnv.config();
+
+const pool = new Pool();
+
+async function get() {
+  const sql = "SELECT * FROM questions WHERE id=1905";
+  const res = await pool.query(sql);
+  console.log(res.rows[0]);
+}
+
+await get();
 
 XLSX.set_fs(fs);
 XLSX.stream.set_readable(Readable);
