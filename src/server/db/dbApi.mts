@@ -1,6 +1,3 @@
-import * as XLSX from "xlsx";
-import * as fs from "fs";
-import { Readable } from "stream";
 import dotEnv from "dotenv";
 import { prepareQuestion } from "./dbProcessor.mjs";
 import { getDirname } from "../helpers.mjs";
@@ -19,87 +16,66 @@ dotEnv.config();
 
 const pool = new Pool();
 
-async function get() {
-  const sql = "SELECT * FROM questions WHERE id=1905";
-  const res = await pool.query(sql);
-  console.log(res.rows[0]);
-}
+/* 
+W przyszłości takie API:
 
-await get();
-
-XLSX.set_fs(fs);
-XLSX.stream.set_readable(Readable);
-const workbook = XLSX.readFile(getDirname(import.meta.url) + "/db.ods");
-const questionsSheet = workbook.Sheets["questions"];
-const rawQuestions = XLSX.utils.sheet_to_json(
-  questionsSheet
-) as RawQuestionRecord[];
-
-const questions: Question[] = rawQuestions.map((rawQuestion) => {
-  return prepareQuestion(rawQuestion);
+np.
+getQuestions({
+  type: "basic",
+  value: 4
 });
 
-const basicQuestions = questions.filter(
-  (question) => question.type === "basic"
-) as BasicQuestion[];
+*/
 
-const specializedQuestions = questions.filter(
-  (question) => question.type === "specialized"
-) as SpecializedQuestion[];
-
-export function getQuestionById(id: number) {
-  const quesiton = questions.find((el) => el.id === id);
-
-  if (quesiton === undefined) {
-    throw new Error(
-      `Couldn't get quesiton from database. Probably question with id ${id} doesn't exist`
-    );
-  }
-  return quesiton;
-}
-
-export function getNextQuestion(currentQuestions: Question[]) {
-  const nextQuestionValue = calcNextQuestionValue(currentQuestions);
-  const nextQuestionType = getNextQuestionType(currentQuestions);
-  const usedIds = currentQuestions.map((question) => question.id);
-
-  let i = 0;
-  let isQuestionFound = false;
-  let nextQuestion: Question | undefined;
-  do {
-    const proposedQuestion = getProposedQuestionByType(nextQuestionType);
-    const valueMatches = proposedQuestion.value === nextQuestionValue;
-    const idNotUsed = !usedIds.includes(proposedQuestion.id);
-
-    if (valueMatches && idNotUsed) {
-      isQuestionFound = true;
-      nextQuestion = proposedQuestion;
-    }
-
-    i++;
-  } while (!isQuestionFound && i < 300);
-
-  if (!nextQuestion) {
-    throw new Error(
-      "Finding question took too long. There is probably something wrong with database"
-    );
-  }
-
-  return nextQuestion;
-}
-
-function getProposedQuestionByType(type: QuestionType) {
-  const questionsWithProvidedType =
-    type === "specialized" ? specializedQuestions : basicQuestions;
-
-  const randomIndex = Math.floor(
-    Math.random() * questionsWithProvidedType.length
+export async function getQuestionById(id: number) {
+  const questions = await getQuestions(
+    "SELECT * FROM questions WHERE id=$1 OR id=919",
+    [id]
   );
-  const proposedQuestion = questionsWithProvidedType[randomIndex];
-  return proposedQuestion;
+
+  if (questions.length == 0) {
+    throw "0 rows returned. Question with given data not found";
+  }
+  if (questions.length > 1) {
+    throw `Too many rows returned: ${questions.length}. Should return only one question`;
+  }
+
+  return questions[0];
 }
 
-function calcNextQuestionValue(currentQuestions: Question[]) {
+export async function getNextExamQuestion(usedQuestions: Question[]) {
+  const nextQuestionType = getNextQuestionType(usedQuestions);
+  const nextQuestionValue = getNextQuestionValue(usedQuestions);
+  const usedIds = usedQuestions.map((question) => question.id);
+
+  if (usedIds.length == 0) {
+    usedIds.push(-1); //psql ANY($3::int[]) doesn't accept empty table as $3 argument
+  }
+
+  const satisfyingQuestions = await getQuestions(
+    "SELECT * FROM questions WHERE type=$1 AND value=$2 AND id <> ANY($3::int[])",
+    [nextQuestionType, nextQuestionValue, usedIds]
+  );
+
+  const randomIndex = Math.floor(Math.random() * satisfyingQuestions.length);
+
+  const question = satisfyingQuestions[randomIndex];
+
+  console.log(question);
+
+  return question;
+}
+
+async function getQuestions(sql: string, values?: any[]): Promise<Question[]> {
+  const res = await pool.query(sql, values);
+  console.log(res.rowCount);
+
+  const questions = res.rows;
+
+  return questions;
+}
+
+function getNextQuestionValue(currentQuestions: Question[]) {
   const twoPointMaxCount = 10;
   const threePointMaxCount = 16;
 

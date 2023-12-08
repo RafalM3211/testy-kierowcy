@@ -3,7 +3,7 @@ import cors from "cors";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import dotEnv from "dotenv";
-import { getNextQuestion } from "./db/dbApi.mjs";
+import { getNextExamQuestion } from "./db/dbApi.mjs";
 import { sendImage, streamVideo, allowedMediaExtensions } from "./media.mjs";
 import { isDev } from "./helpers.mjs";
 import type { Question } from "../types/globalTypes";
@@ -39,7 +39,7 @@ server.use(
   })
 );
 
-server.get("/question", (req, res) => {
+server.get("/question", async (req, res) => {
   const session = req.session;
   if (!session.questions) {
     session.questions = [];
@@ -47,10 +47,12 @@ server.get("/question", (req, res) => {
 
   const wihoutFirst = [...session.questions].splice(1);
 
-  const question = getNextQuestion(isDev() ? wihoutFirst : session.questions);
+  const question = await getNextExamQuestion(
+    isDev() ? wihoutFirst : session.questions
+  );
   session.questions.push(question);
 
-  console.log(session.questions[session.questions.length - 1].id);
+  //console.log(session.questions[session.questions.length - 1].id);
 
   session.save();
   res.status(200).jsonp(question);

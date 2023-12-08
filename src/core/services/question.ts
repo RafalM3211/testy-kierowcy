@@ -11,6 +11,7 @@ export async function getQuestion() {
   if (!isQuestion(data)) {
     throw new Error("returned data does not satisfy a question type");
   }
+
   return data;
 }
 
