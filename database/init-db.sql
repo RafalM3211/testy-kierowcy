@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS questions(
     id SMALLINT PRIMARY KEY,
     content VARCHAR NOT NULL,
-    correct_answer CHAR(1) NOT NULL,
+    correctAnswer CHAR(1) NOT NULL,
     type VARCHAR(11) NOT NULL,
     value SMALLINT NOT NULL,
     media VARCHAR,

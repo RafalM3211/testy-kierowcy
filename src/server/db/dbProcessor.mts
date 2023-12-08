@@ -3,24 +3,24 @@ import type {
   Question,
   SpecializedQuestion,
 } from "../../types/globalTypes";
-import type { RawQuestionRecord } from "../types.mjs";
+import type { RawQuestionRecord, ABCanswers } from "../types.mjs";
+
+type PartiallyProcessedQuestion = Partial<RawQuestionRecord> & {
+  correctAnswer: Question["correctAnswer"];
+};
 
 export function prepareQuestion(rawQuestion: RawQuestionRecord): Question {
-  if (rawQuestion.media === undefined) {
-    rawQuestion.media = "";
-  }
+  const correctAnswer = !!rawQuestion.correctanswer;
+  const partiallyPreparedQuestion: PartiallyProcessedQuestion = {
+    ...rawQuestion,
+    correctAnswer,
+  };
+  delete partiallyPreparedQuestion.correctanswer;
 
   if (rawQuestion.type === "specialized") {
-    const { A, B, C } = rawQuestion;
+    const { a, b, c } = rawQuestion;
 
-    if (A && B && C) {
-      const answers = { A, B, C };
-      const preparedQuestion = { ...rawQuestion, answers };
-      delete preparedQuestion.A;
-      delete preparedQuestion.B;
-      delete preparedQuestion.C;
-
-      return preparedQuestion as SpecializedQuestion;
+    if (a && b && c) {
     } else
       console.warn(
         "Question with type specialized should have A, B and C answers. Question id: " +
@@ -28,7 +28,5 @@ export function prepareQuestion(rawQuestion: RawQuestionRecord): Question {
       );
   }
 
-  const correctAnswer = !!rawQuestion.correctAnswer;
-  const preparedQuestion = { ...rawQuestion, correctAnswer };
-  return preparedQuestion as BasicQuestion;
+  return partiallyPreparedQuestion as BasicQuestion | SpecializedQuestion;
 }

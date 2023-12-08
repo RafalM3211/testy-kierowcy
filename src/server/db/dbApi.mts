@@ -40,7 +40,7 @@ export async function getQuestionById(id: number) {
     throw `Too many rows returned: ${questions.length}. Should return only one question`;
   }
 
-  return questions[0];
+  return prepareQuestion(questions[0]);
 }
 
 export async function getNextExamQuestion(usedQuestions: Question[]) {
@@ -61,12 +61,15 @@ export async function getNextExamQuestion(usedQuestions: Question[]) {
 
   const question = satisfyingQuestions[randomIndex];
 
-  console.log(question);
+  console.log(prepareQuestion(question));
 
-  return question;
+  return prepareQuestion(question);
 }
 
-async function getQuestions(sql: string, values?: any[]): Promise<Question[]> {
+async function getQuestions(
+  sql: string,
+  values?: any[]
+): Promise<RawQuestionRecord[]> {
   const res = await pool.query(sql, values);
   console.log(res.rowCount);
 
