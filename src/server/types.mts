@@ -17,13 +17,13 @@ export interface RawQuestionRecord {
   type: QuestionType;
   value: number;
   media: string | null;
-  a: string | null;
-  b: string | null;
-  c: string | null;
+  A: string | null;
+  B: string | null;
+  C: string | null;
 }
 
 export type ABCanswers = {
-  a: string;
-  b: string;
-  c: string;
+  A: string;
+  B: string;
+  C: string;
 };
