@@ -1,13 +1,7 @@
 import dotEnv from "dotenv";
 import { prepareQuestion } from "./dbProcessor.mjs";
-import { getDirname } from "../helpers.mjs";
 import type { RawQuestionRecord } from "../types.mjs";
-import {
-  BasicQuestion,
-  Question,
-  QuestionType,
-  SpecializedQuestion,
-} from "../../types/globalTypes";
+import { Question, QuestionType } from "../../types/globalTypes";
 
 import pg from "pg";
 const { Pool } = pg;
@@ -60,8 +54,6 @@ export async function getNextExamQuestion(usedQuestions: Question[]) {
   const randomIndex = Math.floor(Math.random() * satisfyingQuestions.length);
 
   const question = satisfyingQuestions[randomIndex];
-
-  console.log(prepareQuestion(question));
 
   return prepareQuestion(question);
 }

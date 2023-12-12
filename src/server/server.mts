@@ -5,7 +5,6 @@ import cookieParser from "cookie-parser";
 import dotEnv from "dotenv";
 import { getNextExamQuestion } from "./db/dbApi.mjs";
 import { sendImage, streamVideo, allowedMediaExtensions } from "./media.mjs";
-import { isDev } from "./helpers.mjs";
 import type { Question } from "../types/globalTypes";
 
 declare module "express-session" {
@@ -45,14 +44,8 @@ server.get("/question", async (req, res) => {
     session.questions = [];
   }
 
-  const wihoutFirst = [...session.questions].splice(1);
-
-  const question = await getNextExamQuestion(
-    isDev() ? wihoutFirst : session.questions
-  );
+  const question = await getNextExamQuestion(session.questions);
   session.questions.push(question);
-
-  //console.log(session.questions[session.questions.length - 1].id);
 
   session.save();
   res.status(200).jsonp(question);
