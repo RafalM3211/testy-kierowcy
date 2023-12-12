@@ -33,7 +33,7 @@ function hasRequiredKeys(
 function entriesMatchType(data: Record<keyof Question, unknown>) {
   const idCorrect = typeof data.id === "number";
   const contentCorrect = typeof data.content === "string";
-  const mediaCorrect = typeof data.media === "string";
+  const mediaCorrect = typeof data.media === "string" || data.media === null;
   const valueCorrect =
     typeof data.value === "number" && [1, 2, 3].includes(data.value);
   const typeCorrect =

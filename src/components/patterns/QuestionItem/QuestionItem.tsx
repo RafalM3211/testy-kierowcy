@@ -2,7 +2,7 @@ import { Box, Card, Typography, useTheme, useMediaQuery } from "@mui/material";
 import YesNoAnseswer from "../YesNoAnswer/YesNoAnswer";
 import ABCAnswer from "../ABCAnswer/ABCAnswer";
 import { flexCenter } from "../../../utility/styling";
-import { trimText, isImage } from "../../../utility/utils";
+import { trimText, isJpgImage } from "../../../utility/utils";
 import type {
   ABCanswers,
   AnsweredQuestion,
@@ -47,7 +47,7 @@ export default function QuestionItem(props: Props) {
   const contentTrimValue = getTrimValue();
 
   const isMediaPresent = question.media !== "";
-  const isMediaImage = isImage(question.media);
+  const isMediaImage = isJpgImage(question.media);
 
   const mediaUrl = mediaEndpointUrl + question.media;
 

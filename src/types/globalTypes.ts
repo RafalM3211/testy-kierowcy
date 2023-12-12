@@ -2,7 +2,7 @@ interface QuestionBase {
   id: number;
   content: string;
   value: 1 | 2 | 3;
-  media: string;
+  media: string | null;
 }
 
 export type QuestionType = "basic" | "specialized";

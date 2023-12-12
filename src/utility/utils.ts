@@ -1,4 +1,4 @@
-import type { Answer } from "../types/globalTypes";
+import type { Answer, Question } from "../types/globalTypes";
 import type { GenericObject } from "../types/utilityTypes";
 
 export function trimText(text: string, limit: number) {
@@ -9,7 +9,8 @@ export function trimText(text: string, limit: number) {
   return returnedText;
 }
 
-export function isImage(name: string) {
+export function isJpgImage(media: Question["media"]) {
+  const name = String(media);
   const extension = name.slice(name.lastIndexOf(".") + 1);
   return extension === "jpg";
 }

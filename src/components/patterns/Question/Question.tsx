@@ -26,7 +26,7 @@ export default function Question(props: Props) {
         <QuestionMedia
           type={question.type}
           mode={mode}
-          mediaFileName={question.media}
+          media={question.media}
         />
         {question.type === "basic" ? (
           <QuestionContent

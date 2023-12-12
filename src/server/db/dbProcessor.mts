@@ -45,8 +45,10 @@ export function prepareQuestion(rawQuestion: RawQuestionRecord): Question {
 function prepareCorrectAnswer(
   rawCorrectAnswer: RawQuestionRecord["correctanswer"]
 ): Question["correctAnswer"] {
-  if (Number.isInteger(rawCorrectAnswer)) {
-    const correctAnswer = !!rawCorrectAnswer;
+  const parsed = parseInt(rawCorrectAnswer);
+
+  if (!Number.isNaN(parsed)) {
+    const correctAnswer = !!parsed;
     return correctAnswer;
   } else {
     return rawCorrectAnswer as "A" | "B" | "C";
