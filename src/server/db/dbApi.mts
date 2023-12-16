@@ -1,9 +1,9 @@
 import dotEnv from "dotenv";
 import { prepareQuestion } from "./dbProcessor.mjs";
-import type { RawQuestionRecord } from "../types.mjs";
-import { Question, QuestionType } from "../../types/globalTypes";
+import type { RawQuestionRecord, DrawQuestionConfig } from "../types.mjs";
 
 import pg from "pg";
+import { resolve } from "path";
 const { Pool } = pg;
 
 dotEnv.config();
@@ -37,53 +37,13 @@ export async function getQuestionById(id: number) {
   return prepareQuestion(questions[0]);
 }
 
-export async function getNextExamQuestion(usedQuestions: Question[]) {
-  const nextQuestionType = getNextQuestionType(usedQuestions);
-  const nextQuestionValue = getNextQuestionValue(usedQuestions);
-  const usedIds = usedQuestions.map((question) => question.id);
-
-  if (usedIds.length == 0) {
-    usedIds.push(-1); //psql ANY($3::int[]) doesn't accept empty table as $3 argument
-  }
-
-  const satisfyingQuestions = await getQuestions(
-    "SELECT * FROM questions WHERE type=$1 AND value=$2 AND id <> ANY($3::int[])",
-    [nextQuestionType, nextQuestionValue, usedIds]
-  );
-
-  const randomIndex = Math.floor(Math.random() * satisfyingQuestions.length);
-
-  const question = satisfyingQuestions[randomIndex];
-
-  return prepareQuestion(question);
-}
-
-async function getQuestions(
+export async function getQuestions(
   sql: string,
   values?: any[]
 ): Promise<RawQuestionRecord[]> {
   const res = await pool.query(sql, values);
-  console.log(res.rowCount);
 
   const questions = res.rows;
 
   return questions;
-}
-
-function getNextQuestionValue(currentQuestions: Question[]) {
-  const twoPointMaxCount = 10;
-  const threePointMaxCount = 16;
-
-  if (currentQuestions.length < twoPointMaxCount) {
-    return 2;
-  }
-  if (currentQuestions.length < threePointMaxCount + twoPointMaxCount) {
-    return 3;
-  } else {
-    return 1;
-  }
-}
-
-function getNextQuestionType(currentQuestions: Question[]): QuestionType {
-  return currentQuestions.length < 20 ? "basic" : "specialized";
 }

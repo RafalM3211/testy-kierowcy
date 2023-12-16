@@ -44,4 +44,9 @@ export type ABCanswers = {
 
 export type Answer = BasicAnswer | SpecializedAnswer;
 
+export interface ExamQuestions {
+  basic: BasicQuestion[];
+  specialized: SpecializedQuestion[];
+}
+
 export type TimerState = "prepare" | "wait" | "answer";

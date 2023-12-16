@@ -25,3 +25,7 @@ export function getDirname(importMetaUrl: string) {
 export function isDev() {
   return process.env.REACT_APP_NODE_ENV === "development";
 }
+
+export function randomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min) + min);
+}

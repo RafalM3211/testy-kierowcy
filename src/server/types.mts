@@ -1,5 +1,5 @@
 import type { Application } from "express";
-import type { Answer, QuestionType } from "../types/globalTypes";
+import type { Answer, Question, QuestionType } from "../types/globalTypes";
 
 type AppGet = Application["get"];
 type AppGetParams = Parameters<AppGet>;
@@ -22,8 +22,15 @@ export interface RawQuestionRecord {
   C: string | null;
 }
 
-export type ABCanswers = {
+export interface ABCanswers {
   A: string;
   B: string;
   C: string;
-};
+}
+
+interface QuestionValueCountPair {
+  value: Question["value"];
+  count: number;
+}
+
+export type DrawQuestionConfig = QuestionValueCountPair[];
