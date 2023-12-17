@@ -37,8 +37,8 @@ export async function getExamQuestions(): Promise<ExamQuestions> {
   };
 }
 
-const a = await getExamQuestions();
-console.log(a.basic[0], a.specialized[0]);
+/* const a = await getExamQuestions();
+console.log(a.basic[0], a.specialized[0]); */
 
 async function drawExamQuestions(
   NvalueQestionsCount: DrawQuestionConfig,
