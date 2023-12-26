@@ -7,7 +7,12 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAnswersContext } from "../Answers/Answers";
-import type { Answer, Question, TimerState } from "../../types/globalTypes";
+import type {
+  Answer,
+  ExamQuestions,
+  Question,
+  TimerState,
+} from "../../types/globalTypes";
 import type { SetAnswerFunction } from "./types";
 import { useOnMount } from "../../utility/hooks";
 
@@ -24,12 +29,13 @@ interface Controls {
 }
 
 interface DataControls {
-  refetch: Function;
+  currentQuestion: Question;
+  setCurrentQuestion: Function;
 }
 
 interface Props {
   dataControls: DataControls;
-  questionData: Question;
+  examQuestions: ExamQuestions;
   children: ReactNode;
 }
 
@@ -54,34 +60,50 @@ export function useExamControlContext() {
   return contextValue;
 }
 
+function getNextQuestion(examQuestions: ExamQuestions, currentIndex: number) {
+  const flattenQuestions = [
+    ...examQuestions.basic,
+    ...examQuestions.specialized,
+  ];
+  return flattenQuestions[currentIndex + 1];
+}
+
 export default function ExamControlProvider(props: Props) {
   const { addAnswer, clearAnswers, answeredQuestions } = useAnswersContext();
   const navigate = useNavigate();
+
   const questionCount = answeredQuestions.length + 1;
+  const currentQuestion = props.dataControls.currentQuestion;
 
   const [selectedAnswer, setSelectedAnswer] = useState<Answer>(null);
   const [isStarted, setStarted] = useState(false);
   const [timerState, setTimerState] = useState<TimerState>("prepare");
 
   function nextQuestion() {
-    console.log(questionCount);
-    if (!props.questionData) {
-      throw new Error("question is undefined");
+    if (!currentQuestion) {
+      throw new Error("exam data is undefined");
     }
-    addAnswer(props.questionData, selectedAnswer);
-    props.dataControls.refetch();
+
+    setSelectedAnswer(null);
+    addAnswer(currentQuestion, selectedAnswer);
+
     if (questionCount === 32) {
       navigate("/summary");
     }
 
-    setSelectedAnswer(null);
-    if (props.questionData.type === "basic") {
+    if (currentQuestion.type === "basic") {
       setStarted(false);
       setTimerState("prepare");
     } else {
       setStarted(true);
       setTimerState("answer");
     }
+
+    const nextQuestion = getNextQuestion(
+      props.examQuestions,
+      questionCount - 1
+    );
+    props.dataControls.setCurrentQuestion(nextQuestion);
   }
 
   function endExam() {

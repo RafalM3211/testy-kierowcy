@@ -49,7 +49,6 @@ export function AnswersProvider(props: Props) {
       i += a.value;
     });
     i += newAnsweredQuestion.value;
-    console.log(i);
     setAnsweredQuestions([...answeredQuestions, newAnsweredQuestion]);
   }
 
