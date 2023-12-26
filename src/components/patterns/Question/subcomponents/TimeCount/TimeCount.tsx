@@ -81,7 +81,7 @@ export default function TimeCount(props: Props) {
         ...flexCenter,
         flexDirection: "column",
         textAlign: "center",
-        width: "45%",
+        width: "100%",
       }}
     >
       <Typography variant="subtitle2" sx={{ color: "grey.800" }}>
@@ -89,7 +89,7 @@ export default function TimeCount(props: Props) {
       </Typography>
       <Box
         sx={{
-          width: "clamp(100px, 100%, 200px)",
+          width: "clamp(100px, 45%, 200px)",
           textAlign: "center",
           backgroundColor: "grey.300",
           borderRadius: "10px",
