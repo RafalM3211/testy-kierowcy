@@ -9,6 +9,7 @@ import Home from "./components/views/Home";
 import ExamQuestion from "./components/views/ExamQuestion/ExamQuestion";
 import PreviewQuestion from "./components/views/PreviewQuestion/PreviewQuestion";
 import Summary from "./components/views/Summary";
+import Login from "./components/views/Login/Login";
 import Error404 from "./components/views/errors/Error404";
 import Error500 from "./components/views/errors/Error500";
 import Header from "./components/patterns/Header/Header";
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
         }
       >
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/summary" element={<Summary />} />
         <Route path="/question/:id" element={<PreviewQuestion />} />
       </Route>
@@ -58,7 +60,7 @@ export const mainMenuStructure: MenuItem[] = [
 ];
 
 export const userMenuStructure: MenuItem[] = [
-  { title: "wyloguj", to: "/" },
+  { title: "wyloguj", to: "/login" },
   { title: "costam", to: "/" },
 ];
 
