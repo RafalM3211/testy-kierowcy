@@ -50,3 +50,8 @@ export interface ExamQuestions {
 }
 
 export type TimerState = "prepare" | "wait" | "answer";
+
+export interface Credentials {
+  email: string;
+  password: string;
+}
