@@ -1,6 +1,6 @@
 import { Box, Tabs, Tab } from "@mui/material";
-import LoginForm from "../../patterns/LoginForm/LoginForm";
-import RegistryForm from "../../patterns/RegistryForm/RegistryForm";
+import LoginForm from "./subcomponents/LoginForm";
+import RegistryForm from "./subcomponents/RegistryForm";
 import bgImage from "../../../images/backgrounds/wave.svg";
 import { backgroundImg, flexCenter } from "../../../utility/styling";
 import { useState } from "react";

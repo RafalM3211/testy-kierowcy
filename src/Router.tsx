@@ -8,7 +8,7 @@ import {
 import Home from "./components/views/Home";
 import ExamQuestion from "./components/views/ExamQuestion/ExamQuestion";
 import PreviewQuestion from "./components/views/PreviewQuestion/PreviewQuestion";
-import Summary from "./components/views/Summary";
+import Summary from "./components/views/Summary/Summary";
 import Login from "./components/views/Login/Login";
 import Error404 from "./components/views/errors/Error404";
 import Error500 from "./components/views/errors/Error500";

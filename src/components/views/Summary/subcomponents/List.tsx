@@ -1,13 +1,13 @@
 import { Typography, Box } from "@mui/material";
 import { memo } from "react";
-import QuestionItem from "../QuestionItem/QuestionItem";
+import QuestionItem from "../../../patterns/QuestionItem/QuestionItem";
 import type { SxProps } from "@mui/material/styles";
 import {
   BasicQuestion,
   Question,
   SpecializedQuestion,
-} from "../../../types/globalTypes";
-import ListHeader from "./subcomponents/ListHeader";
+} from "../../../../types/globalTypes";
+import ListHeader from "./ListHeader";
 
 interface Props {
   questions: Question[];

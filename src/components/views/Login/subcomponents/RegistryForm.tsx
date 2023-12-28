@@ -1,7 +1,7 @@
 import { Stack, Button } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import TextInput from "../../atoms/TextInput/TextInput";
+import TextInput from "../../../atoms/TextInput/TextInput";
 
 export default function RegistryForm() {
   return (
