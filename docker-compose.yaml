@@ -11,7 +11,8 @@ services:
       POSTGRES_DB: ${PGDATABASE}
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./database/db-data.txt:/data-import/db-data.txt
+      - ./database/questions.txt:/data-import/questions.txt
+      - ./database/users.txt:/data-import/users.txt
       - ./database/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     ports:
       - ${PGPORT}:${PGPORT}

@@ -1,3 +1,5 @@
+CREATE EXTENSION pgcrypto;
+
 CREATE TABLE IF NOT EXISTS questions(
     id SMALLINT PRIMARY KEY,
     content VARCHAR NOT NULL,
@@ -10,4 +12,11 @@ CREATE TABLE IF NOT EXISTS questions(
     "C" VARCHAR
 );
 
-COPY questions FROM '/data-import/db-data.txt' WITH DELIMITER '|';
+CREATE TABLE IF NOT EXISTS users(
+    id SERIAL PRIMARY KEY,
+    email VARCHAR NOT NULL UNIQUE,
+    password VARCHAR NOT NULL
+);
+
+COPY questions FROM '/data-import/questions.txt' WITH DELIMITER '|';
+COPY users FROM '/data-import/users.txt' WITH DELIMITER '|';
