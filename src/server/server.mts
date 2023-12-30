@@ -1,10 +1,11 @@
 import express from "express";
+import env from "./env.mjs";
 import cors from "cors";
 import session from "express-session";
 import cookieParser from "cookie-parser";
-import dotEnv from "dotenv";
 import exam from "./exam/routes.mjs";
 import media from "./media/routes.mjs";
+import auth from "./auth/routes.mjs";
 import type { Question } from "../types/globalTypes";
 
 declare module "express-session" {
@@ -14,8 +15,6 @@ declare module "express-session" {
 }
 
 console.log("START");
-
-dotEnv.config();
 
 const server = express();
 const memoryStore = new session.MemoryStore();
@@ -40,6 +39,7 @@ server.use(
 
 server.use("/exam", exam);
 server.use("/media", media);
+server.use("/auth", auth);
 
 server.listen(3001, () => {
   console.log("server is running on port 3001!");

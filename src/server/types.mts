@@ -1,5 +1,10 @@
 import type { Application } from "express";
-import type { Answer, Question, QuestionType } from "../types/globalTypes";
+import type {
+  Answer,
+  Question,
+  QuestionType,
+  User,
+} from "../types/globalTypes";
 
 type AppGet = Application["get"];
 type AppGetParams = Parameters<AppGet>;
@@ -34,3 +39,7 @@ interface QuestionValueCountPair {
 }
 
 export type DrawQuestionConfig = QuestionValueCountPair[];
+
+export interface UserWithPassword extends User {
+  password: string;
+}

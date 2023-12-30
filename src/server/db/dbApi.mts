@@ -1,9 +1,13 @@
 import dotEnv from "dotenv";
 import { prepareQuestion } from "./dbProcessor.mjs";
-import type { RawQuestionRecord, DrawQuestionConfig } from "../types.mjs";
+import type {
+  RawQuestionRecord,
+  DrawQuestionConfig,
+  UserWithPassword,
+} from "../types.mjs";
 
 import pg from "pg";
-import { resolve } from "path";
+import { Credentials } from "../../types/globalTypes";
 const { Pool } = pg;
 
 dotEnv.config();
@@ -21,11 +25,10 @@ getQuestions({
 
 */
 
-export async function getQuestionById(id: number) {
-  const questions = await getQuestions(
-    "SELECT * FROM questions WHERE id=$1 OR id=919",
-    [id]
-  );
+/* export async function getQuestionById(id: number) {
+  const questions = await getQuestions("SELECT * FROM questions WHERE id=$1", [
+    id,
+  ]);
 
   if (questions.length == 0) {
     throw "0 rows returned. Question with given data not found";
@@ -35,15 +38,20 @@ export async function getQuestionById(id: number) {
   }
 
   return prepareQuestion(questions[0]);
-}
+} */
 
-export async function getQuestions(
-  sql: string,
-  values?: any[]
-): Promise<RawQuestionRecord[]> {
-  const res = await pool.query(sql, values);
+export async function getQuestions(sql: string, values?: any[]) {
+  const res = await pool.query<RawQuestionRecord>(sql, values);
 
   const questions = res.rows;
 
   return questions;
+}
+
+export async function getUsers(sql: string, values?: any[]) {
+  const res = await pool.query<UserWithPassword>(sql, values);
+
+  const users = res.rows;
+
+  return users;
 }
