@@ -1,8 +1,9 @@
 import type {
+  UnauthorizedError,
   BadRequestError,
-  RequestInterceptor,
   ResponseInterceptor,
   ErrorInterceptor,
+  RegisterInterceptorsType,
 } from "./types";
 
 const createClient = (baseUrl: string, api = fetch) => {
@@ -120,8 +121,12 @@ appApi.registerInterceptors({
       const exceptionData: BadRequestError = await response.json();
       throw exceptionData;
     }
+    if (isUnauthorized(response.status)) {
+      const exceptionData: UnauthorizedError = await response.json();
+      throw exceptionData;
+    }
     if (isOtherError(response.status)) {
-      throw "Unknown error: " + response.statusText;
+      throw "Other error: " + response.statusText;
     }
     return response;
   },
@@ -141,15 +146,12 @@ const isForbidden = (statusCode: number) => {
 const isBadRequest = (statusCode: number) => {
   return statusCode === 400;
 };
+const isUnauthorized = (statusCode: number) => {
+  return statusCode === 401;
+};
 
 const isOtherError = (statusCode: number) => {
   return statusCode >= 400;
 };
 
 export { appApi };
-
-interface RegisterInterceptorsType {
-  request?: RequestInterceptor;
-  response?: ResponseInterceptor;
-  responseError?: ErrorInterceptor;
-}

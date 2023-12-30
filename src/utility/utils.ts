@@ -1,5 +1,4 @@
 import type { Answer, Question } from "../types/globalTypes";
-import type { GenericObject } from "../types/utilityTypes";
 
 export function trimText(text: string, limit: number) {
   let returnedText = text;
@@ -29,11 +28,14 @@ export function getColorForAnswerButton(
   return "primary";
 }
 
-export function withoutProperty<O extends GenericObject, S extends string>(
+export function withoutProperty<O extends object, K extends keyof O>(
   obj: O,
-  property: Extract<keyof O, S>
-): Omit<O, S> {
-  const objCopy = { ...obj };
-  delete objCopy[property];
-  return objCopy;
+  property: K
+): Omit<O, K> {
+  const { [property]: _, ...rest } = obj;
+  return rest;
+}
+
+export function isObject(value: unknown) {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
