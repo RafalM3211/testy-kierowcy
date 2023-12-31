@@ -1,14 +1,14 @@
 import jwt from "jsonwebtoken";
 import env from "../env.mjs";
-import { getUsers } from "../db/dbApi.mjs";
+import { getUsersWhere } from "../db/dbApi.mjs";
 import { withoutProperty } from "../helpers.mjs";
 import type { Credentials, User } from "../../types/globalTypes";
 
 export async function getUserByCredentials(credentials: Credentials) {
   const email = credentials.email;
   const password = credentials.password;
-  const users = await getUsers(
-    "SELECT * FROM users WHERE email=$1 AND password=crypt($2, password)",
+  const users = await getUsersWhere(
+    "email=$1 AND password=crypt($2, password)",
     [email, password]
   );
 

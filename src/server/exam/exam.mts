@@ -6,7 +6,7 @@ import {
 } from "../../types/globalTypes";
 import { randomInt } from "../helpers.mjs";
 import { prepareQuestion } from "../db/dbProcessor.mjs";
-import { getQuestions } from "../db/dbApi.mjs";
+import { getQuestionsWhere } from "../db/dbApi.mjs";
 import type { RawQuestionRecord, DrawQuestionConfig } from "../types.mjs";
 
 export async function getExamQuestions(): Promise<ExamQuestions> {
@@ -47,10 +47,10 @@ async function drawExamQuestions(
   const rawFinalQuestions: RawQuestionRecord[] = [];
 
   for await (const { count, value: questionValue } of NvalueQestionsCount) {
-    const allQuestions = await getQuestions(
-      "SELECT * FROM questions WHERE type=$1 AND value=$2",
-      [type, questionValue]
-    );
+    const allQuestions = await getQuestionsWhere("type=$1 AND value=$2", [
+      type,
+      questionValue,
+    ]);
     const countedQuestions = drawNQuestionsFrom(count, allQuestions);
 
     rawFinalQuestions.push(...countedQuestions);
