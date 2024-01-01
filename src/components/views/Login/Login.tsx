@@ -25,7 +25,16 @@ export default function Login() {
         minHeight: "100vh",
       }}
     >
-      <Box sx={{ pb: "2em", position: "absolute", top: "30vh" }}>
+      <Box
+        sx={{
+          pb: "2em",
+          position: "absolute",
+          top: "30vh",
+          width: "25%",
+          ...flexCenter,
+          flexDirection: "column",
+        }}
+      >
         <Tabs value={currentTab} onChange={handleTabChange}>
           <Tab label="zaloguj się" />
           <Tab label="zarejestruj się" />

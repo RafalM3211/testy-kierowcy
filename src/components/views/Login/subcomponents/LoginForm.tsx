@@ -44,7 +44,7 @@ export default function LoginForm() {
             });
           }
           return (
-            <Form>
+            <Form style={{ width: "100%" }}>
               <Stack spacing={3} sx={{ pt: "20px", mb: "10px" }}>
                 <TextInput label="email*" name="email" variant="standard" />
                 <TextInput
