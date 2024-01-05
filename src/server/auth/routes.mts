@@ -1,7 +1,8 @@
 import Router from "express-promise-router";
-
-import { generateToken, getUserByCredentials } from "./auth.mjs";
+import { getUserByCredentials } from "../users/users.mjs";
+import { generateToken } from "./auth.mjs";
 import type { User } from "../../types/globalTypes";
+import { errorMessage } from "../messages.mjs";
 
 const router = Router();
 
@@ -20,7 +21,7 @@ router.get("/", async (req, res) => {
     const token = generateToken(user);
     res.status(200).jsonp(token);
   } else {
-    res.status(401).jsonp({ errorMessage: "AUTHENTICATION_FAILED" });
+    res.status(401).jsonp(errorMessage("AUTHENTICATION_FAILED"));
   }
 });
 

@@ -1,32 +1,25 @@
 import dotEnv from "dotenv";
+import pg from "pg";
+import type { QueryResultRow, QueryResult } from "pg";
 import type { RawQuestionRecord, UserWithPassword } from "../types.mjs";
 
-import pg from "pg";
-const { Pool } = pg;
-
 dotEnv.config();
-
+const { Pool } = pg;
 const pool = new Pool();
 
-/* export async function getQuestionById(id: number) {
-  const questions = await getQuestions("SELECT * FROM questions WHERE id=$1", [
-    id,
-  ]);
+async function query<T extends QueryResultRow>(
+  sql: string,
+  values?: any[]
+): Promise<QueryResult<T>> {
+  const res = await pool.query<T>(sql, values);
 
-  if (questions.length == 0) {
-    throw "0 rows returned. Question with given data not found";
-  }
-  if (questions.length > 1) {
-    throw `Too many rows returned: ${questions.length}. Should return only one question`;
-  }
-
-  return prepareQuestion(questions[0]);
-} */
+  return res;
+}
 
 export async function getQuestionsWhere(conditions: string, values?: any[]) {
-  let sql = "SELECT * FROM questions WHERE " + conditions;
+  const sql = "SELECT * FROM questions WHERE " + conditions;
 
-  const res = await pool.query<RawQuestionRecord>(sql, values);
+  const res = await query<RawQuestionRecord>(sql, values);
 
   const questions = res.rows;
 
@@ -34,11 +27,29 @@ export async function getQuestionsWhere(conditions: string, values?: any[]) {
 }
 
 export async function getUsersWhere(conditions: string, values?: any[]) {
-  let sql = "SELECT * FROM users WHERE " + conditions;
+  const sql = "SELECT * FROM users WHERE " + conditions;
 
-  const res = await pool.query<UserWithPassword>(sql, values);
+  const res = await query<UserWithPassword>(sql, values);
 
   const users = res.rows;
 
   return users;
+}
+
+export async function insertUser(
+  email: string,
+  password: string,
+  name: string | null
+) {
+  const sql = `INSERT INTO users (email, password${
+    !!name ? ", name" : ""
+  }) VALUES (
+    $1, crypt($2, gen_salt('bf'))${!!name ? ", $3" : ""}
+  );`;
+
+  const res = await query(
+    sql,
+    [email, password, name].filter((v) => !!v)
+  );
+  console.log(res);
 }

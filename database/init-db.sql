@@ -15,8 +15,10 @@ CREATE TABLE IF NOT EXISTS questions(
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY,
     email VARCHAR NOT NULL UNIQUE,
-    password VARCHAR NOT NULL
+    password VARCHAR NOT NULL,
+    name VARCHAR
 );
 
 COPY questions FROM '/data-import/questions.txt' WITH DELIMITER '|';
 COPY users FROM '/data-import/users.txt' WITH DELIMITER '|';
+SELECT setval('users_id_seq', (SELECT MAX(id) FROM users));
