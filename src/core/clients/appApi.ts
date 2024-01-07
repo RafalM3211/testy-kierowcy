@@ -48,7 +48,8 @@ const createClient = (baseUrl: string, api = fetch) => {
       } catch (exception) {
         if (exception instanceof Error) {
           interceptError(exception);
-        } else throw exception;
+        }
+        throw exception;
       }
     },
     put: async (url: string, values: object, options: object = {}) => {
