@@ -2,6 +2,7 @@ import dotEnv from "dotenv";
 import pg from "pg";
 import type { QueryResultRow, QueryResult } from "pg";
 import type { RawQuestionRecord, UserWithPassword } from "../types.mjs";
+import { User } from "../../types/globalTypes";
 
 dotEnv.config();
 const { Pool } = pg;
@@ -39,17 +40,18 @@ export async function getUsersWhere(conditions: string, values?: any[]) {
 export async function insertUser(
   email: string,
   password: string,
-  name: string | null
+  userName: string | null
 ) {
   const sql = `INSERT INTO users (email, password${
-    !!name ? ", name" : ""
+    !!userName ? ", name" : ""
   }) VALUES (
-    $1, crypt($2, gen_salt('bf'))${!!name ? ", $3" : ""}
-  );`;
+    $1, crypt($2, gen_salt('bf'))${!!userName ? ", $3" : ""}
+  )
+  RETURNING *;`;
 
   const res = await query(
     sql,
-    [email, password, name].filter((v) => !!v)
+    [email, password, userName].filter((v) => !!v)
   );
-  console.log(res);
+  return res.rows[0] as User;
 }

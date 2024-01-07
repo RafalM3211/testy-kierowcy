@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
     const email = decodedCredentials.split(":")[0];
     const password = decodedCredentials.split(":")[1];
 
-    user = await getUserByCredentials({ email, password });
+    user = await getUserByCredentials(email, password);
   }
   if (user) {
     const token = generateToken(user);

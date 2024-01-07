@@ -21,8 +21,7 @@ router.post("/register", async (req, res) => {
   if (userExist) {
     res.status(400).jsonp(errorMessage("USER_EXISTS"));
   } else {
-    addUser(email, password, userName);
-    const user = await getUserByEmail(email);
+    const user = await addUser(email, password, userName);
     if (!user)
       throw new Error(
         "Something went wrong when creating user. Unable to find user in database"

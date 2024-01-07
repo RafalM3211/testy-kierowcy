@@ -1,6 +1,6 @@
 import { getUsersWhere, insertUser } from "../db/dbApi.mjs";
 import { withoutProperty } from "../helpers.mjs";
-import type { Credentials, User } from "../../types/globalTypes";
+import type { User } from "../../types/globalTypes";
 
 async function getOneUserWhere(conditions: string, values: any[]) {
   const users = await getUsersWhere(conditions, values);
@@ -17,10 +17,7 @@ async function getOneUserWhere(conditions: string, values: any[]) {
   return user;
 }
 
-export async function getUserByCredentials(credentials: Credentials) {
-  const email = credentials.email;
-  const password = credentials.password;
-
+export async function getUserByCredentials(email: string, password: string) {
   const user = await getOneUserWhere(
     "email=$1 AND password=crypt($2, password)",
     [email, password]
@@ -36,8 +33,8 @@ export async function getUserByEmail(email: string) {
 export async function addUser(
   email: string,
   password: string,
-  name?: string | undefined
+  userName?: string | undefined
 ) {
-  const trimmedName = name?.trim() || null;
-  insertUser(email, password, trimmedName);
+  const trimmedName = userName?.trim() || null;
+  return await insertUser(email, password, trimmedName);
 }
