@@ -10,11 +10,9 @@ interface RegisterValues extends Credentials {
 }
 
 export async function tryLogin(credentials: Credentials) {
-  //todo: w auth headerze wysyła sie token a nie email i haslo. Email i hasło majaa byc w body
-
   const { email, password } = credentials;
   const auth = btoa(`${email}:${password}`);
-  return await appApi.get("auth", {
+  return await appApi.get("users/login", {
     headers: {
       Authorization: `Basic ${auth}`,
     },

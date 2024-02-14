@@ -1,5 +1,7 @@
 import { getUsersWhere, insertUser } from "../db/dbApi.mjs";
 import { withoutProperty } from "../helpers.mjs";
+import jwt from "jsonwebtoken";
+import env from "../env.mjs";
 import type { User } from "../../types/globalTypes";
 
 async function getOneUserWhere(conditions: string, values: any[]) {
@@ -37,4 +39,19 @@ export async function addUser(
 ) {
   const trimmedName = userName?.trim() || null;
   return await insertUser(email, password, trimmedName);
+}
+
+export function generateToken(user: User) {
+  const payload = {
+    id: user.id,
+    email: user.email,
+  };
+  const token = jwt.sign(payload, env.jwt.secret, {
+    algorithm: "HS256",
+    expiresIn: "1h",
+    audience: env.jwt.audience,
+    issuer: env.jwt.issuer,
+  });
+
+  return token;
 }
