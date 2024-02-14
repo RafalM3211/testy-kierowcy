@@ -6,10 +6,12 @@ import ErrorMessage from "../../../atoms/ErrorMessage/ErrorMessage";
 import SuccessMessage from "../../../atoms/SuccessMessage/SuccessMessage";
 import TextInput from "../../../atoms/TextInput/TextInput";
 import { register } from "../../../../core/services/user";
+import LoadingButton from "../../../atoms/LoadingButton/LoadingButton";
 
 export default function RegistryForm() {
   const {
     mutate,
+    isLoading,
     isError: isRegistryError,
     isSuccess,
     data,
@@ -62,7 +64,6 @@ export default function RegistryForm() {
               password: "",
             });
           }
-          if (isRegistryError) console.log(data);
 
           return (
             <Form style={{ width: "100%" }}>
@@ -79,9 +80,13 @@ export default function RegistryForm() {
                   name="password"
                   variant="standard"
                 />
-                <Button disabled={!formik.isValid} type="submit">
+                <LoadingButton
+                  loading={isLoading}
+                  disabled={!formik.isValid}
+                  type="submit"
+                >
                   zarejestruj
-                </Button>
+                </LoadingButton>
               </Stack>
             </Form>
           );

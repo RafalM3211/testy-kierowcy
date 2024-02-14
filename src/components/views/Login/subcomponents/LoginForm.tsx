@@ -1,4 +1,4 @@
-import { Stack, Button } from "@mui/material";
+import { Stack, Button, Box } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { tryLogin } from "../../../../core/services/user";
 import ErrorMessage from "../../../atoms/ErrorMessage/ErrorMessage";
 import SuccessMessage from "../../../atoms/SuccessMessage/SuccessMessage";
+import LoadingButton from "../../../atoms/LoadingButton/LoadingButton";
 
 export default function LoginForm() {
   const {
@@ -53,9 +54,13 @@ export default function LoginForm() {
                   name="password"
                   variant="standard"
                 />
-                <Button disabled={!formik.isValid} type="submit">
+                <LoadingButton
+                  loading={isLoading}
+                  disabled={!formik.isValid}
+                  type="submit"
+                >
                   zaloguj
-                </Button>
+                </LoadingButton>
               </Stack>
             </Form>
           );
