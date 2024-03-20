@@ -49,10 +49,6 @@ export const handlers = [
     console.log("mocked question!");
     return res(ctx.json(basic), ctx.delay(0), ctx.status(200));
   }),
-  rest.get(apiUrl + "resetExamSession", (req, res, ctx) => {
-    console.log("mocked session reset!");
-    return res(ctx.delay(0), ctx.status(200));
-  }),
   rest.get(apiUrl + "media/:fileName", (req, res, ctx) => {
     console.log("mock media");
 
