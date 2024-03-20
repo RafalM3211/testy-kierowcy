@@ -9,13 +9,8 @@ interface RegisterValues extends Credentials {
   userName?: string;
 }
 
-export async function tryLogin(credentials: Credentials) {
-  const { email, password } = credentials;
-  const auth = btoa(`${email}:${password}`);
-  return await appApi.get("users/login", {
-    headers: {
-      Authorization: `Basic ${auth}`,
-    },
+export async function tryLogin(body: Credentials) {
+  return await appApi.post("users/login", body, {
     credentials: "include",
   });
 }

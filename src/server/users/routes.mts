@@ -33,16 +33,11 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.get("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   let user: User | null = null;
+  const { email, password } = req.body;
 
-  const authHeader = req.headers["authorization"];
-  if (authHeader) {
-    const credentialsCoded = authHeader.split(" ")[1];
-    const decodedCredentials = atob(credentialsCoded);
-    const email = decodedCredentials.split(":")[0];
-    const password = decodedCredentials.split(":")[1];
-
+  if (email && password) {
     user = await getUserByCredentials(email, password);
   }
   if (user) {
