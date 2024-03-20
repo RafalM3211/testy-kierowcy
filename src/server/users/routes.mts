@@ -1,7 +1,8 @@
 import Router from "express-promise-router";
 import { addUser, getUserByEmail } from "./users.mjs";
 import { errorMessage, errorMessageWithField } from "../messages.mjs";
-import { generateToken, getUserByCredentials } from "./users.mjs";
+import { getUserByCredentials } from "./users.mjs";
+import { generateToken, JWTCookieOptions } from "./authentication.mjs";
 import type { User } from "../../types/globalTypes";
 
 const router = Router();
@@ -28,12 +29,13 @@ router.post("/register", async (req, res) => {
       );
     const token = generateToken(user);
 
-    res.status(201).jsonp(token);
+    res.status(201).cookie("jwt", token, JWTCookieOptions).send();
   }
 });
 
 router.get("/login", async (req, res) => {
   let user: User | null = null;
+
   const authHeader = req.headers["authorization"];
   if (authHeader) {
     const credentialsCoded = authHeader.split(" ")[1];
@@ -45,7 +47,7 @@ router.get("/login", async (req, res) => {
   }
   if (user) {
     const token = generateToken(user);
-    res.status(200).jsonp(token);
+    res.status(200).cookie("jwt", token, JWTCookieOptions).send();
   } else {
     res.status(401).jsonp(errorMessage("AUTHENTICATION_FAILED"));
   }

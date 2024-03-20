@@ -16,9 +16,12 @@ export async function tryLogin(credentials: Credentials) {
     headers: {
       Authorization: `Basic ${auth}`,
     },
+    credentials: "include",
   });
 }
 
 export async function register(body: RegisterValues) {
-  return await appApi.post("users/register", body);
+  return await appApi.post("users/register", body, {
+    credentials: "include",
+  });
 }
