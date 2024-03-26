@@ -15,11 +15,8 @@ router.post("/register", async (req, res) => {
   sanitizeBody(req);
   const { email, userName, password } = req.body;
 
-  if (!email) {
-    res.status(400).jsonp(errorMessageWithField("NOT_PROVIDED", "email"));
-  }
-  if (!password) {
-    res.status(400).jsonp(errorMessageWithField("NOT_PROVIDED", "password"));
+  if (!email || !password) {
+    res.status(400).jsonp(errorMessage("AUTHENTICATION_FAILED"));
   }
 
   const userExist = !!(await getUserByEmail(email));
@@ -45,7 +42,6 @@ router.post("/login", async (req, res) => {
 
   if (email && password) {
     user = await getUserByCredentials(email, password);
-    console.log(user);
   }
   if (user) {
     const token = generateToken(user);

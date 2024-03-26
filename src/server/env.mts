@@ -10,6 +10,9 @@ const env = {
     audience: process.env.JWT_AUDIENCE,
     issuer: process.env.JWT_ISSUER,
   },
+  cookie: {
+    secret: process.env.COOKIE_SECRET,
+  },
 };
 
 function lookForUndefined(obj: {}) {

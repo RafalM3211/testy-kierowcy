@@ -5,14 +5,13 @@ import cookieParser from "cookie-parser";
 import exam from "./exam/routes.mjs";
 import media from "./media/routes.mjs";
 import users from "./users/routes.mjs";
-import type { Question } from "../types/globalTypes";
 
 console.log("START");
 
 const server = express();
 
 server.use(express.json());
-server.use(cookieParser("randomvaluegeneratedinfuture"));
+server.use(cookieParser(env.cookie.secret));
 server.use(
   cors({
     origin: true,
