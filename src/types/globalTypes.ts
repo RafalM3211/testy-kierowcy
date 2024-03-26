@@ -56,3 +56,7 @@ export interface User {
   email: string;
   name: string | null;
 }
+
+export interface UserWithPassword extends User {
+  password: string;
+}

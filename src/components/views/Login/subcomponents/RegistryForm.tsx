@@ -7,6 +7,7 @@ import SuccessMessage from "../../../atoms/SuccessMessage/SuccessMessage";
 import TextInput from "../../../atoms/TextInput/TextInput";
 import { register } from "../../../../core/services/user";
 import LoadingButton from "../../../atoms/LoadingButton/LoadingButton";
+import type { User } from "../../../../types/globalTypes";
 
 export default function RegistryForm() {
   const {
@@ -17,6 +18,10 @@ export default function RegistryForm() {
     data,
   } = useMutation({
     mutationFn: register,
+    onSuccess: async (data) => {
+      const user = (await data.json()) as User;
+      console.log(user);
+    },
   });
 
   return (

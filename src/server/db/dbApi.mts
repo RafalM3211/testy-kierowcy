@@ -53,5 +53,5 @@ export async function insertUser(
     sql,
     [email, password, userName].filter((v) => !!v)
   );
-  return res.rows[0] as User;
+  return res.rows[0] as UserWithPassword;
 }

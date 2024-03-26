@@ -1,6 +1,6 @@
 import Router from "express-promise-router";
 import { addUser, getUserByEmail } from "./users.mjs";
-import { errorMessage, errorMessageWithField } from "../messages.mjs";
+import { errorMessage } from "../messages.mjs";
 import { getUserByCredentials } from "./users.mjs";
 import {
   generateToken,
@@ -8,6 +8,7 @@ import {
   sanitizeBody,
 } from "./authentication.mjs";
 import type { User } from "../../types/globalTypes";
+import { withoutProperty } from "../helpers.mjs";
 
 const router = Router();
 
@@ -29,9 +30,13 @@ router.post("/register", async (req, res) => {
       throw new Error(
         "Something went wrong when creating user. Unable to find user in database"
       );
-    const token = generateToken(user);
+    const userWithoutPassword = withoutProperty(user, "password") as User;
+    const token = generateToken(userWithoutPassword);
 
-    res.status(201).cookie("jwt", token, JWTCookieOptions).send();
+    res
+      .status(201)
+      .cookie("jwt", token, JWTCookieOptions)
+      .jsonp(userWithoutPassword);
   }
 });
 
@@ -40,14 +45,17 @@ router.post("/login", async (req, res) => {
   sanitizeBody(req);
   const { email, password } = req.body;
 
-  if (email && password) {
-    user = await getUserByCredentials(email, password);
+  if (!email || !password) {
+    res.status(400).jsonp(errorMessage("AUTHENTICATION_FAILED"));
   }
-  if (user) {
-    const token = generateToken(user);
-    res.status(200).cookie("jwt", token, JWTCookieOptions).send();
-  } else {
+
+  user = await getUserByCredentials(email, password);
+
+  if (!user) {
     res.status(401).jsonp(errorMessage("AUTHENTICATION_FAILED"));
+  } else {
+    const token = generateToken(user);
+    res.status(200).cookie("jwt", token, JWTCookieOptions).jsonp(user);
   }
 });
 

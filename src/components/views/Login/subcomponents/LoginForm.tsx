@@ -8,6 +8,7 @@ import { tryLogin } from "../../../../core/services/user";
 import ErrorMessage from "../../../atoms/ErrorMessage/ErrorMessage";
 import SuccessMessage from "../../../atoms/SuccessMessage/SuccessMessage";
 import LoadingButton from "../../../atoms/LoadingButton/LoadingButton";
+import type { User } from "../../../../types/globalTypes";
 
 export default function LoginForm() {
   const {
@@ -17,6 +18,10 @@ export default function LoginForm() {
     isSuccess,
   } = useMutation({
     mutationFn: tryLogin,
+    onSuccess: async (data) => {
+      const user = (await data.json()) as User;
+      console.log(user);
+    },
   });
 
   return (
