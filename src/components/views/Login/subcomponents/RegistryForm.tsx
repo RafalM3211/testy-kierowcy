@@ -8,10 +8,12 @@ import TextInput from "../../../atoms/TextInput/TextInput";
 import { register } from "../../../../core/services/user";
 import LoadingButton from "../../../atoms/LoadingButton/LoadingButton";
 import { useUserContext } from "../../../../context/user/user";
+import { useNavigate } from "react-router-dom";
 import type { User } from "../../../../types/globalTypes";
 
 export default function RegistryForm() {
   const { setUser } = useUserContext();
+  const navigate = useNavigate();
 
   const {
     mutate,
@@ -24,6 +26,7 @@ export default function RegistryForm() {
     onSuccess: async (data) => {
       const user = (await data.json()) as User;
       setUser(user);
+      navigate("/");
     },
   });
 

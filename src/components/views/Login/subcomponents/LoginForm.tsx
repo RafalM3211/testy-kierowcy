@@ -8,10 +8,12 @@ import ErrorMessage from "../../../atoms/ErrorMessage/ErrorMessage";
 import SuccessMessage from "../../../atoms/SuccessMessage/SuccessMessage";
 import LoadingButton from "../../../atoms/LoadingButton/LoadingButton";
 import { useUserContext } from "../../../../context/user/user";
+import { useNavigate } from "react-router-dom";
 import type { User } from "../../../../types/globalTypes";
 
 export default function LoginForm() {
   const { setUser } = useUserContext();
+  const navigate = useNavigate();
 
   const {
     mutate,
@@ -23,6 +25,7 @@ export default function LoginForm() {
     onSuccess: async (data) => {
       const user = (await data.json()) as User;
       setUser(user);
+      navigate("/");
     },
   });
 

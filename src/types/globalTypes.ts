@@ -54,7 +54,7 @@ export type TimerState = "prepare" | "wait" | "answer";
 export interface User {
   id: number;
   email: string;
-  name: string | null;
+  name: string;
 }
 
 export interface UserWithPassword extends User {

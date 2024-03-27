@@ -4,6 +4,8 @@ import RegistryForm from "./subcomponents/RegistryForm";
 import bgImage from "../../../images/backgrounds/wave.svg";
 import { backgroundImg, flexCenter } from "../../../utility/styling";
 import { useState } from "react";
+import { useOnMount } from "../../../utility/hooks";
+import { useUserContext } from "../../../context/user/user";
 
 enum TabType {
   login = 0,
@@ -11,11 +13,16 @@ enum TabType {
 }
 
 export default function Login() {
+  const { setUser } = useUserContext();
   const [currentTab, setCurrentTab] = useState<TabType>(TabType.login);
 
   function handleTabChange(e: React.SyntheticEvent, newTab: TabType) {
     setCurrentTab(newTab);
   }
+
+  useOnMount(() => {
+    setUser(null);
+  });
 
   return (
     <Box
