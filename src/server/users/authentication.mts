@@ -27,17 +27,22 @@ export const JWTCookieOptions: CookieOptions = {
 
 export function sanitizeBody(req: Request) {
   Object.entries(req.body).forEach(([key, value]) => {
-    req.body[key] = sanitize(value as string);
+    let additionalAllowedChars = "";
+    if (key === "email") {
+      additionalAllowedChars = "@.";
+    }
+    req.body[key] = sanitize(value as string, additionalAllowedChars);
   });
 }
 
-export function sanitize(text: string) {
-  const forbiddenCharacters = "`-=~!@#$%^&*()_+[]{}'\"\\;:,.<>/?";
+export function sanitize(text: string, additionalAllowedChars?: string) {
+  const allowedChars =
+    "qwertyuiopasdfghjklzxcvbnm1234567890" + additionalAllowedChars;
 
   let sanitizedText = "";
   for (let i = 0; i < text.length; i++) {
     const char = text[i];
-    if (!forbiddenCharacters.includes(char)) {
+    if (allowedChars.includes(char)) {
       sanitizedText += char;
     }
   }
