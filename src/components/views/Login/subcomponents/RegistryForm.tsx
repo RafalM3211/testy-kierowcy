@@ -1,4 +1,4 @@
-import { Stack, Button } from "@mui/material";
+import { Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
@@ -7,9 +7,12 @@ import SuccessMessage from "../../../atoms/SuccessMessage/SuccessMessage";
 import TextInput from "../../../atoms/TextInput/TextInput";
 import { register } from "../../../../core/services/user";
 import LoadingButton from "../../../atoms/LoadingButton/LoadingButton";
+import { useUserContext } from "../../../../context/user/user";
 import type { User } from "../../../../types/globalTypes";
 
 export default function RegistryForm() {
+  const { setUser } = useUserContext();
+
   const {
     mutate,
     isLoading,
@@ -20,7 +23,7 @@ export default function RegistryForm() {
     mutationFn: register,
     onSuccess: async (data) => {
       const user = (await data.json()) as User;
-      console.log(user);
+      setUser(user);
     },
   });
 

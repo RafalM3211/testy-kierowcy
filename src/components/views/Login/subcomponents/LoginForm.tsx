@@ -1,16 +1,18 @@
-import { Stack, Button, Box } from "@mui/material";
+import { Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { useState } from "react";
 import TextInput from "../../../atoms/TextInput/TextInput";
 import { useMutation } from "@tanstack/react-query";
 import { tryLogin } from "../../../../core/services/user";
 import ErrorMessage from "../../../atoms/ErrorMessage/ErrorMessage";
 import SuccessMessage from "../../../atoms/SuccessMessage/SuccessMessage";
 import LoadingButton from "../../../atoms/LoadingButton/LoadingButton";
+import { useUserContext } from "../../../../context/user/user";
 import type { User } from "../../../../types/globalTypes";
 
 export default function LoginForm() {
+  const { setUser } = useUserContext();
+
   const {
     mutate,
     isLoading,
@@ -20,7 +22,7 @@ export default function LoginForm() {
     mutationFn: tryLogin,
     onSuccess: async (data) => {
       const user = (await data.json()) as User;
-      console.log(user);
+      setUser(user);
     },
   });
 
