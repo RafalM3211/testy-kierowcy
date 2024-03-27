@@ -25,8 +25,6 @@ export function useUserContext() {
 export default function UserProvider(props: Props) {
   const [user, setUser] = useState<User | null>(null);
 
-  console.log(user);
-
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {props.children}

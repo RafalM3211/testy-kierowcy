@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import TextInput from "../../../atoms/TextInput/TextInput";
 import { useMutation } from "@tanstack/react-query";
-import { tryLogin } from "../../../../core/services/user";
+import { signIn } from "../../../../core/services/user";
 import ErrorMessage from "../../../atoms/ErrorMessage/ErrorMessage";
 import SuccessMessage from "../../../atoms/SuccessMessage/SuccessMessage";
 import LoadingButton from "../../../atoms/LoadingButton/LoadingButton";
@@ -21,7 +21,7 @@ export default function LoginForm() {
     isError: isLoginError,
     isSuccess,
   } = useMutation({
-    mutationFn: tryLogin,
+    mutationFn: signIn,
     onSuccess: async (data) => {
       const user = (await data.json()) as User;
       setUser(user);
@@ -43,7 +43,6 @@ export default function LoginForm() {
           password: Yup.string().required("to pole jest wymagane"),
         })}
         onSubmit={(values) => {
-          console.log(values);
           mutate(values);
         }}
       >

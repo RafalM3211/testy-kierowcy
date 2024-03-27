@@ -40,7 +40,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/signin", async (req, res) => {
   let user: User | null = null;
   sanitizeBody(req);
   const { email, password } = req.body;
@@ -57,6 +57,13 @@ router.post("/login", async (req, res) => {
     const token = generateToken(user);
     res.status(200).cookie("jwt", token, JWTCookieOptions).jsonp(user);
   }
+});
+
+router.post("/signout", async (req, res) => {
+  res
+    .status(200)
+    .clearCookie("jwt", { ...JWTCookieOptions, maxAge: 0 })
+    .send();
 });
 
 export default router;
