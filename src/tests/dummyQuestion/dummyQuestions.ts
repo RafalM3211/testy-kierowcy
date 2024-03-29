@@ -3,6 +3,7 @@ import type {
   BasicQuestion,
   SpecializedQuestion,
 } from "../../types/globalTypes";
+import { createDummyExam } from "./helpers";
 
 export const basic = {
   id: 6301,
@@ -17,10 +18,12 @@ export const basic = {
 export const answeredBasic = { ...basic, chosenAnswer: true };
 
 export const basicWithVideo = {
-  ...answeredBasic,
+  ...basic,
   id: 6245,
   media: "question.mp4",
 };
+
+export const answeredBasicWithVideo = { ...basicWithVideo, chosenAnswer: true };
 
 export const specialized = {
   id: 10060,
@@ -41,3 +44,5 @@ export const answeredSpecialized = {
   ...specialized,
   chosenAnswer: "A" as const,
 };
+
+export const exam = createDummyExam();

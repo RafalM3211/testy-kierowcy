@@ -5,6 +5,7 @@ import {
   basic,
   basicWithVideo,
   specialized,
+  exam,
 } from "./dummyQuestion/dummyQuestions";
 import { server } from "../setupTests";
 
@@ -45,15 +46,15 @@ export function mockSpecializedQuestionOnce() {
 const apiUrl = process.env.REACT_APP_SERVER_URL;
 
 export const handlers = [
-  rest.get(apiUrl + "question", (req, res, ctx) => {
-    console.log("mocked question!");
-    return res(ctx.json(basic), ctx.delay(0), ctx.status(200));
+  rest.get(apiUrl + "exam", (req, res, ctx) => {
+    console.log("mocked exam!");
+    return res(ctx.json(exam), ctx.delay(0), ctx.status(200));
   }),
   rest.get(apiUrl + "media/:fileName", (req, res, ctx) => {
     console.log("mock media");
 
     const imageBuffer = fs.readFileSync(
-      path.resolve(__dirname, "../fixtures/image.jpg")
+      path.resolve(__dirname, "./dummyQuestion/question.jpg")
     );
 
     return res(
