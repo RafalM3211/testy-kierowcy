@@ -26,6 +26,7 @@ export default function Drawer(props: Props) {
       anchor="right"
       open={open}
       onClose={() => setOpen(false)}
+      sx={{ fontSize: "0.85em" }}
       {...other}
     >
       <Box
