@@ -49,7 +49,7 @@ export default function Login() {
             pb: "2em",
             position: "absolute",
             top: "30vh",
-            width: "25%",
+            width: { xs: "75%", sm: "50%", lg: "25%" },
             ...flexCenter,
             flexDirection: "column",
           }}
