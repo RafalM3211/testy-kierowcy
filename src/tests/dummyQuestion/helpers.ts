@@ -12,9 +12,9 @@ export function createDummyExam(): ExamQuestions {
     .fill(basic, 16, 20);
 
   const specializedQuestions = new Array<SpecializedQuestion>(12)
-    .fill({ ...specialized, value: 3 }, 20, 27)
-    .fill({ ...specialized, value: 2 }, 27, 31)
-    .fill(specialized, 31, 32);
+    .fill({ ...specialized, value: 3 }, 0, 7)
+    .fill({ ...specialized, value: 2 }, 7, 11)
+    .fill(specialized, 1, 12);
 
   const basicQuestions = basicQuestionsWithoutVideos.map((question, index) => {
     const videosIndexes = [2, 3, 6, 8, 14, 17];

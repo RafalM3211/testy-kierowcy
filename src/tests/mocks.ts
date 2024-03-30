@@ -29,16 +29,24 @@ export const restoreWindowLocation = () => {
 
 export function mockVideoQuestionOnce() {
   server.use(
-    rest.get(apiUrl + "question", (req, res, ctx) => {
-      return res(ctx.json(basicWithVideo), ctx.delay(0), ctx.status(200));
+    rest.get(apiUrl + "exam", (req, res, ctx) => {
+      return res(
+        ctx.json({ basic: [basicWithVideo], specialized: [specialized] }),
+        ctx.delay(0),
+        ctx.status(200)
+      );
     })
   );
 }
 
 export function mockSpecializedQuestionOnce() {
   server.use(
-    rest.get(apiUrl + "question", (req, res, ctx) => {
-      return res(ctx.json(specialized), ctx.delay(0), ctx.status(200));
+    rest.get(apiUrl + "exam", (req, res, ctx) => {
+      return res(
+        ctx.json({ basic: [specialized], specialized: [specialized] }),
+        ctx.delay(0),
+        ctx.status(200)
+      );
     })
   );
 }
@@ -47,7 +55,6 @@ const apiUrl = process.env.REACT_APP_SERVER_URL;
 
 export const handlers = [
   rest.get(apiUrl + "exam", (req, res, ctx) => {
-    console.log("mocked exam!");
     return res(ctx.json(exam), ctx.delay(0), ctx.status(200));
   }),
   rest.get(apiUrl + "media/:fileName", (req, res, ctx) => {
