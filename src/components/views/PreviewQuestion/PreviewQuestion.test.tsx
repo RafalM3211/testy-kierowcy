@@ -5,19 +5,19 @@ import * as answersContext from "../../../context/Answers/Answers";
 import PreviewQuestion from "./PreviewQuestion";
 import {
   answeredBasic,
-  basicWithVideo,
+  answeredBasicWithVideo,
   answeredSpecialized,
 } from "../../../tests/dummyQuestion/dummyQuestions";
 import DummyProviders from "../../../tests/dummyProviders/DummyProviders";
 import { act } from "react-dom/test-utils";
 
 const dummyId = answeredBasic.id + 342;
-const anotherBasic = { ...answeredBasic, id: dummyId };
+const anotherAnsewerdBasic = { ...answeredBasic, id: dummyId };
 const dummyAnswers = [
   answeredSpecialized,
   answeredBasic,
-  basicWithVideo,
-  anotherBasic,
+  answeredBasicWithVideo,
+  anotherAnsewerdBasic,
 ];
 const answersSpyBase = {
   answeredQuestions: dummyAnswers,

@@ -44,11 +44,6 @@ export function AnswersProvider(props: Props) {
       chosenAnswer: chosenAnswer,
     } as AnsweredQuestion;
 
-    let i = 0;
-    answeredQuestions.forEach((a) => {
-      i += a.value;
-    });
-    i += newAnsweredQuestion.value;
     setAnsweredQuestions([...answeredQuestions, newAnsweredQuestion]);
   }
 
