@@ -8,24 +8,8 @@ import {
 } from "../../../tests/mocks";
 import * as AnswersContext from "../../../context/Answers/Answers";
 import { waitForQuestionLoad } from "../../../tests/utils";
-import { canPlay } from "../../patterns/Player/Player";
 
-jest.mock("../../patterns/Player/Player", () => {
-  const { forwardRef } = jest.requireActual("react");
-
-  const PlayerMock = forwardRef((props: any, ref: any) => {
-    ref.current = {
-      seekTo: jest.fn(),
-    };
-    return <div>video player mock</div>;
-  });
-
-  return {
-    __esModule: true,
-    canPlay: jest.fn(),
-    default: PlayerMock,
-  };
-});
+jest.mock("../../patterns/Player/Player"); //HTML video element doen't work in jest environment
 
 const user = userEvent.setup({ delay: null });
 
@@ -63,7 +47,6 @@ describe("prepare state and transition to answer state", () => {
 
   it("displays media cover and correct timer label on prepare state in basic video qustion", async () => {
     //arrange
-    (canPlay as jest.Mock).mockReturnValue(true);
     mockVideoQuestionOnce();
 
     //act
