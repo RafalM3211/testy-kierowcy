@@ -2,11 +2,11 @@ import * as path from "path";
 import * as fs from "fs";
 import { rest } from "msw";
 import {
-  basic,
   basicWithVideo,
   specialized,
   exam,
 } from "./dummyQuestion/dummyQuestions";
+import { user } from "./fixtures/fixtures";
 import { server } from "../setupTests";
 
 const originalLocation = window.location;
@@ -54,6 +54,12 @@ export function mockSpecializedQuestionOnce() {
 const apiUrl = process.env.REACT_APP_SERVER_URL;
 
 export const handlers = [
+  rest.post(apiUrl + "users/signin", (req, res, ctx) => {
+    return res(ctx.delay(0), ctx.status(200));
+  }),
+  rest.post(apiUrl + "users/signout", (req, res, ctx) => {
+    return res(ctx.json(user), ctx.delay(0), ctx.status(200));
+  }),
   rest.get(apiUrl + "exam", (req, res, ctx) => {
     return res(ctx.json(exam), ctx.delay(0), ctx.status(200));
   }),

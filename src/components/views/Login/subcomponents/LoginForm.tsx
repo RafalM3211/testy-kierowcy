@@ -55,7 +55,11 @@ export default function LoginForm() {
           }
           return (
             <Form style={{ width: "100%" }}>
-              <Stack spacing={3} sx={{ pt: "20px", mb: "10px" }}>
+              <Stack
+                spacing={3}
+                sx={{ pt: "20px", mb: "10px" }}
+                data-testid="clickaway"
+              >
                 <TextInput label="email*" name="email" variant="standard" />
                 <TextInput
                   label="hasło*"
