@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import DummyProviders from "../../../tests/dummyProviders/DummyProviders";
 import LoginForm from "./subcomponents/LoginForm";
+import { userEventEmptyInput } from "../../../tests/utils";
 
 interface ValidationEntry {
   description: string;
@@ -20,40 +21,16 @@ const validationProvider: ValidationEntry[] = [
   {
     description: "shows expected error message when email is empty",
     errorMessage: "to pole jest wymagane",
-    email: "[KeyA][Backspace]",
+    email: userEventEmptyInput,
     password: "password",
   },
   {
     description: "shows expected error message when password is empty",
     errorMessage: "to pole jest wymagane",
     email: "correct@mail.com",
-    password: "[KeyA][Backspace]",
+    password: userEventEmptyInput,
   },
 ];
-
-it("doesn't show any errors when inputs are correct and button isn't disabled", async () => {
-  //arrange
-  const user = userEvent.setup();
-  jest.useRealTimers();
-  render(
-    <DummyProviders>
-      <LoginForm />
-    </DummyProviders>
-  );
-  const emailInput = await screen.findByLabelText("email*");
-  const passwordInput = await screen.findByLabelText("hasło*");
-  const signinButton = await screen.findByRole("button", { name: "zaloguj" });
-  const clickaway = await screen.findByTestId("clickaway");
-
-  //act
-  await user.type(emailInput, "anna@example.com");
-  await user.type(passwordInput, "password");
-  await user.click(clickaway);
-
-  //assert
-  expect(screen.queryByText("niepoprwany adres email")).not.toBeInTheDocument();
-  expect(signinButton).not.toBeDisabled();
-});
 
 describe("Validation", () => {
   validationProvider.forEach(
@@ -84,26 +61,28 @@ describe("Validation", () => {
       });
     }
   );
+});
 
-  /* it("Shows error message and button is disabled when input is incorrect ", async () => {
-    //arrange
-    const user = userEvent.setup();
-    jest.useRealTimers();
-    render(
-      <DummyProviders>
-        <LoginForm />
-      </DummyProviders>
-    );
-    const emailInput = await screen.findByLabelText("email*");
-    const signinButton = await screen.findByRole("button", { name: "zaloguj" });
-    const clickaway = await screen.findByTestId("clickaway");
+it("doesn't show any errors when inputs are correct and button isn't disabled", async () => {
+  //arrange
+  const user = userEvent.setup();
+  jest.useRealTimers();
+  render(
+    <DummyProviders>
+      <LoginForm />
+    </DummyProviders>
+  );
+  const emailInput = await screen.findByLabelText("email*");
+  const passwordInput = await screen.findByLabelText("hasło*");
+  const signinButton = await screen.findByRole("button", { name: "zaloguj" });
+  const clickaway = await screen.findByTestId("clickaway");
 
-    //act
-    await user.type(emailInput, "wrongmail");
-    await user.click(clickaway);
+  //act
+  await user.type(emailInput, "anna@example.com");
+  await user.type(passwordInput, "password");
+  await user.click(clickaway);
 
-    //assert
-    expect(screen.queryByText("niepoprwany adres email")).toBeInTheDocument();
-    expect(signinButton).toBeDisabled();
-  }); */
+  //assert
+  expect(screen.queryByText("niepoprwany adres email")).not.toBeInTheDocument();
+  expect(signinButton).not.toBeDisabled();
 });

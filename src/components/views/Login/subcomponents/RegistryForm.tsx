@@ -43,6 +43,7 @@ export default function RegistryForm() {
             .required("to pole jest wymagane")
             .email("niepoprwany adres email"),
           userName: Yup.string()
+            .required("to pole jest wymagane")
             .test({
               test: (userName) => {
                 return !userName?.match(/[^(\s|\w)]/);
@@ -60,7 +61,7 @@ export default function RegistryForm() {
               },
             })
             .min(3, "minimalna długość to 3 znaki")
-            .max(50, "maksymalna długość to 50 znaków"),
+            .max(30, "maksymalna długość to 30 znaków"),
         })}
         onSubmit={(values) => {
           console.log(values);
@@ -78,10 +79,10 @@ export default function RegistryForm() {
 
           return (
             <Form style={{ width: "100%" }}>
-              <Stack spacing={4} sx={{ pt: "20px" }}>
+              <Stack spacing={4} sx={{ pt: "20px" }} data-testid="clickaway">
                 <TextInput label="email*" name="email" variant="standard" />
                 <TextInput
-                  label="nazwa użytkownika"
+                  label="nazwa użytkownika*"
                   name="userName"
                   variant="standard"
                 />
