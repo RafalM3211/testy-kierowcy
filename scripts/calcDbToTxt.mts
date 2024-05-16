@@ -46,7 +46,7 @@ function prepareForTxt(question: RawQuestionRecord) {
   const template = {
     id: null,
     content: null,
-    correctAnswer: null,
+    correctanswer: null,
     type: null,
     value: null,
     media: null,

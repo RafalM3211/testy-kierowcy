@@ -12,12 +12,12 @@ import DummyProviders from "../../../tests/dummyProviders/DummyProviders";
 import { act } from "react-dom/test-utils";
 
 const dummyId = answeredBasic.id + 342;
-const anotherAnsewerdBasic = { ...answeredBasic, id: dummyId };
+const anotherAnseweredBasic = { ...answeredBasic, id: dummyId };
 const dummyAnswers = [
   answeredSpecialized,
   answeredBasic,
   answeredBasicWithVideo,
-  anotherAnsewerdBasic,
+  anotherAnseweredBasic,
 ];
 const answersSpyBase = {
   answeredQuestions: dummyAnswers,
