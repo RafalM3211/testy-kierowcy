@@ -29,7 +29,6 @@ export default function Header() {
             justifyContent: "space-between",
             alignItems: "center",
             py: "10px",
-            fontSize: { xs: "0.85em", md: "1em" },
           }}
           maxWidth="lg"
         >
