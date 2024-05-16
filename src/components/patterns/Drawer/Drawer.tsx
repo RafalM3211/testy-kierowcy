@@ -10,6 +10,7 @@ import ButtonLink from "../../atoms/ButtonLink/ButtonLink";
 import UserChip from "../Header/subcomponents/UserChip";
 import { mainMenuStructure, userMenuStructure } from "../../../Router";
 import type { DrawerProps } from "@mui/material";
+import { useUserContext } from "../../../context/user/user";
 
 interface Props extends DrawerProps {
   open: boolean;
@@ -17,6 +18,7 @@ interface Props extends DrawerProps {
 }
 
 export default function Drawer(props: Props) {
+  const { user } = useUserContext();
   const { open, setOpen, ...other } = props;
 
   return (
@@ -24,6 +26,7 @@ export default function Drawer(props: Props) {
       anchor="right"
       open={open}
       onClose={() => setOpen(false)}
+      sx={{ fontSize: "0.85em" }}
       {...other}
     >
       <Box
@@ -47,28 +50,32 @@ export default function Drawer(props: Props) {
         </Button>
       </Box>
 
-      <List
-        sx={{
-          borderRight: (theme) => `1px solid ${theme.palette.grey[400]}`,
-          mr: "35px",
-          pr: "10px",
-        }}
-        disablePadding
-        dense
-      >
-        {userMenuStructure.map((item, index) => {
-          return (
-            <ListItem
-              key={index}
-              sx={{ pr: "8px", pt: "0px", justifyContent: "center" }}
-            >
-              <ButtonLink sx={{ color: "grey.500" }} to={item.to}>
-                {item.title}
-              </ButtonLink>
-            </ListItem>
-          );
-        })}
-      </List>
+      {!!user ? (
+        <List
+          sx={{
+            borderRight: (theme) => `1px solid ${theme.palette.grey[400]}`,
+            mr: "35px",
+            pr: "10px",
+          }}
+          disablePadding
+          dense
+        >
+          {userMenuStructure.map((item, index) => {
+            return (
+              <ListItem
+                key={index}
+                sx={{ pr: "8px", pt: "0px", justifyContent: "center" }}
+              >
+                <ButtonLink sx={{ color: "grey.500" }} to={item.to}>
+                  {item.title}
+                </ButtonLink>
+              </ListItem>
+            );
+          })}
+        </List>
+      ) : (
+        <></>
+      )}
 
       <List>
         {mainMenuStructure.map((item, index) => {

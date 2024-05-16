@@ -54,12 +54,10 @@ const router = createBrowserRouter(
   )
 );
 
-export const mainMenuStructure: MenuItem[] = [
-  { title: "ulubione", to: "/" },
-  { title: "test", to: "/" },
-];
+export const mainMenuStructure: MenuItem[] = [{ title: "test", to: "/" }];
 
 export const userMenuStructure: MenuItem[] = [
+  { title: "ulubione", to: "/" },
   { title: "wyloguj", to: "/login" },
   { title: "costam", to: "/" },
 ];
