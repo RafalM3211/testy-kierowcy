@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS users(
 
 CREATE TABLE IF NOT EXISTS users_questions_answer(
     user_id INT,
-    question_id INT,
+    question_id SMALLINT,
     isAnsweredCorrectly BOOLEAN, 
     CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(id),
     CONSTRAINT fk_question FOREIGN KEY(question_id) REFERENCES questions(id)

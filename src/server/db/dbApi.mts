@@ -2,7 +2,7 @@ import dotEnv from "dotenv";
 import pg from "pg";
 import type { QueryResultRow, QueryResult } from "pg";
 import type { RawQuestionRecord, UserWithPassword } from "../types.mjs";
-import { User } from "../../types/globalTypes";
+import { Question, User } from "../../types/globalTypes";
 
 dotEnv.config();
 const { Pool } = pg;
@@ -17,6 +17,9 @@ async function query<T extends QueryResultRow>(
   return res;
 }
 
+//todo: rozdzielic query na insertQuery i query. Query to bedzie to co powyżej a insertQuery bedzie robil dodatkowo sanitacje inputa.
+//todo: przeniesc funkcje ponizej do osobnych plikow query w danych folderach z featurow.
+
 export async function getQuestionsWhere(conditions: string, values?: any[]) {
   const sql = "SELECT * FROM questions WHERE " + conditions;
 
@@ -25,6 +28,16 @@ export async function getQuestionsWhere(conditions: string, values?: any[]) {
   const questions = res.rows;
 
   return questions;
+}
+
+export async function saveQuestionAnswerWith(
+  userId: User["id"],
+  questionId: Question["id"],
+  isCorrect: boolean
+) {
+  const sql = "INSERT INTO users_questions_answer VALUES ($1, $2, $3)";
+
+  await query(sql, [userId, questionId, isCorrect]);
 }
 
 export async function getUsersWhere(conditions: string, values?: any[]) {

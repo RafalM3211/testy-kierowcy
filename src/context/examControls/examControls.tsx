@@ -7,14 +7,17 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAnswersContext } from "../Answers/Answers";
+import { useOnMount } from "../../utility/hooks";
+import { sendAnswer } from "../../core/services/question";
+import { useUserContext } from "../user/user";
+import type { SetAnswerFunction } from "./types";
 import type {
   Answer,
   ExamQuestions,
   Question,
   TimerState,
+  User,
 } from "../../types/globalTypes";
-import type { SetAnswerFunction } from "./types";
-import { useOnMount } from "../../utility/hooks";
 
 interface Controls {
   nextQuestion: () => void;
@@ -68,9 +71,20 @@ function getNextQuestion(examQuestions: ExamQuestions, currentIndex: number) {
   return flattenQuestions[currentIndex + 1];
 }
 
+function checkAndSaveAnswer(
+  userId: User["id"],
+  currentQuestion: Question,
+  selectedAnswer: Answer
+) {
+  const isAnswerCorrect = currentQuestion.correctAnswer === selectedAnswer;
+  const questionId = currentQuestion.id;
+  sendAnswer(userId, questionId, isAnswerCorrect);
+}
+
 export default function ExamControlProvider(props: Props) {
   const { addAnswer, clearAnswers, answeredQuestions } = useAnswersContext();
   const navigate = useNavigate();
+  const { user } = useUserContext();
 
   const questionCount = answeredQuestions.length + 1;
   const currentQuestion = props.dataControls.currentQuestion;
@@ -86,6 +100,10 @@ export default function ExamControlProvider(props: Props) {
 
     setSelectedAnswer(null);
     addAnswer(currentQuestion, selectedAnswer);
+
+    if (user) {
+      checkAndSaveAnswer(user.id, currentQuestion, selectedAnswer);
+    }
 
     if (questionCount === 32) {
       navigate("/summary");

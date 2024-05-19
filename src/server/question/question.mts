@@ -1,13 +1,14 @@
-import {
+import { randomInt } from "../helpers.mjs";
+import { prepareQuestion } from "../db/dbProcessor.mjs";
+import { getQuestionsWhere, saveQuestionAnswerWith } from "../db/dbApi.mjs";
+import type { RawQuestionRecord, DrawQuestionConfig } from "../types.mjs";
+import type {
   BasicQuestion,
   ExamQuestions,
   Question,
   SpecializedQuestion,
+  User,
 } from "../../types/globalTypes";
-import { randomInt } from "../helpers.mjs";
-import { prepareQuestion } from "../db/dbProcessor.mjs";
-import { getQuestionsWhere } from "../db/dbApi.mjs";
-import type { RawQuestionRecord, DrawQuestionConfig } from "../types.mjs";
 
 export async function getExamQuestions(): Promise<ExamQuestions> {
   const basicQuestionValueMap = [
@@ -36,9 +37,6 @@ export async function getExamQuestions(): Promise<ExamQuestions> {
     specialized: specializedQuestions,
   };
 }
-
-/* const a = await getExamQuestions();
-console.log(a.basic[0], a.specialized[0]); */
 
 async function drawExamQuestions(
   NvalueQestionsCount: DrawQuestionConfig,
@@ -78,4 +76,13 @@ function drawNQuestionsFrom(count: number, questions: RawQuestionRecord[]) {
   });
 
   return finalQuestions;
+}
+
+export function saveQuestionAnswer(
+  userId: User["id"],
+  questionId: Question["id"],
+  isCorrect: boolean
+) {
+  console.log(userId, questionId, isCorrect);
+  saveQuestionAnswerWith(userId, questionId, isCorrect);
 }
