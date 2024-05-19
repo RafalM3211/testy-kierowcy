@@ -5,7 +5,7 @@ import {
   RouterProvider,
   Outlet,
 } from "react-router-dom";
-import Home from "./components/views/Home";
+import Home from "./components/views/Home/Home";
 import ExamQuestion from "./components/views/ExamQuestion/ExamQuestion";
 import PreviewQuestion from "./components/views/PreviewQuestion/PreviewQuestion";
 import Summary from "./components/views/Summary/Summary";
