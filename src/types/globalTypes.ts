@@ -44,6 +44,12 @@ export type ABCanswers = {
 
 export type Answer = BasicAnswer | SpecializedAnswer;
 
+export interface AnswersStatistics {
+  correct: number;
+  wrong: number;
+  unaswered: number;
+}
+
 export interface ExamQuestions {
   basic: BasicQuestion[];
   specialized: SpecializedQuestion[];
