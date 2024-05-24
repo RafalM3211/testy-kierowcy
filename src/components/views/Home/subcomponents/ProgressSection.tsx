@@ -32,9 +32,9 @@ export default function ProgressSection() {
     unanswered: 100,
   };
   const allQuestions = correct + wrong + unanswered;
-  const correctPercent = correct / allQuestions;
-  const wrongPercent = wrong / allQuestions;
-  const unansweredPercent = unanswered / allQuestions;
+  const correctPercent = (correct / allQuestions) * 100;
+  const wrongPercent = (wrong / allQuestions) * 100;
+  const unansweredPercent = (unanswered / allQuestions) * 100;
 
   return (
     <>
