@@ -30,11 +30,11 @@ export async function getAnswersStatistics(
 ) {
   const userId = queryContext.queryKey[1];
   console.log("userId: ", userId);
-  /* const res = await appApi.get("question/answers-statistics/" + userId, {
+  const res = await appApi.get("question/answers-statistics/" + userId, {
     headers: {
       "Content-Type": "application/json",
     },
-  }); */
-  //return (await res.json()) as AnswersStatistics;
-  return { correct: 20, wrong: 30, unasnwered: 50 };
+  });
+
+  return (await res.json()) as AnswersStatistics;
 }

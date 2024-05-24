@@ -47,7 +47,7 @@ export type Answer = BasicAnswer | SpecializedAnswer;
 export interface AnswersStatistics {
   correct: number;
   wrong: number;
-  unaswered: number;
+  unanswered: number;
 }
 
 export interface ExamQuestions {

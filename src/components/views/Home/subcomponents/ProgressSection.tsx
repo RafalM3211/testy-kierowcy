@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { Typography, Button } from "@mui/material";
+import { Typography } from "@mui/material";
 import ErrorBlock from "../../../patterns/ErrorBlock/ErrorBlock";
 import Progress from "../../../patterns/Progress/Progress";
 import SectionSubtitle from "../../../atoms/SectionSubtitle/SectionSubtitle";
@@ -27,15 +26,15 @@ export default function ProgressSection() {
     enabled: !!user?.id,
   });
 
-  const { correct, wrong, unasnwered } = asnwersStatistics || {
+  const { correct, wrong, unanswered } = asnwersStatistics || {
     correct: 0,
     wrong: 0,
-    unasnwered: 100,
+    unanswered: 100,
   };
-  const allQuestions = correct + wrong + unasnwered;
+  const allQuestions = correct + wrong + unanswered;
   const correctPercent = correct / allQuestions;
   const wrongPercent = wrong / allQuestions;
-  const unasnweredPercent = unasnwered / allQuestions;
+  const unansweredPercent = unanswered / allQuestions;
 
   return (
     <>

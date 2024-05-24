@@ -1,5 +1,9 @@
 import Router from "express-promise-router";
-import { getExamQuestions, saveQuestionAnswer } from "./question.mjs";
+import {
+  getAnswersStatistics,
+  getExamQuestions,
+  saveQuestionAnswer,
+} from "./question.mjs";
 
 const router = Router();
 
@@ -15,6 +19,14 @@ router.post("/send-answer", async (req, res) => {
   saveQuestionAnswer(userId, questionId, isCorrect);
 
   res.sendStatus(200);
+});
+
+router.get("/answers-statistics/:userId", async (req, res) => {
+  const { userId } = req.params;
+
+  const answersStatistics = await getAnswersStatistics(parseInt(userId));
+
+  res.status(200).jsonp(answersStatistics);
 });
 
 export default router;

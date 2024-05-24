@@ -1,8 +1,14 @@
 import { randomInt } from "../helpers.mjs";
 import { prepareQuestion } from "../db/dbProcessor.mjs";
-import { getQuestionsWhere, saveQuestionAnswerWith } from "../db/dbApi.mjs";
+import {
+  getCorrectStatisticsByUserId,
+  getQuestionCount,
+  getQuestionsWhere,
+  saveQuestionAnswerWith,
+} from "../db/dbApi.mjs";
 import type { RawQuestionRecord, DrawQuestionConfig } from "../types.mjs";
 import type {
+  AnswersStatistics,
   BasicQuestion,
   ExamQuestions,
   Question,
@@ -83,6 +89,20 @@ export function saveQuestionAnswer(
   questionId: Question["id"],
   isCorrect: boolean
 ) {
-  console.log(userId, questionId, isCorrect);
   saveQuestionAnswerWith(userId, questionId, isCorrect);
+}
+
+export async function getAnswersStatistics(userId: number) {
+  const correctStatistics = await getCorrectStatisticsByUserId(userId);
+  const questionCount = await getQuestionCount();
+
+  const answeredCount = correctStatistics.correct + correctStatistics.wrong;
+  const unansweredCount = questionCount - answeredCount;
+
+  const answersStatistics = {
+    ...correctStatistics,
+    unanswered: unansweredCount,
+  } satisfies AnswersStatistics;
+
+  return answersStatistics;
 }
