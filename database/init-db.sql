@@ -30,5 +30,7 @@ CREATE TABLE IF NOT EXISTS users_questions_answer(
 
 COPY questions FROM '/data-import/questions.txt' WITH DELIMITER '|';
 COPY users FROM '/data-import/users.txt' WITH DELIMITER '|';
-COPY user_question_answer FROM '/data-import/users_questions_answer.txt' WITH DELIMITER '|';
+COPY users_questions_answer FROM '/data-import/users_questions_answer.txt' WITH DELIMITER '|';
 SELECT setval('users_id_seq', (SELECT MAX(id) FROM users));
+
+CREATE MATERIALIZED VIEW question_count AS SELECT COUNT(*) AS question_count FROM questions;
