@@ -74,10 +74,18 @@ function drawNQuestionsFrom(count: number, questions: RawQuestionRecord[]) {
 
   const finalQuestions = container.map(() => {
     let randomIndex = randomInt(0, questions.length);
+    let iterations = 1;
     while (usedIndexes.includes(randomIndex)) {
       randomIndex = randomInt(0, questions.length);
+      iterations++;
+      if (iterations > 200) {
+        throw new Error(
+          `Can't find ${count} distinct questions. Loop exceeded 500 iterations`
+        );
+      }
     }
 
+    usedIndexes.push(randomIndex);
     return questions[randomIndex];
   });
 
