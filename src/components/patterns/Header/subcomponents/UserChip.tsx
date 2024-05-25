@@ -17,7 +17,7 @@ export default function UserChip(props: Props) {
 
   return (
     <>
-      {user ? (
+      {user && (
         <Box
           ref={menuRef}
           onClick={() => setMenuOpen(true)}
@@ -64,18 +64,6 @@ export default function UserChip(props: Props) {
             {user.name[0]}
           </Avatar>
         </Box>
-      ) : (
-        <ButtonLink
-          to="/login"
-          sx={{
-            ml: "10px",
-            mr: "10px",
-            color: "primary.dark",
-            userSelect: "none",
-          }}
-        >
-          zaloguj
-        </ButtonLink>
       )}
       <Menu
         onClose={() => setMenuOpen(false)}
