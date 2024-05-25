@@ -36,6 +36,7 @@ export default function AnswerRow(props: Props) {
           cursor: "pointer",
           userSelect: "none",
           display: "flex",
+          alignItems: "center",
         }}
         component="label"
       >

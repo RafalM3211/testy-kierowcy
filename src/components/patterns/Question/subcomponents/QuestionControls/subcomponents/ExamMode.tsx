@@ -73,7 +73,6 @@ export default function ExamMode(props: Props) {
       ) : (
         <Button
           onClick={nextQuestion}
-          size="large"
           variant="contained"
           sx={{
             textTransform: "unset",
@@ -82,7 +81,7 @@ export default function ExamMode(props: Props) {
             py: "10px",
           }}
         >
-          <Typography variant="h6">Następne pytanie</Typography>
+          <Typography variant="button">Następne pytanie</Typography>
         </Button>
       )}
     </>

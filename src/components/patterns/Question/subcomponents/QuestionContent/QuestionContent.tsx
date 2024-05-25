@@ -75,7 +75,7 @@ export default function QuestionContent(props: Props) {
             setChosenAnswer={setSelectedAnswer}
             chosenAnswer={chosenAnswer as BasicAnswer}
             correctAnswer={props.correctAnswer}
-            sx={{ mt: "35px", fontSize: "1.8em" }}
+            sx={{ mt: "35px", fontSize: "1.6em" }}
           />
         ) : (
           <ABCAnswer
