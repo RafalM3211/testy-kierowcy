@@ -10,6 +10,9 @@ import ButtonLink from "../../atoms/ButtonLink/ButtonLink";
 import UserChip from "../Header/subcomponents/UserChip";
 import { mainMenuStructure, userMenuStructure } from "../../../Router";
 import type { DrawerProps } from "@mui/material";
+import { useUserContext } from "../../../context/user/user";
+import LogInButton from "../Header/subcomponents/LogInButton";
+import { flexCenter } from "../../../utility/styling";
 
 interface Props extends DrawerProps {
   open: boolean;
@@ -17,6 +20,7 @@ interface Props extends DrawerProps {
 }
 
 export default function Drawer(props: Props) {
+  const { isLoggedIn } = useUserContext();
   const { open, setOpen, ...other } = props;
 
   return (
@@ -30,12 +34,15 @@ export default function Drawer(props: Props) {
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "flex-end",
           my: "10px",
           mx: "16px",
         }}
       >
-        <UserChip />
+        <Box sx={{ flexGrow: 1, ...flexCenter }}>
+          {isLoggedIn ? <UserChip /> : <LogInButton />}
+        </Box>
+
         <Button
           onClick={() => setOpen(false)}
           sx={{

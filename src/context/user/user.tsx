@@ -7,6 +7,7 @@ interface Props {
 
 interface UserContext {
   user: User | null;
+  isLoggedIn: boolean;
   setUser: (user: User | null) => void;
 }
 
@@ -24,9 +25,10 @@ export function useUserContext() {
 
 export default function UserProvider(props: Props) {
   const [user, setUser] = useState<User | null>(null);
+  const isLoggedIn = !!user;
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, isLoggedIn }}>
       {props.children}
     </UserContext.Provider>
   );

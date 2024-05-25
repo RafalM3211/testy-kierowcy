@@ -8,9 +8,12 @@ import Logo from "../../atoms/Logo/Logo";
 import { mainMenuStructure } from "../../../Router";
 import Drawer from "../Drawer/Drawer";
 import MenuButton from "../../atoms/MenuButton/MenuButton";
+import { useUserContext } from "../../../context/user/user";
+import LogInButton from "./subcomponents/LogInButton";
 
 export default function Header() {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const { isLoggedIn } = useUserContext();
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.only("xs"));
 
@@ -45,11 +48,15 @@ export default function Header() {
                 );
               })
             )}
-            <UserChip
-              sx={{
-                ml: "30px",
-              }}
-            />
+            {isLoggedIn ? (
+              <UserChip
+                sx={{
+                  ml: "30px",
+                }}
+              />
+            ) : (
+              <LogInButton />
+            )}
             {isXs ? (
               <MenuButton
                 sx={{ ml: "15px" }}
