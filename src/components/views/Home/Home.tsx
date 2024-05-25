@@ -1,12 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import bgImage from "../../images/backgrounds/wave.svg";
-import { flexCenter, backgroundImg } from "../../utility/styling";
-import Progress from "../patterns/Progress/Progress";
-import ButtonLink from "../atoms/ButtonLink/ButtonLink";
-import SectionSubtitle from "../atoms/SectionSubtitle/SectionSubtitle";
-import SectionHeader from "../atoms/SectionHeader/SectionHeader";
-import HighlitedText from "../atoms/HighlitedText/HighlitedText";
+import bgImage from "../../../images/backgrounds/wave.svg";
+import { flexCenter, backgroundImg } from "../../../utility/styling";
+import Progress from "../../patterns/Progress/Progress";
+import ButtonLink from "../../atoms/ButtonLink/ButtonLink";
+import SectionSubtitle from "../../atoms/SectionSubtitle/SectionSubtitle";
+import SectionHeader from "../../atoms/SectionHeader/SectionHeader";
+import HighlitedText from "../../atoms/HighlitedText/HighlitedText";
+import ProgressSection from "./subcomponents/ProgressSection";
 
 export default function Home() {
   return (
@@ -40,12 +41,7 @@ export default function Home() {
           xs={12}
           md={6}
         >
-          <SectionHeader>Twój progres</SectionHeader>
-          <SectionSubtitle>
-            Rozwiązuj testy a pasek progresu będzie uzupełniał się sam. Dzięki
-            temu będziesz wiedział kiedy jesteś gotowy do egzaminu
-          </SectionSubtitle>
-          <Progress correctPercent={20} wrongPercent={30} sx={{ mt: "40px" }} />
+          <ProgressSection />
         </Grid>
         <Grid
           sx={{

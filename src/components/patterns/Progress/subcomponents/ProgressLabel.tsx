@@ -8,6 +8,9 @@ interface Props {
 }
 
 export default function ProgressLabel(props: Props) {
+  console.log(props.value);
+  const value = Math.round(props.value) || "<1";
+
   return (
     <Box
       sx={{
@@ -28,17 +31,13 @@ export default function ProgressLabel(props: Props) {
       {props.above ? (
         <></>
       ) : (
-        <Typography
-          sx={{ lineHeight: "1.1em" }}
-        >{`${props.value}%`}</Typography>
+        <Typography sx={{ lineHeight: "1.1em" }}>{`${value}%`}</Typography>
       )}
       <Typography sx={{ lineHeight: "1em" }} variant="body2">
         {props.label}
       </Typography>
       {props.above ? (
-        <Typography
-          sx={{ lineHeight: "1.1em" }}
-        >{`${props.value}%`}</Typography>
+        <Typography sx={{ lineHeight: "1.1em" }}>{`${value}%`}</Typography>
       ) : (
         <></>
       )}

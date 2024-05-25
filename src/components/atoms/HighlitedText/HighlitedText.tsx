@@ -6,7 +6,13 @@ export default function HighlitedText(props: TypographyTypeMap["props"]) {
   return (
     <Typography
       component={"span"}
-      sx={{ color: "primary.dark", fontWeight: "bold", ...sx }}
+      sx={{
+        fontSize: "1em",
+        color: "primary.dark",
+        textDecorationColor: "primary.dark",
+        fontWeight: "bold",
+        ...sx,
+      }}
       {...otherProps}
     >
       {children}

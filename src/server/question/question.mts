@@ -1,13 +1,20 @@
+import { randomInt } from "../helpers.mjs";
+import { prepareQuestion } from "../db/dbProcessor.mjs";
 import {
+  getCorrectStatisticsByUserId,
+  getQuestionCount,
+  getQuestionsWhere,
+  saveQuestionAnswerWith,
+} from "../db/dbApi.mjs";
+import type { RawQuestionRecord, DrawQuestionConfig } from "../types.mjs";
+import type {
+  AnswersStatistics,
   BasicQuestion,
   ExamQuestions,
   Question,
   SpecializedQuestion,
+  User,
 } from "../../types/globalTypes";
-import { randomInt } from "../helpers.mjs";
-import { prepareQuestion } from "../db/dbProcessor.mjs";
-import { getQuestionsWhere } from "../db/dbApi.mjs";
-import type { RawQuestionRecord, DrawQuestionConfig } from "../types.mjs";
 
 export async function getExamQuestions(): Promise<ExamQuestions> {
   const basicQuestionValueMap = [
@@ -36,9 +43,6 @@ export async function getExamQuestions(): Promise<ExamQuestions> {
     specialized: specializedQuestions,
   };
 }
-
-/* const a = await getExamQuestions();
-console.log(a.basic[0], a.specialized[0]); */
 
 async function drawExamQuestions(
   NvalueQestionsCount: DrawQuestionConfig,
@@ -78,4 +82,27 @@ function drawNQuestionsFrom(count: number, questions: RawQuestionRecord[]) {
   });
 
   return finalQuestions;
+}
+
+export function saveQuestionAnswer(
+  userId: User["id"],
+  questionId: Question["id"],
+  isCorrect: boolean
+) {
+  saveQuestionAnswerWith(userId, questionId, isCorrect);
+}
+
+export async function getAnswersStatistics(userId: number) {
+  const correctStatistics = await getCorrectStatisticsByUserId(userId);
+  const questionCount = await getQuestionCount();
+
+  const answeredCount = correctStatistics.correct + correctStatistics.wrong;
+  const unansweredCount = questionCount - answeredCount;
+
+  const answersStatistics = {
+    ...correctStatistics,
+    unanswered: unansweredCount,
+  } satisfies AnswersStatistics;
+
+  return answersStatistics;
 }
