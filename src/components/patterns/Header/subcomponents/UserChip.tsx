@@ -74,7 +74,7 @@ export default function UserChip(props: Props) {
             userSelect: "none",
           }}
         >
-          logowanie / rejestacja
+          zaloguj
         </ButtonLink>
       )}
       <Menu

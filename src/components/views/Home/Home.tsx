@@ -59,8 +59,9 @@ export default function Home() {
             </HighlitedText>
           </SectionHeader>
           <SectionSubtitle>
-            Spróbuj swoich sił w egzaminie próbnym lub rozwiązuj pojedyńczo
-            najtrudniejsze i niepoznane wcześniej pytania
+            Spróbuj swoich sił w egzaminie próbnym. Test składa się z 20 pytań
+            podstawowych oraz 12 specjalistycznych - dokładnie jak na prawdziwym
+            egzaminie!
           </SectionSubtitle>
           <ButtonLink
             to="/question"
@@ -78,11 +79,6 @@ export default function Home() {
               sx={{ fontSize: { xs: "1em", md: "1.35em" } }}
             >
               Rozwiaż test na kategorię B
-            </Typography>
-          </ButtonLink>
-          <ButtonLink to="#" sx={{ borderRadius: "15px" }} variant="outlined">
-            <Typography component={"p"} sx={{ fontSize: "1.1em" }}>
-              Zobacz ulubione pytania
             </Typography>
           </ButtonLink>
         </Grid>

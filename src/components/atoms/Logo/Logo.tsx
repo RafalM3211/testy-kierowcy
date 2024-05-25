@@ -21,7 +21,7 @@ export default function Logo(props: Props) {
         variant="h4"
         component="h2"
       >
-        {isSmall ? "Dt" : "DrivingTests"}
+        {isSmall ? "Tk" : "TestyKierowcy"}
       </Typography>
     </Link>
   );

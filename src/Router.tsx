@@ -55,13 +55,11 @@ const router = createBrowserRouter(
 );
 
 export const mainMenuStructure: MenuItem[] = [
-  { title: "ulubione", to: "/" },
-  { title: "test", to: "/" },
+  { title: "test na kategorię B", to: "/question" },
 ];
 
 export const userMenuStructure: MenuItem[] = [
   { title: "wyloguj", to: "/login" },
-  { title: "costam", to: "/" },
 ];
 
 export function Router() {
