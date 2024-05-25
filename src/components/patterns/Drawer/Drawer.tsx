@@ -9,10 +9,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import ButtonLink from "../../atoms/ButtonLink/ButtonLink";
 import UserChip from "../Header/subcomponents/UserChip";
 import { mainMenuStructure, userMenuStructure } from "../../../Router";
-import type { DrawerProps } from "@mui/material";
 import { useUserContext } from "../../../context/user/user";
 import LogInButton from "../Header/subcomponents/LogInButton";
 import { flexCenter } from "../../../utility/styling";
+import type { DrawerProps } from "@mui/material";
 
 interface Props extends DrawerProps {
   open: boolean;
@@ -28,6 +28,7 @@ export default function Drawer(props: Props) {
       anchor="right"
       open={open}
       onClose={() => setOpen(false)}
+      sx={{ fontSize: "0.9em" }}
       {...other}
     >
       <Box

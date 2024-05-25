@@ -36,7 +36,10 @@ export default function Header() {
           maxWidth="lg"
         >
           <Logo size={isXs ? "small" : "medium"} />
-          <Box component="nav" sx={{ display: "flex", alignItems: "center" }}>
+          <Box
+            component="nav"
+            sx={{ display: "flex", alignItems: "center", fontSize: "0.9em" }}
+          >
             {isXs ? (
               <></>
             ) : (
