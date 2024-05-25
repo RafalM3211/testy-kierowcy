@@ -55,6 +55,7 @@ const router = createBrowserRouter(
 );
 
 export const mainMenuStructure: MenuItem[] = [
+  { title: "strona główna", to: "/" },
   { title: "test na kategorię B", to: "/question" },
 ];
 

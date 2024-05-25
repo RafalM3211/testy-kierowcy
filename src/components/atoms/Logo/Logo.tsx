@@ -16,12 +16,21 @@ export default function Logo(props: Props) {
         sx={(theme) => ({
           pl: "10px",
           borderLeft: `15px solid ${theme.palette.primary.main}`,
-          fontSize: isSmall ? "1.8em" : "2em",
+          fontSize: isSmall ? "1.1em" : "2em",
+          /* fontWeight: isSmall ? "bold" : "normal", */
         })}
         variant="h4"
         component="h2"
       >
-        {isSmall ? "Tk" : "TestyKierowcy"}
+        {isSmall ? (
+          <>
+            Testy
+            <br />
+            Kierowcy
+          </>
+        ) : (
+          "TestyKierowcy"
+        )}
       </Typography>
     </Link>
   );
