@@ -6,10 +6,10 @@ import {
   User,
 } from "../../types/globalTypes";
 import { isQuestion } from "../../types/typeGuards/typeGuards";
-import { appApi } from "../clients/appApi";
+import { primaryApi } from "../clients/apis";
 
 export async function getExam() {
-  const res = await appApi.get("question/get-exam", {
+  const res = await primaryApi.get("question/get-exam", {
     headers: {
       "Content-Type": "application/json",
     },
@@ -22,14 +22,18 @@ export async function sendAnswer(
   questionId: Question["id"],
   isCorrect: boolean
 ) {
-  await appApi.post("question/send-answer", { userId, questionId, isCorrect });
+  await primaryApi.post("question/send-answer", {
+    userId,
+    questionId,
+    isCorrect,
+  });
 }
 
 export async function getAnswersStatistics(
   queryContext: QueryFunctionContext<[string, number]>
 ) {
   const userId = queryContext.queryKey[1];
-  const res = await appApi.get("question/answers-statistics/" + userId, {
+  const res = await primaryApi.get("question/answers-statistics/" + userId, {
     headers: {
       "Content-Type": "application/json",
     },

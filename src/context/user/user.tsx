@@ -41,6 +41,9 @@ export default function UserProvider(props: Props) {
     queryKey: ["checkToken"],
     queryFn: checkToken,
     staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    retry: 0,
   });
 
   useEffect(() => {
