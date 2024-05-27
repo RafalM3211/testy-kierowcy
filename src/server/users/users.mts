@@ -31,6 +31,11 @@ export async function getUserByEmail(email: string) {
   return user;
 }
 
+export async function getUserById(id: number) {
+  const user = await getOneUserWhere("id=$1", [id]);
+  return user;
+}
+
 export async function addUser(
   email: string,
   password: string,

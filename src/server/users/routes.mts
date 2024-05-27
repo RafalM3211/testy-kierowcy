@@ -1,10 +1,11 @@
 import Router from "express-promise-router";
-import { addUser, getUserByEmail } from "./users.mjs";
+import { addUser, getUserByEmail, getUserById } from "./users.mjs";
 import { errorMessage } from "../messages.mjs";
 import { getUserByCredentials } from "./users.mjs";
 import {
   generateToken,
   JWTCookieOptions,
+  parseToken,
   sanitizeBody,
 } from "./authentication.mjs";
 import type { User } from "../../types/globalTypes";
@@ -52,7 +53,7 @@ router.post("/signin", async (req, res) => {
   user = await getUserByCredentials(email, password);
 
   if (!user) {
-    res.status(401).jsonp(errorMessage("AUTHENTICATION_FAILED"));
+    res.status(400).jsonp(errorMessage("AUTHENTICATION_FAILED"));
   } else {
     const token = generateToken(user);
     res.status(200).cookie("jwt", token, JWTCookieOptions).jsonp(user);
@@ -64,6 +65,23 @@ router.post("/signout", async (req, res) => {
     .status(200)
     .clearCookie("jwt", { ...JWTCookieOptions, maxAge: 0 })
     .send();
+});
+
+router.get("/check-token", async (req, res) => {
+  try {
+    if (!("jwt" in req.cookies)) throw "token not present";
+    const { jwt } = req.cookies;
+    const userId = await parseToken(jwt);
+    if (!userId) throw "user id not present in payload";
+    const user = await getUserById(userId);
+    console.log(user);
+    if (!user) throw "coundn't find user with id " + userId;
+
+    res.status(200).jsonp(user);
+  } catch (message) {
+    console.log(message);
+    res.status(400).jsonp(errorMessage("INVALID_TOKEN"));
+  }
 });
 
 export default router;

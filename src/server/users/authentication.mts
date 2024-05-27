@@ -5,12 +5,12 @@ import type { CookieOptions, Request } from "express";
 
 export function generateToken(user: User) {
   const payload = {
-    id: user.id,
+    userId: user.id,
     email: user.email,
   };
   const token = jwt.sign(payload, env.jwt.secret, {
     algorithm: "HS256",
-    expiresIn: "1h",
+    expiresIn: "24h",
     audience: env.jwt.audience,
     issuer: env.jwt.issuer,
   });
@@ -48,4 +48,16 @@ export function sanitize(text: string, additionalAllowedChars?: string) {
   }
 
   return sanitizedText;
+}
+
+export async function parseToken(token: string) {
+  const payload = jwt.verify(token, env.jwt.secret);
+  console.log(payload);
+  if (typeof payload === "object" && "userId" in payload) {
+    const sanitizedUid = parseInt(payload.userId);
+
+    return sanitizedUid;
+  } else {
+    throw "invalid token payload";
+  }
 }
