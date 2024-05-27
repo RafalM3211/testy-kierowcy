@@ -7,7 +7,7 @@ import type {
 } from "./types";
 
 const createClient = (baseUrl: string, api = fetch) => {
-  let interceptRequest = (url: string, options: object) => {
+  let interceptRequest = (url: string, options: RequestInit) => {
     return { interceptedUrl: url, interceptedOptions: options };
   };
   let interceptResponse: ResponseInterceptor = async (response: Response) =>
@@ -15,7 +15,7 @@ const createClient = (baseUrl: string, api = fetch) => {
   let interceptError: ErrorInterceptor = (error: Error) => {};
 
   return {
-    get: async (url: string, options: object = {}) => {
+    get: async (url: string, options: RequestInit = {}) => {
       try {
         const { interceptedUrl, interceptedOptions } = interceptRequest(
           url,
@@ -30,7 +30,7 @@ const createClient = (baseUrl: string, api = fetch) => {
         throw exception;
       }
     },
-    post: async (url: string, values: object, options: object = {}) => {
+    post: async (url: string, values: object, options: RequestInit = {}) => {
       try {
         const { interceptedUrl, interceptedOptions } = interceptRequest(
           url,
@@ -52,7 +52,7 @@ const createClient = (baseUrl: string, api = fetch) => {
         throw exception;
       }
     },
-    put: async (url: string, values: object, options: object = {}) => {
+    put: async (url: string, values: object, options: RequestInit = {}) => {
       try {
         const { interceptedUrl, interceptedOptions } = interceptRequest(
           url,
@@ -75,7 +75,7 @@ const createClient = (baseUrl: string, api = fetch) => {
         }
       }
     },
-    delete: async (url: string, options: object = {}) => {
+    delete: async (url: string, options: RequestInit = {}) => {
       try {
         const { interceptedUrl, interceptedOptions } = interceptRequest(
           url,
