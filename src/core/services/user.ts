@@ -1,3 +1,4 @@
+import { User } from "../../types/globalTypes";
 import { appApi } from "../clients/appApi";
 
 interface Credentials {
@@ -23,4 +24,9 @@ export async function register(body: RegisterValues) {
   return await appApi.post("users/register", body, {
     credentials: "include",
   });
+}
+
+export async function checkToken() {
+  const res = await appApi.get("users/check-token", { credentials: "include" });
+  return (await res.json()) as User;
 }

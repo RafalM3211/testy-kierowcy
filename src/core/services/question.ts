@@ -29,7 +29,6 @@ export async function getAnswersStatistics(
   queryContext: QueryFunctionContext<[string, number]>
 ) {
   const userId = queryContext.queryKey[1];
-  console.log("userId: ", userId);
   const res = await appApi.get("question/answers-statistics/" + userId, {
     headers: {
       "Content-Type": "application/json",
