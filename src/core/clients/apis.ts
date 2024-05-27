@@ -43,7 +43,6 @@ primaryApi.registerInterceptors(primaryInterceptors);
 const noRedirectApi = createClient(apiUrl, fetch);
 const noRedirectInterceptors = {
   response: async (response: Response) => {
-    console.log("a");
     if (!isOk(response.status)) {
       const exceptionData = await response.json();
       throw exceptionData;

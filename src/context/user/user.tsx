@@ -48,9 +48,10 @@ export default function UserProvider(props: Props) {
 
   useEffect(() => {
     if (!isError && !isLoading) {
+      console.log("effect");
       setUser(data);
     }
-  });
+  }, [data, isError, isLoading, setUser]);
 
   return (
     <UserContext.Provider value={{ user, setUser, isLoggedIn }}>

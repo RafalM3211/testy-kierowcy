@@ -8,7 +8,6 @@ interface Props {
 }
 
 export default function ProgressLabel(props: Props) {
-  console.log(props.value);
   const value = Math.round(props.value) || "<1";
 
   return (
