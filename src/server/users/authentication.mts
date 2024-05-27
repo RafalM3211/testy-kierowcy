@@ -21,7 +21,6 @@ export function generateToken(user: User) {
 export const JWTCookieOptions: CookieOptions = {
   sameSite: "strict",
   httpOnly: true,
-  secure: true,
   maxAge: 1000 * 3600 * 24,
 };
 

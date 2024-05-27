@@ -74,7 +74,6 @@ router.get("/check-token", async (req, res) => {
     const userId = await parseToken(jwt);
     if (!userId) throw "user id not present in payload";
     const user = await getUserById(userId);
-    console.log(user);
     if (!user) throw "coundn't find user with id " + userId;
 
     res.status(200).jsonp(user);
