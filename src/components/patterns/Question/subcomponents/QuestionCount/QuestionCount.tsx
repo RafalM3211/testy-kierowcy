@@ -14,16 +14,18 @@ export default function QuestionCount(props: Props) {
     <Box
       sx={{
         textAlign: "center",
-        mx: "15px",
+        mx: { xs: "15px", md: "5px", lg: "15px" },
         color: active ? "unset" : "grey.500",
         transition: "color 0.2s",
+        flexShrink: "2",
+        fontSize: { xs: "0.6em", sm: "0.8em", lg: "1em" },
         ...sx,
       }}
       {...boxProps}
     >
       <Typography
         sx={{
-          fontSize: active ? "1.25rem" : "1.1rem",
+          fontSize: active ? "1.25em" : "1.1em",
           transition: "font-size 0.3s",
         }}
         variant="h6"
@@ -33,7 +35,7 @@ export default function QuestionCount(props: Props) {
       </Typography>
       <Typography
         sx={{
-          fontSize: active ? "3rem" : "2.64rem",
+          fontSize: active ? "3em" : "2.64em",
           transition: "font-size 0.1s",
         }}
         variant="h3"

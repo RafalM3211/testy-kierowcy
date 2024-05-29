@@ -1,19 +1,31 @@
 import {
-  createBrowserRouter,
+  createMemoryRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import AppThemeProvider from "../../context/theme/theme";
-import { AnsewersProvider } from "../../context/Ansewers/Ansewers";
+import { AnswersProvider } from "../../context/Answers/Answers";
+import UserProvider from "../../context/user/user";
 import type { ReactNode, ComponentProps, JSX } from "react";
 
-const queryClient = new QueryClient();
+function createQueryClient() {
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        retry: false,
+        cacheTime: 0,
+      },
+    },
+  });
+}
 
 interface Props {
   children: ReactNode;
   routes?: ReactNode;
+  initialEntries?: string[];
 }
 
 export function wrapInDummyProviders<P extends {}>(
@@ -36,14 +48,18 @@ export default function DummyProviders(props: Props) {
   const routeElements = props.routes || (
     <Route path="*" element={props.children} />
   );
-  const router = createBrowserRouter(createRoutesFromElements(routeElements));
+  const router = createMemoryRouter(createRoutesFromElements(routeElements), {
+    initialEntries: props.initialEntries,
+  });
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={createQueryClient()}>
       <AppThemeProvider>
-        <AnsewersProvider>
-          <RouterProvider router={router} />
-        </AnsewersProvider>
+        <UserProvider>
+          <AnswersProvider>
+            <RouterProvider router={router} />
+          </AnswersProvider>
+        </UserProvider>
       </AppThemeProvider>
     </QueryClientProvider>
   );

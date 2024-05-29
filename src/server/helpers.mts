@@ -21,3 +21,23 @@ export function getDirname(importMetaUrl: string) {
   const dirname = path.dirname(filename);
   return dirname;
 }
+
+export function isDev() {
+  return process.env.REACT_APP_NODE_ENV === "development";
+}
+
+export function randomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+export function withoutProperty<O extends object, K extends keyof O>(
+  obj: O,
+  property: K
+): Omit<O, K> {
+  const { [property]: _, ...rest } = obj;
+  return rest;
+}
+
+export function isObject(value: unknown) {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}

@@ -9,7 +9,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 const QuestionItemWrapped = wrapInDummyProviders(QuestionItem);
 
 const metaData = {
-  title: "Question item",
+  title: "patters/Question item",
   component: QuestionItemWrapped,
 } satisfies Meta<typeof QuestionItemWrapped>;
 

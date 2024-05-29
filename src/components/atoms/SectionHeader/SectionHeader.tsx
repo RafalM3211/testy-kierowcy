@@ -8,7 +8,7 @@ export default function SectionHeader(props: TypographyTypeMap["props"]) {
     <Typography
       variant="h3"
       component={"h2"}
-      sx={{ textAlign: "center", mb: "15px", ...sx }}
+      sx={{ textAlign: "center", mb: "15px", fontSize: "3em", ...sx }}
       {...otherProps}
     >
       {children}

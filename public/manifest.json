@@ -1,6 +1,6 @@
 {
-  "short_name": "Driving Tests",
-  "name": "Driving license tests",
+  "short_name": "TestyKierowcy",
+  "name": "Testy Kierowcy",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#fb8c00",

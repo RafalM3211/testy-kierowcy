@@ -1,15 +1,15 @@
 import { useParams } from "react-router-dom";
 import { Box } from "@mui/material";
 import Question from "../../patterns/Question/Question";
-import { useAnsewersContext } from "../../../context/Ansewers/Ansewers";
+import { useAnswersContext } from "../../../context/Answers/Answers";
 import bgImage from "../../../images/backgrounds/wave.svg";
 import { backgroundImg } from "../../../utility/styling";
 import ErrorScreen from "../../patterns/ErrorScreen/ErrorScreen";
 
 export default function PreviewQuestion() {
-  const id = "2"; //useParams().id as string;
-  const { anseweredQuestions } = useAnsewersContext();
-  const question = anseweredQuestions.find(
+  const id = useParams().id as string;
+  const { answeredQuestions } = useAnswersContext();
+  const question = answeredQuestions.find(
     (quesiton) => quesiton.id === parseInt(id)
   );
 
@@ -23,7 +23,7 @@ export default function PreviewQuestion() {
         <Question
           question={question}
           mode="preview"
-          chosenAnsewer={question.chosenAnsewer}
+          chosenAnswer={question.chosenAnswer}
           sx={{ pt: "80px" }}
         />
       )}

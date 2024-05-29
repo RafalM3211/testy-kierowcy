@@ -1,5 +1,10 @@
 import type { Application } from "express";
-import type { Ansewer, QuestionType } from "../types/globalTypes";
+import type {
+  Answer,
+  Question,
+  QuestionType,
+  User,
+} from "../types/globalTypes";
 
 type AppGet = Application["get"];
 type AppGetParams = Parameters<AppGet>;
@@ -13,11 +18,28 @@ export type EndpointHandler = (req: Req, res: Res) => void;
 export interface RawQuestionRecord {
   id: number;
   content: string;
-  correctAnsewer: Exclude<Ansewer, null | boolean> | 1 | 0;
-  media?: string;
+  correctanswer: Exclude<Answer, null | boolean> | "1" | "0";
   type: QuestionType;
   value: number;
-  A?: string;
-  B?: string;
-  C?: string;
+  media: string | null;
+  A: string | null;
+  B: string | null;
+  C: string | null;
+}
+
+export interface ABCanswers {
+  A: string;
+  B: string;
+  C: string;
+}
+
+interface QuestionValueCountPair {
+  value: Question["value"];
+  count: number;
+}
+
+export type DrawQuestionConfig = QuestionValueCountPair[];
+
+export interface UserWithPassword extends User {
+  password: string;
 }

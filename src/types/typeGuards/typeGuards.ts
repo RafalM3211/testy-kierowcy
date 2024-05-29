@@ -4,7 +4,7 @@ export function isQuestion(data: unknown): data is Question {
   if (typeof data !== "object" || data === null) return false;
   if (!hasRequiredKeys(data)) return false;
   if (!entriesMatchType(data)) return false;
-  if (!ansewersMatchType(data)) return false;
+  if (!answersMatchType(data)) return false;
 
   return true;
 }
@@ -17,7 +17,7 @@ function hasRequiredKeys(
     "content",
     "media",
     "value",
-    "correctAnsewer",
+    "correctAnswer",
     "type",
   ];
   let isOk = true;
@@ -33,7 +33,7 @@ function hasRequiredKeys(
 function entriesMatchType(data: Record<keyof Question, unknown>) {
   const idCorrect = typeof data.id === "number";
   const contentCorrect = typeof data.content === "string";
-  const mediaCorrect = typeof data.media === "string";
+  const mediaCorrect = typeof data.media === "string" || data.media === null;
   const valueCorrect =
     typeof data.value === "number" && [1, 2, 3].includes(data.value);
   const typeCorrect =
@@ -50,44 +50,44 @@ function entriesMatchType(data: Record<keyof Question, unknown>) {
   return !typeChecks.includes(false);
 }
 
-function ansewersMatchType(data: Record<keyof Question, unknown>) {
-  const ansewers = "ansewers" in data ? data.ansewers : undefined;
+function answersMatchType(data: Record<keyof Question, unknown>) {
+  const answers = "answers" in data ? data.answers : undefined;
   const dataType = data.type as QuestionType;
-  const ansewersMatchType = doQuestionAnsewersMatchType(ansewers, dataType);
-  const correctAnsewerMatchesType = doesCorrectAnsewerMatchType(
-    data.correctAnsewer,
+  const answersMatchType = doQuestionAnswersMatchType(answers, dataType);
+  const correctAnswerMatchesType = doesCorrectAnswerMatchType(
+    data.correctAnswer,
     dataType
   );
 
-  const matchChecks = [ansewersMatchType, correctAnsewerMatchesType];
+  const matchChecks = [answersMatchType, correctAnswerMatchesType];
   return !matchChecks.includes(false);
 }
 
-function doQuestionAnsewersMatchType(ansewers: unknown, type: QuestionType) {
+function doQuestionAnswersMatchType(answers: unknown, type: QuestionType) {
   if (type === "basic") {
-    return ansewers === undefined;
+    return answers === undefined;
   } else {
-    if (typeof ansewers !== "object" || ansewers === null) return false;
+    if (typeof answers !== "object" || answers === null) return false;
     const desiredKeys = ["A", "B", "C"];
-    const keys = Object.keys(ansewers);
+    const keys = Object.keys(answers);
     const keysMatch = JSON.stringify(desiredKeys) === JSON.stringify(keys);
-    const entries = Object.values(ansewers);
+    const entries = Object.values(answers);
     const entriesMatch = entries.every((entry) => typeof entry === "string");
 
     return keysMatch && entriesMatch;
   }
 }
 
-function doesCorrectAnsewerMatchType(
-  correctAnsewer: unknown,
+function doesCorrectAnswerMatchType(
+  correctAnswer: unknown,
   type: QuestionType
 ) {
   if (type === "basic") {
-    return typeof correctAnsewer === "boolean";
+    return typeof correctAnswer === "boolean";
   } else {
     return (
-      typeof correctAnsewer === "string" &&
-      ["A", "B", "C"].includes(correctAnsewer)
+      typeof correctAnswer === "string" &&
+      ["A", "B", "C"].includes(correctAnswer)
     );
   }
 }

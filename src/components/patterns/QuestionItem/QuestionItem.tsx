@@ -1,11 +1,11 @@
-import { Box, Card, Typography, useMediaQuery } from "@mui/material";
-import YesNoAnseswer from "../YesNoAnsewer/YesNoAnsewer";
-import ABCAnsewer from "../ABCAnsewer/ABCAnsewer";
+import { Box, Card, Typography, useTheme, useMediaQuery } from "@mui/material";
+import YesNoAnseswer from "../YesNoAnswer/YesNoAnswer";
+import ABCAnswer from "../ABCAnswer/ABCAnswer";
 import { flexCenter } from "../../../utility/styling";
-import { trimText, isImage } from "../../../utility/utils";
+import { trimText, isJpgImage } from "../../../utility/utils";
 import type {
-  ABCansewers,
-  AnseweredQuestion,
+  ABCanswers,
+  AnsweredQuestion,
   Question,
 } from "../../../types/globalTypes";
 import { Link } from "react-router-dom";
@@ -14,7 +14,7 @@ import Video from "./subcomponents/Video/Video";
 import NoMedia from "./subcomponents/NoMedia/NoMedia";
 
 interface Props {
-  data: Question | AnseweredQuestion;
+  data: Question | AnsweredQuestion;
   number?: number;
 }
 
@@ -23,23 +23,31 @@ const mediaWidth = 200;
 const aspectRatio = 0.5625;
 const mediaHeight = mediaWidth * aspectRatio;
 
-function trimAnsewers(ansewers: ABCansewers): ABCansewers {
-  const trimValue = 65;
+function trimAnswers(answers: ABCanswers, trimValue: number = 65): ABCanswers {
   return {
-    A: trimText(ansewers.A, trimValue),
-    B: trimText(ansewers.B, trimValue),
-    C: trimText(ansewers.C, trimValue),
+    A: trimText(answers.A, trimValue),
+    B: trimText(answers.B, trimValue),
+    C: trimText(answers.C, trimValue),
   };
 }
 
 export default function QuestionItem(props: Props) {
   const { data: question } = props;
 
-  const isViewportMedium = useMediaQuery("(max-width: 1450px)");
-  const contentTrimValue = isViewportMedium ? 100 : 145;
+  const theme = useTheme();
+  const isLg = useMediaQuery(theme.breakpoints.down("xl"));
+  const isMd = useMediaQuery(theme.breakpoints.down("lg"));
+  const isOnlyMd = useMediaQuery(theme.breakpoints.only("md"));
+
+  function getTrimValue() {
+    if (isOnlyMd) return 50;
+    else return isLg ? 100 : 145;
+  }
+
+  const contentTrimValue = getTrimValue();
 
   const isMediaPresent = question.media !== "";
-  const isMediaImage = isImage(question.media);
+  const isMediaImage = isJpgImage(question.media);
 
   const mediaUrl = mediaEndpointUrl + question.media;
 
@@ -48,10 +56,10 @@ export default function QuestionItem(props: Props) {
       sx={{
         display: "flex",
         alignItems: "center",
-        width: "45%",
-        height: question.type === "basic" ? "170px" : "auto",
+        width: { xs: "100%", md: "45%" },
+        height: question.type === "basic" ? "170px" : "290px",
         my: "30px",
-        mx: "2.5%",
+        mx: { xs: 0, md: "2.5%" },
 
         "&:hover": {
           boxShadow: 4,
@@ -84,6 +92,7 @@ export default function QuestionItem(props: Props) {
               wordBreak: "break-all",
               textAlign: "center",
               lineHeight: "1em",
+              fontSize: "1.5em",
             }}
           >
             {props.number}
@@ -93,10 +102,17 @@ export default function QuestionItem(props: Props) {
           sx={{
             width: mediaWidth + "px",
             height: mediaHeight + "px",
+            maxWidth: "30%",
             ml: "10px",
             mr: "5px",
             bgcolor: "grey.300",
             ...flexCenter,
+            display: {
+              xs: "none",
+              sm: "flex",
+              md: question.type === "specialized" ? "none" : "flex",
+              lg: "flex",
+            },
           }}
         >
           {isMediaPresent ? (
@@ -111,7 +127,12 @@ export default function QuestionItem(props: Props) {
             boxSizing: "border-box",
             p: "15px",
             height: "100%",
-            width: "70%",
+            width: {
+              xs: "100%",
+              sm: "70%",
+              md: question.type === "specialized" ? "100%" : "40%",
+              lg: "70%",
+            },
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
@@ -121,28 +142,36 @@ export default function QuestionItem(props: Props) {
             },
           }}
         >
-          <Typography variant="body1">
+          <Typography
+            variant="body1"
+            sx={
+              {
+                /*  maxHeight: "70%",
+              overflowY: "clip", */
+              }
+            }
+          >
             {trimText(question.content, contentTrimValue)}
           </Typography>
           {question.type === "basic" ? (
             <YesNoAnseswer
-              chosenAnsewer={
-                "chosenAnsewer" in question
-                  ? (question.chosenAnsewer as boolean)
+              sx={{ fontSize: { xs: "1em", lg: "1.2em" } }}
+              chosenAnswer={
+                "chosenAnswer" in question
+                  ? (question.chosenAnswer as boolean)
                   : null
               }
-              correctAnsewer={question.correctAnsewer}
-              size={3.4}
+              correctAnswer={question.correctAnswer}
             />
           ) : (
-            <ABCAnsewer
-              ansewers={trimAnsewers(question.ansewers)}
-              chosenAnsewer={
-                "chosenAnsewer" in question
-                  ? (question.chosenAnsewer as keyof ABCansewers)
+            <ABCAnswer
+              answers={trimAnswers(question.answers)}
+              chosenAnswer={
+                "chosenAnswer" in question
+                  ? (question.chosenAnswer as keyof ABCanswers)
                   : null
               }
-              correctAnsewer={question.correctAnsewer}
+              correctAnswer={question.correctAnswer}
               sx={{ fontSize: "0.9em" }}
             />
           )}

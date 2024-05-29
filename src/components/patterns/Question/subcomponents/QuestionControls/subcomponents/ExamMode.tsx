@@ -1,7 +1,13 @@
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import QuestionCount from "../../../subcomponents/QuestionCount/QuestionCount";
 import TimeCount from "../../../subcomponents/TimeCount/TimeCount";
-import { useEgzamControlContext } from "../../../../../../context/egzamControls/egzamControls";
+import { useExamControlContext } from "../../../../../../context/examControls/examControls";
 import type { ExcludeUndefined } from "../../../types";
 import type { QuestionType } from "../../../../../../types/globalTypes";
 
@@ -20,14 +26,25 @@ function drawSpecializedQuestionCount(count: number) {
 }
 
 export default function ExamMode(props: Props) {
-  const controls = useEgzamControlContext();
+  const controls = useExamControlContext();
   const { questionCount, nextQuestion, endExam } = controls as ExcludeUndefined<
     typeof controls
   >;
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <>
-      <Box sx={{ display: "flex", alignItems: "center", mb: "20px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "95%",
+          mb: { xs: "0", md: "20px" },
+        }}
+      >
         <QuestionCount
           label="Pytania podstawowe"
           value={drawBasicQuestionCount(questionCount)}
@@ -51,19 +68,22 @@ export default function ExamMode(props: Props) {
         <Typography>Zakończ egzamin</Typography>
       </Button>
 
-      <Button
-        onClick={nextQuestion}
-        size="large"
-        variant="contained"
-        sx={{
-          textTransform: "unset",
-          mt: "100px",
-          px: "35px",
-          py: "10px",
-        }}
-      >
-        <Typography variant="h6">Następne pytanie</Typography>
-      </Button>
+      {isMobile ? (
+        <></>
+      ) : (
+        <Button
+          onClick={nextQuestion}
+          variant="contained"
+          sx={{
+            textTransform: "unset",
+            mt: "100px",
+            px: "35px",
+            py: "10px",
+          }}
+        >
+          <Typography variant="button">Następne pytanie</Typography>
+        </Button>
+      )}
     </>
   );
 }

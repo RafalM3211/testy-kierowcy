@@ -1,105 +1,97 @@
-import * as XLSX from "xlsx";
-import * as fs from "fs";
-import { Readable } from "stream";
-import { prepareQuestion } from "./dbProcessor.mjs";
-import { getDirname } from "../helpers.mjs";
-import type { RawQuestionRecord } from "../types.mjs";
-import {
-  BasicQuestion,
-  Question,
-  QuestionType,
-  SpecializedQuestion,
-} from "../../types/globalTypes";
+import dotEnv from "dotenv";
+import pg from "pg";
+import type { QueryResultRow, QueryResult } from "pg";
+import type { RawQuestionRecord, UserWithPassword } from "../types.mjs";
+import { AnswersStatistics, Question, User } from "../../types/globalTypes";
 
-XLSX.set_fs(fs);
-XLSX.stream.set_readable(Readable);
-const workbook = XLSX.readFile(getDirname(import.meta.url) + "/db.ods");
-const questionsSheet = workbook.Sheets["questions"];
-const rawQuestions = XLSX.utils.sheet_to_json(
-  questionsSheet
-) as RawQuestionRecord[];
+dotEnv.config();
+const { Pool } = pg;
+const pool = new Pool();
 
-const questions: Question[] = rawQuestions.map((rawQuestion) => {
-  return prepareQuestion(rawQuestion);
-});
+async function query<T extends QueryResultRow>(
+  sql: string,
+  values?: any[]
+): Promise<QueryResult<T>> {
+  const res = await pool.query<T>(sql, values);
 
-const basicQuestions = questions.filter(
-  (question) => question.type === "basic"
-) as BasicQuestion[];
-
-const specializedQuestions = questions.filter(
-  (question) => question.type === "specialized"
-) as SpecializedQuestion[];
-
-export function getQuestionById(id: number) {
-  const quesiton = questions.find((el) => el.id === id);
-
-  if (quesiton === undefined) {
-    throw new Error(
-      `Couldn't get quesiton from database. Probably question with id ${id} doesn't exist`
-    );
-  }
-  return quesiton;
+  return res;
 }
 
-export function getNextQuestion(currentQuestions: Question[]) {
-  const nextQuestionValue = calcNextQuestionValue(currentQuestions);
-  const nextQuestionType = getNextQuestionType(currentQuestions);
-  const usedIds = currentQuestions.map((question) => question.id);
+//todo: rozdzielic query na insertQuery i query. Query to bedzie to co powyżej a insertQuery bedzie robil dodatkowo sanitacje inputa.
+//todo: przeniesc funkcje ponizej do osobnych plikow query w danych folderach z featurow.
 
-  let i = 0;
-  let isQuestionFound = false;
-  let nextQuestion: Question | undefined;
-  do {
-    const proposedQuestion = getProposedQuestionByType(nextQuestionType);
-    const valueMatches = proposedQuestion.value === nextQuestionValue;
-    const idNotUsed = !usedIds.includes(proposedQuestion.id);
+export async function getQuestionsWhere(conditions: string, values?: any[]) {
+  const sql = "SELECT * FROM questions WHERE " + conditions;
+  const res = await query<RawQuestionRecord>(sql, values);
+  const questions = res.rows;
 
-    if (valueMatches && idNotUsed) {
-      isQuestionFound = true;
-      nextQuestion = proposedQuestion;
+  return questions;
+}
+
+export async function saveQuestionAnswerWith(
+  userId: User["id"],
+  questionId: Question["id"],
+  isCorrect: boolean
+) {
+  const sql = "INSERT INTO users_questions_answer VALUES ($1, $2, $3)";
+
+  await query(sql, [userId, questionId, isCorrect]);
+}
+
+export async function getQuestionCount() {
+  const sql = "SELECT question_count FROM question_count;";
+  const res = await query(sql);
+  const question_count = res.rows[0].question_count as number;
+
+  return question_count;
+}
+
+export async function getCorrectStatisticsByUserId(
+  userId: User["id"]
+): Promise<Omit<AnswersStatistics, "unanswered">> {
+  const sql =
+    "SELECT isansweredcorrectly, COUNT(*) FROM users_questions_answer WHERE user_id=$1 GROUP BY isansweredcorrectly;";
+  const res = await query(sql, [userId]);
+
+  let wrong: string = "0";
+  let correct: string = "0";
+  if (res.rowCount != 0) {
+    if (res.rows[0].isansweredcorrectly === false) {
+      wrong = res.rows[0].count;
+      correct = res.rows[1].count;
+    } else {
+      correct = res.rows[0].count;
+      wrong = res.rows[1].count;
     }
-
-    i++;
-  } while (!isQuestionFound && i < 300);
-
-  if (!nextQuestion) {
-    throw new Error(
-      "Finding question took too long. There is probably something wrong with database"
-    );
   }
 
-  return nextQuestion;
+  return { correct: parseInt(correct), wrong: parseInt(wrong) };
 }
 
-function getProposedQuestionByType(type: QuestionType) {
-  const questionsWithProvidedType =
-    type === "specialized" ? specializedQuestions : basicQuestions;
+export async function getUsersWhere(conditions: string, values?: any[]) {
+  const sql = "SELECT * FROM users WHERE " + conditions;
+  const res = await query<UserWithPassword>(sql, values);
+  const users = res.rows;
 
-  const randomIndex = Math.floor(
-    Math.random() * questionsWithProvidedType.length
+  return users;
+}
+
+export async function insertUser(
+  email: string,
+  password: string,
+  userName: string | null
+) {
+  const sql = `INSERT INTO users (email, password${
+    !!userName ? ", name" : ""
+  }) VALUES (
+    $1, crypt($2, gen_salt('bf'))${!!userName ? ", $3" : ""}
+  )
+  RETURNING *;`;
+
+  const res = await query(
+    sql,
+    [email, password, userName].filter((v) => !!v)
   );
-  const proposedQuestion = questionsWithProvidedType[randomIndex];
-  return proposedQuestion;
-}
 
-function calcNextQuestionValue(currentQuestions: Question[]) {
-  const twoPointMaxCount = 10;
-  const threePointMaxCount = 16;
-
-  if (currentQuestions.length < twoPointMaxCount) {
-    console.log(2, currentQuestions.length);
-    return 2;
-  }
-  if (currentQuestions.length < threePointMaxCount + twoPointMaxCount) {
-    console.log(3, currentQuestions.length);
-    return 3;
-  } else {
-    console.log(1, currentQuestions.length);
-    return 1;
-  }
-}
-
-function getNextQuestionType(currentQuestions: Question[]): QuestionType {
-  return currentQuestions.length < 20 ? "basic" : "specialized";
+  return res.rows[0] as UserWithPassword;
 }

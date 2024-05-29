@@ -1,23 +1,43 @@
+import { QueryFunctionContext } from "@tanstack/react-query";
+import {
+  AnswersStatistics,
+  ExamQuestions,
+  Question,
+  User,
+} from "../../types/globalTypes";
 import { isQuestion } from "../../types/typeGuards/typeGuards";
+import { primaryApi } from "../clients/apis";
 
-const apiUrl = process.env.REACT_APP_SERVER_URL;
-
-export async function getQuestion() {
-  const res = await fetch(apiUrl + "question", {
-    credentials: "include",
+export async function getExam() {
+  const res = await primaryApi.get("question/get-exam", {
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
-  if (res.status >= 400) throw new Error("unknown error");
-  const data = (await res.json()) as unknown;
-  if (!isQuestion(data)) {
-    throw new Error("returned data does not satisfy a question type");
-  }
-  console.log(data);
-  return data;
+  return (await res.json()) as ExamQuestions;
 }
 
-export async function resetSession() {
-  await fetch(apiUrl + "resetEgzamSession", {
-    credentials: "include",
+export async function sendAnswer(
+  userId: User["id"],
+  questionId: Question["id"],
+  isCorrect: boolean
+) {
+  await primaryApi.post("question/send-answer", {
+    userId,
+    questionId,
+    isCorrect,
   });
-  return {};
+}
+
+export async function getAnswersStatistics(
+  queryContext: QueryFunctionContext<[string, number]>
+) {
+  const userId = queryContext.queryKey[1];
+  const res = await primaryApi.get("question/answers-statistics/" + userId, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return (await res.json()) as AnswersStatistics;
 }

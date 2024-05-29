@@ -2,35 +2,45 @@ import { Box } from "@mui/material";
 import Image from "../Image/Image";
 import Video from "../Video/Video";
 import NoMedia from "../NoMedia/NoMedia";
-import { isImage } from "../../../../../utility/utils";
+import { isJpgImage } from "../../../../../utility/utils";
 import type { QuestionMode } from "../../types";
-import type { QuestionType } from "../../../../../types/globalTypes";
+import type { Question, QuestionType } from "../../../../../types/globalTypes";
+import { flexCenter } from "../../../../../utility/styling";
 
 interface Props {
-  mediaFileName: string;
+  media: Question["media"];
   type: QuestionType;
   mode: QuestionMode;
 }
 
 const mediaEndpointUrl = process.env.REACT_APP_SERVER_URL + "media/";
-const mediaWidth = 921;
+const maxMediaWidth = 900;
 const aspectRatio = 0.5625;
-const mediaHeight = mediaWidth * aspectRatio;
+const maxMediaHeight = maxMediaWidth * aspectRatio;
 
 export default function QuestionMedia(props: Props) {
-  const isMediaPresent = props.mediaFileName !== "";
-  const isMediaImage = isImage(props.mediaFileName);
+  const isMediaPresent = props.media !== null;
+  const isMediaImage = isJpgImage(props.media);
 
-  const mediaUrl = mediaEndpointUrl + props.mediaFileName;
+  const mediaUrl = mediaEndpointUrl + props.media;
 
   return (
     <Box
       sx={{
-        width: mediaWidth + "px",
-        height: mediaHeight + "px",
-        bgcolor: "grey.300",
+        width: {
+          xs: "90vw",
+          md: "68vw",
+          lg: `clamp(850px, 70vw, ${maxMediaWidth}px)`,
+        },
+        height: {
+          xs: aspectRatio * 90 + "vw",
+          md: aspectRatio * 68 + "vw",
+          lg: maxMediaHeight + "px",
+        },
         gridRow: "2",
         gridColumn: "1",
+        bgcolor: "grey.300",
+        mx: "auto",
       }}
     >
       {isMediaPresent ? (

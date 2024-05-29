@@ -1,4 +1,4 @@
-import type { Ansewer } from "../../../types/globalTypes";
+import type { Answer } from "../../../types/globalTypes";
 
 export type QuestionMode = "exam" | "preview";
 

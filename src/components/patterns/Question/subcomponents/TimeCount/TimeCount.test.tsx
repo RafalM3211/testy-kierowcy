@@ -1,21 +1,16 @@
 import TimeCount from "./TimeCount";
-import * as timerHook from "react-timer-hook";
 import { useProvider } from "test-data-provider";
-import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
+import { useExamControlContext } from "../../../../../context/examControls/examControls";
 import type {
   TimerState,
   QuestionType,
 } from "../../../../../types/globalTypes";
 import { render, act, screen } from "@testing-library/react";
 
-jest.mock("../../../../../context/egzamControls/egzamControls", () => {
+jest.mock("../../../../../context/examControls/examControls", () => {
   return {
-    useEgzamControlContext: jest.fn(),
+    useExamControlContext: jest.fn(),
   };
-});
-
-beforeAll(() => {
-  jest.useFakeTimers();
 });
 
 afterEach(() => {
@@ -23,7 +18,6 @@ afterEach(() => {
 });
 
 afterAll(() => {
-  jest.useRealTimers();
   jest.restoreAllMocks();
 });
 
@@ -37,7 +31,7 @@ interface ProviderEntry {
 
 const prepareLabel = "Czas na zapoznanie się z pytaniem";
 const waitLabel = "Trwa odtwarzanie";
-const ansewerLabel = "Czas na odpowiedź";
+const answerLabel = "Czas na odpowiedź";
 
 const timerAppereanceProvider: ProviderEntry[] = [
   {
@@ -57,20 +51,20 @@ const timerAppereanceProvider: ProviderEntry[] = [
       "timer label matches and displayed time is ' - s' when timer state is 'wait' and type basic",
   },
   {
-    timerState: "ansewer",
+    timerState: "answer",
     questionType: "basic",
     expectedTime: "15s",
-    expectedTimerLabel: ansewerLabel,
+    expectedTimerLabel: answerLabel,
     description:
-      "timer label matches and displayed time is '15s' when timer state is 'ansewer' and type basic ",
+      "timer label matches and displayed time is '15s' when timer state is 'answer' and type basic ",
   },
   {
-    timerState: "ansewer",
+    timerState: "answer",
     questionType: "specialized",
     expectedTime: "50s",
-    expectedTimerLabel: ansewerLabel,
+    expectedTimerLabel: answerLabel,
     description:
-      "timer label matches and displayed time is '50s' when timer state is 'ansewer' and type specialized ",
+      "timer label matches and displayed time is '50s' when timer state is 'answer' and type specialized ",
   },
 ];
 
@@ -84,7 +78,7 @@ const dummyContextValue = {
 describe("on expire behavior", () => {
   it("calls setTimerState with 'wait' if previous timer state was 'prepare' after 20 seconds", () => {
     //arrange
-    const context = useEgzamControlContext as jest.Mock;
+    const context = useExamControlContext as jest.Mock;
     context.mockReturnValue(dummyContextValue);
     render(<TimeCount type="basic" />);
 
@@ -101,12 +95,12 @@ describe("on expire behavior", () => {
     expect(dummyContextValue.nextQuestion).not.toBeCalled();
     expect(dummyContextValue.setTimerState).toBeCalledWith("wait");
   });
-  it("calls nextQuestion if previous timer state was 'ansewer' after 15 seconds", () => {
+  it("calls nextQuestion if previous timer state was 'answer' after 15 seconds", () => {
     //arrange
-    const context = useEgzamControlContext as jest.Mock;
+    const context = useExamControlContext as jest.Mock;
     context.mockReturnValue({
       ...dummyContextValue,
-      timerState: "ansewer",
+      timerState: "answer",
     });
     render(<TimeCount type="basic" />);
 
@@ -125,7 +119,7 @@ describe("on expire behavior", () => {
   });
   it("doesn't expire if timer state is 'wait'", () => {
     //arrange
-    const context = useEgzamControlContext as jest.Mock;
+    const context = useExamControlContext as jest.Mock;
     context.mockReturnValue({ ...dummyContextValue, timerState: "wait" });
     render(<TimeCount type="basic" />);
 
@@ -140,8 +134,11 @@ describe("on expire behavior", () => {
   });
   it("expires afrer 50 seconds when type is 'specialized'", () => {
     //arrange
-    const context = useEgzamControlContext as jest.Mock;
-    context.mockReturnValue(dummyContextValue);
+    const context = useExamControlContext as jest.Mock;
+    context.mockReturnValue({
+      ...dummyContextValue,
+      timerState: "answer",
+    });
     render(<TimeCount type="specialized" />);
 
     //act
@@ -155,7 +152,7 @@ describe("on expire behavior", () => {
     act(() => {
       jest.advanceTimersByTime(10001);
     });
-    expect(dummyContextValue.setTimerState).toBeCalledWith("ansewer");
+    expect(dummyContextValue.nextQuestion).toBeCalled();
   });
 });
 
@@ -171,7 +168,7 @@ describe("appearance", () => {
     }) => {
       it(description, () => {
         //arrange
-        const context = useEgzamControlContext as jest.Mock;
+        const context = useExamControlContext as jest.Mock;
         context.mockReturnValue({ ...dummyContextValue, timerState });
         render(<TimeCount type={questionType} />);
 

@@ -1,8 +1,8 @@
-import ReactPlayer from "react-player";
+import Player from "../../../Player/Player";
 import { useCallback, useEffect, useRef, useState } from "react";
 import MediaCover from "../MediaCover/MediaCover";
 import { QuestionMode } from "../../types";
-import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
+import { useExamControlContext } from "../../../../../context/examControls/examControls";
 
 interface Props {
   src: string;
@@ -13,12 +13,11 @@ export default function Video(props: Props) {
   const [isVideoStarted, setVideoStarted] = useState(false);
   const [isError, setError] = useState(false);
 
-  const { questionCount, setTimerState, timerState } = useEgzamControlContext();
-  const videoRef = useRef<ReactPlayer>(null);
+  const { questionCount, setTimerState, timerState } = useExamControlContext();
 
   function handleVideoEnd() {
     if (setTimerState) {
-      setTimerState("ansewer");
+      setTimerState("answer");
     }
   }
 
@@ -39,14 +38,7 @@ export default function Video(props: Props) {
   }, [setError, setTimerState]);
 
   useEffect(() => {
-    if (!ReactPlayer.canPlay(props.src)) {
-      handleError();
-    }
-  }, [props.src, handleError]);
-
-  useEffect(() => {
     setVideoStarted(false);
-    videoRef.current?.seekTo(0);
   }, [questionCount]);
 
   useEffect(() => {
@@ -56,28 +48,25 @@ export default function Video(props: Props) {
   }, [timerState, handleVideoStart]);
 
   return (
-    <MediaCover
-      isError={isError}
-      handleStart={handleVideoStart}
-      isStarted={isVideoStarted}
-      mode={props.mode}
-      mediaType="video"
-      mediaElement={
-        <ReactPlayer
-          url={props.src}
-          width="100%"
-          height="100%"
-          muted
-          controls={props.mode === "preview"}
-          {...(props.mode === "exam" && {
-            onError: handleError,
-            onEnded: handleVideoEnd,
-            ref: videoRef,
-            playing: !!isVideoStarted,
-            style: { display: !!isVideoStarted ? "block" : "none" },
-          })}
-        />
-      }
-    />
+    <>
+      <MediaCover
+        isError={isError}
+        handleStart={handleVideoStart}
+        isStarted={isVideoStarted}
+        mode={props.mode}
+        mediaType="video"
+        mediaElement={
+          <Player
+            src={props.src}
+            {...(props.mode === "exam" && {
+              onError: handleError,
+              onEnded: handleVideoEnd,
+              playing: !!isVideoStarted,
+              style: { display: !!isVideoStarted ? "block" : "none" },
+            })}
+          />
+        }
+      />
+    </>
   );
 }

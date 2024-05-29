@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 const SmallHeaderWrapped = wrapInDummyProviders(SmallHeader);
 
 const metaData = {
-  title: "Small header",
+  title: "patters/Small header",
   component: SmallHeaderWrapped,
 } satisfies Meta<typeof SmallHeader>;
 

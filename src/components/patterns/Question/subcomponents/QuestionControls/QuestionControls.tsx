@@ -13,14 +13,26 @@ interface Props {
 export default function QuestionControls(props: Props) {
   return (
     <Box
-      sx={{
+      sx={(theme) => ({
         ...flexCenter,
         justifyContent: "center",
         flexDirection: "column",
-        ml: "30px",
+        flexWrap: "nowrap",
         gridRow: "2",
         gridColumn: "2",
-      }}
+        fontSize: "1.1em",
+
+        [theme.breakpoints.down("md")]: {
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "space-evenly",
+          ml: "0",
+          mb: "20px",
+          gridRow: "1",
+          gridColumn: "1",
+          fontSize: "1em",
+        },
+      })}
     >
       {props.mode === "exam" ? <ExamMode type={props.type} /> : <PreviewMode />}
     </Box>

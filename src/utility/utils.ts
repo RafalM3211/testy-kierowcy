@@ -1,5 +1,4 @@
-import type { Ansewer } from "../types/globalTypes";
-import type { GenericObject } from "../types/utilityTypes";
+import type { Answer, Question } from "../types/globalTypes";
 
 export function trimText(text: string, limit: number) {
   let returnedText = text;
@@ -9,30 +8,34 @@ export function trimText(text: string, limit: number) {
   return returnedText;
 }
 
-export function isImage(name: string) {
+export function isJpgImage(media: Question["media"]) {
+  const name = String(media);
   const extension = name.slice(name.lastIndexOf(".") + 1);
   return extension === "jpg";
 }
 
-export function getColorForAnsewerButton(
-  buttonValue: Exclude<Ansewer, null>,
-  correctAnsewer: Exclude<Ansewer, null> | undefined,
-  chosenAnsewer: Ansewer
+export function getColorForAnswerButton(
+  buttonValue: Exclude<Answer, null>,
+  correctAnswer: Exclude<Answer, null> | undefined,
+  chosenAnswer: Answer
 ) {
-  if (correctAnsewer !== undefined) {
-    const isButtonCorrectAnsewer = buttonValue === correctAnsewer;
-    const isButtonCkecked = buttonValue === chosenAnsewer;
-    if (isButtonCorrectAnsewer) return "success";
-    if (!isButtonCorrectAnsewer && isButtonCkecked) return "error";
+  if (correctAnswer !== undefined) {
+    const isButtonCorrectAnswer = buttonValue === correctAnswer;
+    const isButtonCkecked = buttonValue === chosenAnswer;
+    if (isButtonCorrectAnswer) return "success";
+    if (!isButtonCorrectAnswer && isButtonCkecked) return "error";
   }
   return "primary";
 }
 
-export function withoutProperty<O extends GenericObject, S extends string>(
+export function withoutProperty<O extends object, K extends keyof O>(
   obj: O,
-  property: Extract<keyof O, S>
-): Omit<O, S> {
-  const objCopy = { ...obj };
-  delete objCopy[property];
-  return objCopy;
+  property: K
+): Omit<O, K> {
+  const { [property]: _, ...rest } = obj;
+  return rest;
+}
+
+export function isObject(value: unknown) {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }

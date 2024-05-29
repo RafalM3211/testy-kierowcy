@@ -1,13 +1,14 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect } from "react";
-import { strippedBackground } from "../../../Progress/subcomponents/ProgressBackground/ProgressBackground";
+import { strippedBackground } from "../../../Progress/subcomponents/ProgressBackground";
 import { useTimer } from "react-timer-hook";
-import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
+import { useExamControlContext } from "../../../../../context/examControls/examControls";
 import type {
   QuestionType,
   TimerState,
 } from "../../../../../types/globalTypes";
 import type { ExcludeUndefined } from "../../types";
+import { flexCenter } from "../../../../../utility/styling";
 
 interface Props {
   type: QuestionType;
@@ -15,14 +16,14 @@ interface Props {
 
 function getTotalTime(questionType: QuestionType, timerState: TimerState) {
   const prepareTime = 20;
-  const basicAnsewerTime = 15;
-  const specializedAnsewerTime = 50;
+  const basicAnswerTime = 15;
+  const specializedAnswerTime = 50;
 
   if (questionType === "basic") {
     if (timerState === "prepare") return prepareTime;
-    else return basicAnsewerTime;
+    else return basicAnswerTime;
   } else {
-    return specializedAnsewerTime;
+    return specializedAnswerTime;
   }
 }
 
@@ -30,9 +31,9 @@ function calcTimeProgresPercent(currentTime: number, maxTime: number) {
   return Math.floor(100 - (currentTime / maxTime) * 100) + "%";
 }
 
-function getExpiryTimeStamp(timeForAnsewer: number) {
+function getExpiryTimeStamp(timeForAnswer: number) {
   const time = new Date();
-  time.setSeconds(time.getSeconds() + timeForAnsewer);
+  time.setSeconds(time.getSeconds() + timeForAnswer);
   return time;
 }
 
@@ -42,13 +43,13 @@ function getTimerLabel(timerState: TimerState) {
       return "Czas na zapoznanie się z pytaniem";
     case "wait":
       return "Trwa odtwarzanie";
-    case "ansewer":
+    case "answer":
       return "Czas na odpowiedź";
   }
 }
 
 export default function TimeCount(props: Props) {
-  const controls = useEgzamControlContext();
+  const controls = useExamControlContext();
   const { timerState, setTimerState, nextQuestion, questionCount } =
     controls as ExcludeUndefined<typeof controls>;
   const totalTime = getTotalTime(props.type, timerState);
@@ -59,7 +60,7 @@ export default function TimeCount(props: Props) {
       if (timerState === "prepare") {
         setTimerState("wait");
       }
-      if (timerState === "ansewer") {
+      if (timerState === "answer") {
         nextQuestion();
       }
     },
@@ -74,20 +75,21 @@ export default function TimeCount(props: Props) {
     }
   }, [questionCount, props.type, timerState, restart, pause]);
 
-  useEffect(() => {
-    if (props.type === "specialized") {
-      setTimerState("ansewer");
-    }
-  }, [questionCount, props.type, setTimerState]);
-
   return (
-    <>
+    <Box
+      sx={{
+        ...flexCenter,
+        flexDirection: "column",
+        textAlign: "center",
+        width: "100%",
+      }}
+    >
       <Typography variant="subtitle2" sx={{ color: "grey.800" }}>
         {getTimerLabel(timerState)}
       </Typography>
       <Box
         sx={{
-          width: "200px",
+          width: "clamp(100px, 45%, 200px)",
           textAlign: "center",
           backgroundColor: "grey.300",
           borderRadius: "10px",
@@ -114,6 +116,6 @@ export default function TimeCount(props: Props) {
           }}
         ></Box>
       </Box>
-    </>
+    </Box>
   );
 }

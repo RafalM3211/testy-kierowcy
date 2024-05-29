@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import ImageIcon from "@mui/icons-material/Image";
 import { flexCenter } from "../../../../../utility/styling";
@@ -16,6 +16,14 @@ interface Props {
 }
 
 export default function MediaCover(props: Props) {
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.only("xs"));
+  const isSm = useMediaQuery(theme.breakpoints.only("sm"));
+
+  const mediaCoverText = `${isSm ? "Dotknij" : "Kliknij"} aby wyświetlić ${
+    props.mediaType === "image" ? "obraz" : "film"
+  } i rozpocząć pytanie`;
+
   return (
     <>
       <Box
@@ -36,15 +44,17 @@ export default function MediaCover(props: Props) {
             {props.mediaElement}
             {props.isStarted || props.mode === "preview" || (
               <Box sx={{ ...flexCenter, flexDirection: "column" }}>
-                <Typography variant="h6" component="p">
-                  {`Kliknij aby wyświetlić ${
-                    props.mediaType === "image" ? "obraz" : "film"
-                  } i rozpocząć pytanie`}
+                <Typography variant={isXs ? "body2" : "h6"} component="p">
+                  {mediaCoverText}
                 </Typography>
                 {props.mediaType === "image" ? (
-                  <ImageIcon sx={{ fontSize: 90, mt: "10px" }} />
+                  <ImageIcon
+                    sx={{ fontSize: { xs: 60, sm: 90 }, mt: "10px" }}
+                  />
                 ) : (
-                  <PlayCircleOutlineIcon sx={{ fontSize: 90, mt: "10px" }} />
+                  <PlayCircleOutlineIcon
+                    sx={{ fontSize: { xs: 60, sm: 90 }, mt: "10px" }}
+                  />
                 )}
               </Box>
             )}

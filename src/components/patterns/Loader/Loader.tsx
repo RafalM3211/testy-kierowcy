@@ -3,6 +3,7 @@ import { flexCenter } from "../../../utility/styling";
 import type { SxProps } from "@mui/material";
 
 interface Props {
+  size?: number;
   label?: string;
   sx?: SxProps;
 }
@@ -18,17 +19,18 @@ export default function Loader(props: Props) {
         top: 0,
         ...flexCenter,
         flexDirection: "column",
+        color: "grey.800",
         ...props.sx,
       }}
     >
       <Typography
         variant="h6"
         component="p"
-        sx={{ mb: "25px", color: "grey.800" }}
+        sx={{ mb: "1em", fontSize: "1.25em" }}
       >
         {props.label || "Trwa ładowanie..."}
       </Typography>
-      <CircularProgress size={70} sx={{}} />
+      <CircularProgress size={props.size || 70} />
     </Box>
   );
 }

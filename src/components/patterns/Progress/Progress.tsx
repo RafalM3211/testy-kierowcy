@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import ProgressLabel from "./subcomponents/ProgressLabel/ProgressLabel";
-import ProgressBackground from "./subcomponents/ProgressBackground/ProgressBackground";
+import ProgressLabel from "./subcomponents/ProgressLabel";
+import ProgressBackground from "./subcomponents/ProgressBackground";
 import type { SxProps } from "@mui/material";
 
 interface Props {
@@ -11,18 +11,20 @@ interface Props {
 
 export default function Progress(props: Props) {
   const { correctPercent, wrongPercent, sx } = props;
-  const unanseweredPercent = Math.floor(100 - correctPercent - wrongPercent);
+  const unansweredPercent = Math.floor(100 - correctPercent - wrongPercent);
   const wrapLabel =
-    wrongPercent < 10 && (correctPercent < 15 || unanseweredPercent < 15);
+    wrongPercent < 10 && (correctPercent < 15 || unansweredPercent < 15);
 
   if (correctPercent + wrongPercent > 100) {
     console.warn(
-      "Progress value is displayed in percentages. Sum of correct and wrong ansewers shouldn't be more than 100"
+      "Progress value is displayed in percentages. Sum of correct and wrong answers shouldn't be more than 100"
     );
   }
 
   return (
-    <Box sx={{ position: "relative", width: "600px", ...sx }}>
+    <Box
+      sx={{ position: "relative", width: "clamp(100px, 90%, 600px)", ...sx }}
+    >
       <ProgressBackground stripesWidth={correctPercent + wrongPercent} />
       <Box
         sx={{
@@ -67,7 +69,7 @@ export default function Progress(props: Props) {
         >
           <ProgressLabel
             label="bez odpowiedzi"
-            value={unanseweredPercent}
+            value={unansweredPercent}
             color="grey.500"
           />
         </Box>

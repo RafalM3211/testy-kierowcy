@@ -2,46 +2,67 @@ interface QuestionBase {
   id: number;
   content: string;
   value: 1 | 2 | 3;
-  media: string;
+  media: string | null;
 }
 
 export type QuestionType = "basic" | "specialized";
 
 export interface BasicQuestion extends QuestionBase {
   type: Extract<QuestionType, "basic">;
-  correctAnsewer: boolean;
+  correctAnswer: boolean;
 }
 
 export interface SpecializedQuestion extends QuestionBase {
   type: Extract<QuestionType, "specialized">;
-  ansewers: ABCansewers;
-  correctAnsewer: keyof ABCansewers;
+  answers: ABCanswers;
+  correctAnswer: keyof ABCanswers;
 }
 
 export type Question = BasicQuestion | SpecializedQuestion;
 
-export type BasicAnsewer = BasicQuestion["correctAnsewer"] | null;
+export type BasicAnswer = BasicQuestion["correctAnswer"] | null;
 
-export type SpecializedAnsewer = SpecializedQuestion["correctAnsewer"] | null;
+export type SpecializedAnswer = SpecializedQuestion["correctAnswer"] | null;
 
-export interface AnseweredBasicQuestion extends BasicQuestion {
-  chosenAnsewer: BasicAnsewer;
+export interface AnsweredBasicQuestion extends BasicQuestion {
+  chosenAnswer: BasicAnswer;
 }
 
-export interface AnseweredSpecializedQuestion extends SpecializedQuestion {
-  chosenAnsewer: SpecializedAnsewer;
+export interface AnsweredSpecializedQuestion extends SpecializedQuestion {
+  chosenAnswer: SpecializedAnswer;
 }
 
-export type AnseweredQuestion =
-  | AnseweredBasicQuestion
-  | AnseweredSpecializedQuestion;
+export type AnsweredQuestion =
+  | AnsweredBasicQuestion
+  | AnsweredSpecializedQuestion;
 
-export type ABCansewers = {
+export type ABCanswers = {
   A: string;
   B: string;
   C: string;
 };
 
-export type Ansewer = BasicAnsewer | SpecializedAnsewer;
+export type Answer = BasicAnswer | SpecializedAnswer;
 
-export type TimerState = "prepare" | "wait" | "ansewer";
+export interface AnswersStatistics {
+  correct: number;
+  wrong: number;
+  unanswered: number;
+}
+
+export interface ExamQuestions {
+  basic: BasicQuestion[];
+  specialized: SpecializedQuestion[];
+}
+
+export type TimerState = "prepare" | "wait" | "answer";
+
+export interface User {
+  id: number;
+  email: string;
+  name: string;
+}
+
+export interface UserWithPassword extends User {
+  password: string;
+}

@@ -1,49 +1,57 @@
 import { useParams } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import QuestionCount from "../../../subcomponents/QuestionCount/QuestionCount";
-import { useAnsewersContext } from "../../../../../../context/Ansewers/Ansewers";
+import { useAnswersContext } from "../../../../../../context/Answers/Answers";
 import ButtonLink from "../../../../../atoms/ButtonLink/ButtonLink";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { useEffect } from "react";
 
-function drawBasicQuestionCount(count: number) {
+function drawBasicQuestionCount(count: number, total: number) {
+  const basicQuestionsAmount = Math.min(total, 20);
   if (count > 20) return "20/20";
-  else return `${count}/20`;
+  else return `${count}/${basicQuestionsAmount}`;
 }
 
-function drawSpecializedQuestionCount(count: number) {
-  if (count > 20) return count - 20 + "/12";
-  else return "0/12";
+function drawSpecializedQuestionCount(count: number, total: number) {
+  const specializedQuestionsAmount = Math.max(total - 20, 0);
+  const specializedQuestionsCount = Math.max(count - 20, 0);
+
+  return `${specializedQuestionsCount}/${specializedQuestionsAmount}`;
 }
 
 export default function PreviewMode() {
-  const { anseweredQuestions } = useAnsewersContext();
+  const { answeredQuestions } = useAnswersContext();
   const questionId = useParams().id as string;
-  const questionIndex = anseweredQuestions.findIndex(
+  const questionIndex = answeredQuestions.findIndex(
     (quesiton) => quesiton.id === parseInt(questionId)
   );
   const questionCount = questionIndex + 1;
-  const questionsAmount = anseweredQuestions.length;
+  const questionsAmount = answeredQuestions.length;
 
   const previousQuestionId =
-    questionCount === 1 ? null : anseweredQuestions[questionIndex - 1].id;
+    questionCount === 1 ? null : answeredQuestions[questionIndex - 1].id;
   const nextQuestionId =
     questionCount === questionsAmount
       ? null
-      : anseweredQuestions[questionIndex + 1].id;
+      : answeredQuestions[questionIndex + 1].id;
 
   return (
     <>
-      <Box sx={{ display: "flex", alignItems: "center", mb: "20px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          mb: { xs: "0px", md: "20px" },
+        }}
+      >
         <QuestionCount
           label="Pytania podstawowe"
-          value={drawBasicQuestionCount(questionCount)}
+          value={drawBasicQuestionCount(questionCount, questionsAmount)}
           active={questionCount <= 20}
         />
         <QuestionCount
           label="Pytania specjalistyczne"
-          value={drawSpecializedQuestionCount(questionCount)}
+          value={drawSpecializedQuestionCount(questionCount, questionsAmount)}
           active={questionCount > 20}
         />
       </Box>
@@ -53,13 +61,18 @@ export default function PreviewMode() {
         size="small"
         variant="outlined"
         sx={{
-          mt: "50px",
+          mt: { xs: "20px", md: "50px" },
           mb: "20px",
         }}
       >
-        <Typography variant="h6">Powrót do podsumowania</Typography>
+        <Typography
+          sx={{ fontSize: { xs: "0.95em", lg: "1.05em" } }}
+          variant="h6"
+        >
+          Powrót do podsumowania
+        </Typography>
       </ButtonLink>
-      <Box>
+      <Box sx={{ textAlign: "center" }}>
         <ButtonLink
           disabled={!previousQuestionId}
           to={"/question/" + previousQuestionId}

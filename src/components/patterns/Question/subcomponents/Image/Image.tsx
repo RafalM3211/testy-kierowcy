@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Box } from "@mui/system";
 import MediaCover from "../MediaCover/MediaCover";
-import { useEgzamControlContext } from "../../../../../context/egzamControls/egzamControls";
+import { useExamControlContext } from "../../../../../context/examControls/examControls";
 import { QuestionType } from "../../../../../types/globalTypes";
 import { QuestionMode } from "../../types";
 
@@ -13,10 +13,10 @@ interface Props {
 }
 
 export default function Image(props: Props) {
-  const [isQuestionStarted, setQuestionStarted] = useState(false);
   const [isError, setError] = useState(false);
 
-  const { setTimerState, timerState } = useEgzamControlContext();
+  const { setTimerState, timerState } = useExamControlContext();
+  const isQuestionStarted = timerState === "answer";
 
   function handleError() {
     setError(true);
@@ -26,11 +26,10 @@ export default function Image(props: Props) {
   }
 
   const handleStart = useCallback(() => {
-    setQuestionStarted(true);
     if (setTimerState) {
-      setTimerState("ansewer");
+      setTimerState("answer");
     }
-  }, [setQuestionStarted, setTimerState]);
+  }, [setTimerState]);
 
   useEffect(() => {
     if (props.type === "specialized" || timerState === "wait") {
