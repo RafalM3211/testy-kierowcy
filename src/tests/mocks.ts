@@ -41,7 +41,7 @@ export function mockVideoQuestionOnce() {
 
 export function mockSpecializedQuestionOnce() {
   server.use(
-    rest.get(apiUrl + "exam", (req, res, ctx) => {
+    rest.get(apiUrl + "question/get-exam", (req, res, ctx) => {
       return res(
         ctx.json({ basic: [specialized], specialized: [specialized] }),
         ctx.delay(0),
@@ -54,16 +54,19 @@ export function mockSpecializedQuestionOnce() {
 const apiUrl = process.env.REACT_APP_SERVER_URL;
 
 export const handlers = [
+  rest.get(apiUrl + "users/check-token", (req, res, ctx) => {
+    return res(ctx.json(user), ctx.delay(0), ctx.status(200));
+  }),
   rest.post(apiUrl + "users/signin", (req, res, ctx) => {
     return res(ctx.delay(0), ctx.status(200));
   }),
   rest.post(apiUrl + "users/signout", (req, res, ctx) => {
     return res(ctx.json(user), ctx.delay(0), ctx.status(200));
   }),
-  rest.get(apiUrl + "users/check-token", (req, res, ctx) => {
-    return res(ctx.json(user), ctx.delay(0), ctx.status(200));
+  rest.get(apiUrl + "question/get-exam", (req, res, ctx) => {
+    return res(ctx.json(exam), ctx.delay(0), ctx.status(200));
   }),
-  rest.get(apiUrl + "exam", (req, res, ctx) => {
+  rest.post(apiUrl + "question/send-answer", (req, res, ctx) => {
     return res(ctx.json(exam), ctx.delay(0), ctx.status(200));
   }),
   rest.get(apiUrl + "media/:fileName", (req, res, ctx) => {

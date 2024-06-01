@@ -88,12 +88,10 @@ describe("prepare state and transition to answer state", () => {
     const mediaCover = await screen.findByText(/Kliknij aby wyświetlić/i);
 
     //act
-    await act(async () => {
-      await user.click(mediaCover);
-    });
+    await user.click(mediaCover);
 
     //assert
-    assertAnswerState();
+    await assertAnswerState();
   });
 });
 
@@ -121,12 +119,8 @@ describe("answer state and transition to next question", () => {
     });
 
     //act
-    await act(async () => {
-      await user.click(trueButton);
-    });
-    await act(async () => {
-      await user.click(nextQuestionButton);
-    });
+    await user.click(trueButton);
+    await user.click(nextQuestionButton);
 
     //assert
     expect(addAnswerMock).toBeCalledWith(expect.anything(), true);
@@ -158,12 +152,8 @@ describe("answer state and transition to next question", () => {
     });
 
     //act
-    await act(async () => {
-      await user.click(trueButton);
-    });
-    await act(async () => {
-      await user.click(nextQuestionButton);
-    });
+    await user.click(trueButton);
+    await user.click(nextQuestionButton);
 
     //assert
     expect(addAnswerMock).toBeCalledWith(expect.anything(), "B");
@@ -204,9 +194,7 @@ describe("answer state and transition to next question", () => {
     );
     const questionCount = await screen.findByText(/\d\/20/i);
     const mediaCover = await screen.findByText(/Kliknij aby wyświetlić/i);
-    await act(async () => {
-      await user.click(mediaCover); //move to answer state
-    });
+    await user.click(mediaCover); //move to answer state
 
     //act
     expect(questionCount.innerHTML).toBe("1/20");
@@ -236,9 +224,7 @@ describe("answer state and transition to next question", () => {
 
     //act
     expect(questionCount.innerHTML).toBe("1/20");
-    await act(async () => {
-      await user.click(nextButton);
-    });
+    await user.click(nextButton);
 
     //assert
     const timerLabel = await screen.findByRole("heading", {
