@@ -47,7 +47,7 @@ describe("answer button click", () => {
   it("answer button does not click on basic question", async () => {
     //arrange
     renderQuestionWithId();
-    const yesAnswerButton = screen.getByRole("button", { name: "tak" });
+    const yesAnswerButton = await screen.findByRole("button", { name: "tak" });
 
     //act
     await act(async () => {
@@ -61,7 +61,7 @@ describe("answer button click", () => {
   it("answer button does not click on specialized question", async () => {
     //arrange
     renderQuestionWithId(answeredSpecialized.id);
-    const answerButton = screen.getByText("A", { exact: true });
+    const answerButton = await screen.findByText("A", { exact: true });
 
     //act
     act(() => {
@@ -76,29 +76,32 @@ describe("answer button click", () => {
 });
 
 describe("next and previous quesiton buttons", () => {
-  it("Next question button is disabled on last question", () => {
+  it("Next question button is disabled on last question", async () => {
     //arrange
     const lastAnswer = dummyAnswers[dummyAnswers.length - 1];
     renderQuestionWithId(lastAnswer.id);
 
     //act
-    const previousButton = screen.getByRole("button", { name: /poprzednie/i });
-    const nextButton = screen.getByRole("button", { name: /następne/i });
+    const previousButton = await screen.findByRole("button", {
+      name: /poprzednie/i,
+    });
+    const nextButton = await screen.findByRole("button", { name: /następne/i });
 
     //assert
     expect(nextButton).toBeDisabled();
     expect(previousButton).not.toBeDisabled();
   });
 
-  it("Previous button is disabled on last question", () => {
+  it("Previous button is disabled on last question", async () => {
     //arrange
     const firstAnswer = dummyAnswers[0];
     renderQuestionWithId(firstAnswer.id);
 
     //act
-
-    const nextButton = screen.getByRole("button", { name: /następne/i });
-    const previousButton = screen.getByRole("button", { name: /poprzednie/i });
+    const nextButton = await screen.findByRole("button", { name: /następne/i });
+    const previousButton = await screen.findByRole("button", {
+      name: /poprzednie/i,
+    });
 
     //assert
     expect(previousButton).toBeDisabled();

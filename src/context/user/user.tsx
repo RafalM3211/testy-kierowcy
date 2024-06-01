@@ -37,7 +37,7 @@ export default function UserProvider(props: Props) {
   const [user, setUser] = useState<User | null>(null);
   const isLoggedIn = !!user;
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, isFetched } = useQuery({
     queryKey: ["checkToken"],
     queryFn: checkToken,
     staleTime: Infinity,
@@ -48,14 +48,13 @@ export default function UserProvider(props: Props) {
 
   useEffect(() => {
     if (!isError && !isLoading) {
-      console.log("effect");
       setUser(data);
     }
   }, [data, isError, isLoading, setUser]);
 
   return (
     <UserContext.Provider value={{ user, setUser, isLoggedIn }}>
-      {isLoading ? <Loader /> : props.children}
+      {isLoading || !isFetched ? <Loader /> : props.children}
     </UserContext.Provider>
   );
 }

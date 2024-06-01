@@ -60,6 +60,9 @@ export const handlers = [
   rest.post(apiUrl + "users/signout", (req, res, ctx) => {
     return res(ctx.json(user), ctx.delay(0), ctx.status(200));
   }),
+  rest.get(apiUrl + "users/check-token", (req, res, ctx) => {
+    return res(ctx.json(user), ctx.delay(0), ctx.status(200));
+  }),
   rest.get(apiUrl + "exam", (req, res, ctx) => {
     return res(ctx.json(exam), ctx.delay(0), ctx.status(200));
   }),
