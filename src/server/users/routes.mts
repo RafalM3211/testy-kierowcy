@@ -24,7 +24,7 @@ router.post("/register", async (req, res) => {
   const userExist = !!(await getUserByEmail(email));
 
   if (userExist) {
-    res.status(400).jsonp(errorMessage("USER_EXISTS"));
+    res.status(401).jsonp(errorMessage("USER_EXISTS"));
   } else {
     const user = await addUser(email, password, userName);
     if (!user)
@@ -53,7 +53,7 @@ router.post("/signin", async (req, res) => {
   user = await getUserByCredentials(email, password);
 
   if (!user) {
-    res.status(400).jsonp(errorMessage("AUTHENTICATION_FAILED"));
+    res.status(401).jsonp(errorMessage("AUTHENTICATION_FAILED"));
   } else {
     const token = generateToken(user);
     res.status(200).cookie("jwt", token, JWTCookieOptions).jsonp(user);
@@ -79,7 +79,7 @@ router.get("/check-token", async (req, res) => {
     res.status(200).jsonp(user);
   } catch (message) {
     console.log(message);
-    res.status(400).jsonp(errorMessage("INVALID_TOKEN"));
+    res.status(401).jsonp(errorMessage("INVALID_TOKEN"));
   }
 });
 
