@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { Box } from "@mui/material";
 import { getExam } from "../../../core/services/question";
 import Loader from "../../patterns/Loader/Loader";
 import Question from "../../patterns/Question/Question";
@@ -7,6 +8,8 @@ import { useOnMount } from "../../../utility/hooks";
 import ErrorScreen from "../../patterns/ErrorScreen/ErrorScreen";
 import { useState } from "react";
 import { Question as QuestionType } from "../../../types/globalTypes";
+import { backgroundImg } from "../../../utility/styling";
+import bgImage from "../../../images/backgrounds/wave.svg";
 
 export default function ExamQuestion() {
   const { data, isLoading, isError, refetch } = useQuery({
@@ -33,7 +36,7 @@ export default function ExamQuestion() {
   });
 
   return (
-    <>
+    <Box sx={{ ...backgroundImg(bgImage) }}>
       {isLoading ? (
         <Loader />
       ) : isError ? (
@@ -52,6 +55,6 @@ export default function ExamQuestion() {
       ) : (
         <></>
       )}
-    </>
+    </Box>
   );
 }
