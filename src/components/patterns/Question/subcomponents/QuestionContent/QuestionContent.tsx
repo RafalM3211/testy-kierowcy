@@ -16,6 +16,7 @@ import type {
   BasicAnswer,
   SpecializedAnswer,
 } from "../../../../../types/globalTypes";
+import { over } from "lodash";
 
 interface PropsBase {
   content: string;
@@ -59,33 +60,35 @@ export default function QuestionContent(props: Props) {
         },
       }}
     >
-      <Typography
-        sx={(theme) => ({
-          borderLeft: `3px solid ${theme.palette.primary.main}`,
-          p: "5px",
-          fontSize: { xs: "1em", md: "1.25em" },
-        })}
-        variant="h6"
-      >
-        {props.content}
-      </Typography>
-      <Box sx={{ fontSize: { xs: "0.7em", md: "1em" }, mb: "10px" }}>
-        {props.type === "basic" ? (
-          <YesNoAnseswer
-            setChosenAnswer={setSelectedAnswer}
-            chosenAnswer={chosenAnswer as BasicAnswer}
-            correctAnswer={props.correctAnswer}
-            sx={{ mt: "35px", fontSize: "1.6em" }}
-          />
-        ) : (
-          <ABCAnswer
-            answers={props.answers as ABCanswers}
-            chosenAnswer={chosenAnswer as SpecializedAnswer}
-            correctAnswer={props.correctAnswer}
-            setChosenAnswer={setSelectedAnswer}
-            sx={{ mt: "35px", fontSize: "1.05em" }}
-          />
-        )}
+      <Box sx={{ maxHeight: { xs: "45vh", md: "32vh" }, overflowY: "auto" }}>
+        <Typography
+          sx={(theme) => ({
+            borderLeft: `3px solid ${theme.palette.primary.main}`,
+            p: "5px",
+            fontSize: { xs: "0.9em", sm: "1.25em" },
+          })}
+          variant="h6"
+        >
+          {props.content}
+        </Typography>
+        <Box sx={{ fontSize: { xs: "0.7em", md: "1em" }, mb: "10px" }}>
+          {props.type === "basic" ? (
+            <YesNoAnseswer
+              setChosenAnswer={setSelectedAnswer}
+              chosenAnswer={chosenAnswer as BasicAnswer}
+              correctAnswer={props.correctAnswer}
+              sx={{ mt: "35px", fontSize: "1.6em" }}
+            />
+          ) : (
+            <ABCAnswer
+              answers={props.answers as ABCanswers}
+              chosenAnswer={chosenAnswer as SpecializedAnswer}
+              correctAnswer={props.correctAnswer}
+              setChosenAnswer={setSelectedAnswer}
+              sx={{ mt: "30px", fontSize: "1.05em" }}
+            />
+          )}
+        </Box>
       </Box>
 
       {isMobile && isExamMode ? (

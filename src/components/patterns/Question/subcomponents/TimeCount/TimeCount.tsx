@@ -81,7 +81,7 @@ export default function TimeCount(props: Props) {
         ...flexCenter,
         flexDirection: "column",
         textAlign: "center",
-        width: "100%",
+        width: { xs: "auto", sm: "100%" },
       }}
     >
       <Typography variant="subtitle2" sx={{ color: "grey.800" }}>

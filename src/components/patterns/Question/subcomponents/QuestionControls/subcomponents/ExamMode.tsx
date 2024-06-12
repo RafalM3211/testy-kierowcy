@@ -42,7 +42,7 @@ export default function ExamMode(props: Props) {
           alignItems: "center",
           justifyContent: "center",
           width: "95%",
-          mb: { xs: "0", md: "20px" },
+          mb: { xs: "10px", md: "20px" },
         }}
       >
         <QuestionCount
@@ -63,6 +63,7 @@ export default function ExamMode(props: Props) {
         sx={{
           textTransform: "unset",
           mt: "20px",
+          fontSize: "0.9em",
         }}
       >
         <Typography>Zakończ egzamin</Typography>
