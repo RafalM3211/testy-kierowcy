@@ -3,17 +3,22 @@ import * as fs from "fs";
 import { getDirname } from "../src/server/helpers.mjs";
 import { Readable } from "stream";
 import type { RawQuestionRecord } from "../src/server/types.mjs";
-import { Question } from "../src/types/globalTypes";
 
 XLSX.set_fs(fs);
 XLSX.stream.set_readable(Readable);
 
 const dirName = getDirname(import.meta.url);
-const projectDir = dirName.slice(0, dirName.lastIndexOf("\\"));
-const dbPath = projectDir + "/src/server/db/db.ods";
+
+const args = process.argv;
+if (!args[2]) {
+  throw new Error("you need to specify calc file path");
+}
+const dbPath = args[2];
+const dbDir = dbPath.slice(0, dirName.lastIndexOf("\\") - 2);
 
 const workbook = XLSX.readFile(dbPath);
-const questionsSheet = workbook.Sheets["questions"];
+const sheetName = workbook.SheetNames[0];
+const questionsSheet = workbook.Sheets[sheetName];
 const rawQuestions = XLSX.utils.sheet_to_json(
   questionsSheet
 ) as RawQuestionRecord[];
@@ -26,7 +31,7 @@ rawQuestions.forEach((question) => {
   let record = "";
 
   for (const [key, value] of Object.entries(preparedQuestion)) {
-    const valueOrNull = value ?? "\\N";
+    const valueOrNull = value || (value === "" ? "\\N" : value);
     record += valueOrNull + "|";
   }
 
@@ -36,7 +41,7 @@ rawQuestions.forEach((question) => {
 });
 
 try {
-  fs.writeFileSync(projectDir + "/db.txt", fileContent);
+  fs.writeFileSync(dbDir + "\\db.txt", fileContent);
   console.log("success");
 } catch (err) {
   console.error(err);
@@ -46,7 +51,7 @@ function prepareForTxt(question: RawQuestionRecord) {
   const template = {
     id: null,
     content: null,
-    correctanswer: null,
+    correctAnswer: null,
     type: null,
     value: null,
     media: null,
