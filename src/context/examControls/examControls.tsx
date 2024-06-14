@@ -109,7 +109,12 @@ export default function ExamControlProvider(props: Props) {
       navigate("/summary");
     }
 
-    if (currentQuestion.type === "basic") {
+    const nextQuestion = getNextQuestion(
+      props.examQuestions,
+      questionCount - 1
+    );
+
+    if (nextQuestion.type === "basic") {
       setStarted(false);
       setTimerState("prepare");
     } else {
@@ -117,10 +122,6 @@ export default function ExamControlProvider(props: Props) {
       setTimerState("answer");
     }
 
-    const nextQuestion = getNextQuestion(
-      props.examQuestions,
-      questionCount - 1
-    );
     props.dataControls.setCurrentQuestion(nextQuestion);
   }
 
