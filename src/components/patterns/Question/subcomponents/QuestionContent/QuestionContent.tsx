@@ -37,14 +37,13 @@ interface SpecializedQuestionProps extends PropsBase {
 type Props = SpecializedQuestionProps | BasicQuesitonProps;
 
 export default function QuestionContent(props: Props) {
-  const { selectedAnswer, setSelectedAnswer, nextQuestion } =
+  const { selectedAnswer, setSelectedAnswer, handleNextQuestionBtnClick } =
     useExamControlContext();
   const chosenAnswer = selectedAnswer ?? props.chosenAnswer;
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const isExamMode = props.correctAnswer === undefined;
-
   return (
     <Box
       sx={{
@@ -93,7 +92,7 @@ export default function QuestionContent(props: Props) {
 
       {isMobile && isExamMode ? (
         <Button
-          onClick={nextQuestion}
+          onClick={handleNextQuestionBtnClick}
           size="medium"
           variant="contained"
           sx={{
