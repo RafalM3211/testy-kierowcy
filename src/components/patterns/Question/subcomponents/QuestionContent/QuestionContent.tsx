@@ -16,7 +16,6 @@ import type {
   BasicAnswer,
   SpecializedAnswer,
 } from "../../../../../types/globalTypes";
-import { over } from "lodash";
 
 interface PropsBase {
   content: string;
@@ -64,13 +63,15 @@ export default function QuestionContent(props: Props) {
           sx={(theme) => ({
             borderLeft: `3px solid ${theme.palette.primary.main}`,
             p: "5px",
-            fontSize: { xs: "0.9em", sm: "1.25em" },
+            fontSize: { xs: "0.9em", sm: "1.1em", md: "1.25em" },
           })}
           variant="h6"
         >
           {props.content}
         </Typography>
-        <Box sx={{ fontSize: { xs: "0.7em", md: "1em" }, mb: "10px" }}>
+        <Box
+          sx={{ fontSize: { xs: "0.7em", sm: "0.8em", md: "1em" }, mb: "10px" }}
+        >
           {props.type === "basic" ? (
             <YesNoAnseswer
               setChosenAnswer={setSelectedAnswer}
@@ -93,17 +94,17 @@ export default function QuestionContent(props: Props) {
       {isMobile && isExamMode ? (
         <Button
           onClick={handleNextQuestionBtnClick}
-          size="medium"
           variant="contained"
           sx={{
             textTransform: "unset",
-            px: "35px",
+            minWidth: "fit-content",
+            px: "15px",
             py: "10px",
             mx: "auto",
             mt: "auto",
           }}
         >
-          <Typography>Następne pytanie</Typography>
+          <Typography variant="body2">Następne pytanie</Typography>
         </Button>
       ) : (
         <></>

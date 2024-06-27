@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
-import QuestionCount from "../../../subcomponents/QuestionCount/QuestionCount";
+import QuestionCount from "./QuestionCount";
 import { useAnswersContext } from "../../../../../../context/Answers/Answers";
 import ButtonLink from "../../../../../atoms/ButtonLink/ButtonLink";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
@@ -44,16 +44,7 @@ export default function PreviewMode() {
           mb: { xs: "0px", md: "20px" },
         }}
       >
-        <QuestionCount
-          label="Pytania podstawowe"
-          value={drawBasicQuestionCount(questionCount, questionsAmount)}
-          active={questionCount <= 20}
-        />
-        <QuestionCount
-          label="Pytania specjalistyczne"
-          value={drawSpecializedQuestionCount(questionCount, questionsAmount)}
-          active={questionCount > 20}
-        />
+        <QuestionCount questionCount={questionCount} />
       </Box>
 
       <ButtonLink
