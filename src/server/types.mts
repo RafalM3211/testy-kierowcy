@@ -18,7 +18,7 @@ export type EndpointHandler = (req: Req, res: Res) => void;
 export interface RawQuestionRecord {
   id: number;
   content: string;
-  correctanswer: Exclude<Answer, null | boolean> | "1" | "0";
+  correctAnswer: Exclude<Answer, null | boolean> | "1" | "0";
   type: QuestionType;
   value: number;
   media: string | null;

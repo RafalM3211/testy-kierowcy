@@ -27,9 +27,8 @@ function drawSpecializedQuestionCount(count: number) {
 
 export default function ExamMode(props: Props) {
   const controls = useExamControlContext();
-  const { questionCount, nextQuestion, endExam } = controls as ExcludeUndefined<
-    typeof controls
-  >;
+  const { questionCount, endExam, handleNextQuestionBtnClick } =
+    controls as ExcludeUndefined<typeof controls>;
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -73,7 +72,7 @@ export default function ExamMode(props: Props) {
         <></>
       ) : (
         <Button
-          onClick={nextQuestion}
+          onClick={handleNextQuestionBtnClick}
           variant="contained"
           sx={{
             textTransform: "unset",

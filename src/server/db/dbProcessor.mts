@@ -11,12 +11,12 @@ type PartiallyProcessedQuestion = Partial<RawQuestionRecord> & {
 };
 
 export function prepareQuestion(rawQuestion: RawQuestionRecord): Question {
-  const correctAnswer = prepareCorrectAnswer(rawQuestion.correctanswer);
-  const partiallyPreparedQuestion: PartiallyProcessedQuestion = {
-    ...rawQuestion,
+  const correctAnswer = prepareCorrectAnswer(rawQuestion.correctAnswer);
+
+  const partiallyPreparedQuestion = {
+    ...(rawQuestion as Partial<RawQuestionRecord>),
     correctAnswer,
-  };
-  delete partiallyPreparedQuestion.correctanswer;
+  } as PartiallyProcessedQuestion;
 
   if (rawQuestion.type === "specialized") {
     const { A, B, C } = rawQuestion;
@@ -43,7 +43,7 @@ export function prepareQuestion(rawQuestion: RawQuestionRecord): Question {
 }
 
 function prepareCorrectAnswer(
-  rawCorrectAnswer: RawQuestionRecord["correctanswer"]
+  rawCorrectAnswer: RawQuestionRecord["correctAnswer"]
 ): Question["correctAnswer"] {
   const parsed = parseInt(rawCorrectAnswer);
 

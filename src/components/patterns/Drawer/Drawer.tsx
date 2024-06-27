@@ -64,18 +64,19 @@ export default function Drawer(props: Props) {
         disablePadding
         dense
       >
-        {userMenuStructure.map((item, index) => {
-          return (
-            <ListItem
-              key={index}
-              sx={{ pr: "8px", pt: "0px", justifyContent: "center" }}
-            >
-              <ButtonLink sx={{ color: "grey.500" }} to={item.to}>
-                {item.title}
-              </ButtonLink>
-            </ListItem>
-          );
-        })}
+        {isLoggedIn &&
+          userMenuStructure.map((item, index) => {
+            return (
+              <ListItem
+                key={index}
+                sx={{ pr: "8px", pt: "0px", justifyContent: "center" }}
+              >
+                <ButtonLink sx={{ color: "grey.500" }} to={item.to}>
+                  {item.title}
+                </ButtonLink>
+              </ListItem>
+            );
+          })}
       </List>
 
       <List>

@@ -56,7 +56,8 @@
     "build-storybook": "storybook build",
     "server": "ts-node --esm src/server/server.mts",
     "convert-wmv": "scripts\\conv.bat",
-    "export-calc-db": "ts-node --esm scripts/calcDbToTxt.mts"
+    "extract-excel-db": "ts-node --esm scripts/extractExcel.mts",
+    "export-excel-db": "ts-node --esm scripts/excelToTxt.mts"
   },
   "eslintConfig": {
     "extends": [

@@ -22,6 +22,7 @@ import type {
 interface Controls {
   nextQuestion: () => void;
   endExam: () => void;
+  handleNextQuestionBtnClick: () => void;
   questionCount: number;
   selectedAnswer: Answer;
   setSelectedAnswer: SetAnswerFunction;
@@ -50,6 +51,7 @@ export function useExamControlContext() {
     const emptyControls = {
       nextQuestion: undefined,
       questionCount: undefined,
+      handleNextQuestionBtnClick: undefined,
       selectedAnswer: undefined,
       setSelectedAnswer: undefined,
       isStarted: undefined,
@@ -94,10 +96,6 @@ export default function ExamControlProvider(props: Props) {
   const [timerState, setTimerState] = useState<TimerState>("prepare");
 
   function nextQuestion() {
-    if (!currentQuestion) {
-      throw new Error("exam data is undefined");
-    }
-
     setSelectedAnswer(null);
     addAnswer(currentQuestion, selectedAnswer);
 
@@ -105,11 +103,12 @@ export default function ExamControlProvider(props: Props) {
       checkAndSaveAnswer(user.id, currentQuestion, selectedAnswer);
     }
 
-    if (questionCount === 32) {
-      navigate("/summary");
-    }
+    const nextQuestion = getNextQuestion(
+      props.examQuestions,
+      questionCount - 1
+    );
 
-    if (currentQuestion.type === "basic") {
+    if (nextQuestion.type === "basic") {
       setStarted(false);
       setTimerState("prepare");
     } else {
@@ -117,15 +116,23 @@ export default function ExamControlProvider(props: Props) {
       setTimerState("answer");
     }
 
-    const nextQuestion = getNextQuestion(
-      props.examQuestions,
-      questionCount - 1
-    );
     props.dataControls.setCurrentQuestion(nextQuestion);
   }
 
   function endExam() {
+    addAnswer(currentQuestion, selectedAnswer);
+    if (user) {
+      checkAndSaveAnswer(user.id, currentQuestion, selectedAnswer);
+    }
     navigate("/summary");
+  }
+
+  function handleNextQuestionBtnClick() {
+    if (questionCount === 32) {
+      endExam();
+    } else {
+      nextQuestion();
+    }
   }
 
   useOnMount(() => {
@@ -135,6 +142,7 @@ export default function ExamControlProvider(props: Props) {
   const controls = {
     nextQuestion,
     endExam,
+    handleNextQuestionBtnClick,
     questionCount,
     selectedAnswer,
     setSelectedAnswer,
