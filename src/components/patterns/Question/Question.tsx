@@ -31,19 +31,17 @@ export default function Question(props: Props) {
         {question.type === "basic" ? (
           <QuestionContent
             chosenAnswer={chosenAnswer}
-            correctAnswer={
-              mode === "preview" ? question.correctAnswer : undefined
-            }
+            correctAnswer={question.correctAnswer}
             content={question.content}
+            mode={mode}
             type={"basic"}
           />
         ) : (
           <QuestionContent
             chosenAnswer={chosenAnswer}
-            correctAnswer={
-              mode === "preview" ? question.correctAnswer : undefined
-            }
+            correctAnswer={question.correctAnswer}
             content={question.content}
+            mode={mode}
             type="specialized"
             answers={question.answers}
           />

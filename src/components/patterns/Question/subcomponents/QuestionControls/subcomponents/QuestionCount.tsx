@@ -3,20 +3,24 @@ import QuestionCountUnit from "./QuestionCountUnit";
 
 interface Props {
   questionCount: number;
+  total?: number;
 }
 
-function drawSpecializedQuestionCount(count: number) {
-  if (count > 20) return count - 20 + "/12";
-  else return "0/12";
+function drawSpecializedQuestionCount(count: number, total: number = 12) {
+  if (count > 20) return count - 20 + "/" + total;
+  else return "0/" + total;
 }
 
-function drawBasicQuestionCount(count: number) {
-  if (count > 20) return "20/20";
-  else return `${count}/20`;
+function drawBasicQuestionCount(count: number, total: number = 20) {
+  if (count > 20) return "20/" + total;
+  else return count + "/" + total;
 }
 
 export default function QuestionCount(props: Props) {
-  const { questionCount } = props;
+  const { questionCount, total = 32 } = props;
+
+  const totalBasic = total >= 20 ? 20 : total;
+  const totalSpecialized = total >= 20 ? total - 20 : 0;
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -28,8 +32,8 @@ export default function QuestionCount(props: Props) {
           label={questionCount <= 20 ? "podstawowe" : "specjalistyczne"}
           value={
             questionCount <= 20
-              ? drawBasicQuestionCount(questionCount)
-              : drawSpecializedQuestionCount(questionCount)
+              ? drawBasicQuestionCount(questionCount, totalBasic)
+              : drawSpecializedQuestionCount(questionCount, totalSpecialized)
           }
           active
         />
@@ -37,12 +41,15 @@ export default function QuestionCount(props: Props) {
         <>
           <QuestionCountUnit
             label="Pytania podstawowe"
-            value={drawBasicQuestionCount(questionCount)}
+            value={drawBasicQuestionCount(questionCount, totalBasic)}
             active={questionCount <= 20}
           />
           <QuestionCountUnit
             label="Pytania specjalistyczne"
-            value={drawSpecializedQuestionCount(questionCount)}
+            value={drawSpecializedQuestionCount(
+              questionCount,
+              totalSpecialized
+            )}
             active={questionCount > 20}
           />
         </>

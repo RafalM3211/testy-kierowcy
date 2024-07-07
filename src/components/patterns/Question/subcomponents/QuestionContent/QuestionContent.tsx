@@ -16,9 +16,11 @@ import type {
   BasicAnswer,
   SpecializedAnswer,
 } from "../../../../../types/globalTypes";
+import { QuestionMode } from "../../types";
 
 interface PropsBase {
   content: string;
+  mode: QuestionMode;
   chosenAnswer?: Answer;
 }
 
@@ -42,7 +44,7 @@ export default function QuestionContent(props: Props) {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const isExamMode = props.correctAnswer === undefined;
+  const isExamMode = props.mode === "exam";
   return (
     <Box
       sx={{
@@ -77,7 +79,10 @@ export default function QuestionContent(props: Props) {
               setChosenAnswer={setSelectedAnswer}
               chosenAnswer={chosenAnswer as BasicAnswer}
               correctAnswer={props.correctAnswer}
-              sx={{ mt: "35px", fontSize: "1.6em" }}
+              sx={{
+                mt: "35px",
+                fontSize: { xs: "1.5em", md: "1.3em", lg: "1.5em" },
+              }}
             />
           ) : (
             <ABCAnswer
