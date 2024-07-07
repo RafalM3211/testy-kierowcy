@@ -42,6 +42,7 @@ export default function Summary() {
         minHeight: "100vh",
         pt: { xs: "90px", sm: "130px" },
         pb: "50px",
+        fontSize: { xs: "0.8em", sm: "1em" },
       }}
     >
       <Container
@@ -50,14 +51,13 @@ export default function Summary() {
           justifyContent: "space-between",
           flexDirection: { xs: "column", sm: "row" },
           mb: "50px",
-          fontSize: "1em",
         }}
         maxWidth="xl"
       >
         <Box
           sx={{
             textAlign: { xs: "left", sm: "center" },
-            mr: "20px",
+            mr: { xs: "0", sm: "20px" },
             mb: { xs: "70px", sm: "0px" },
           }}
         >
@@ -76,23 +76,24 @@ export default function Summary() {
               component="span"
               sx={{
                 color: passed ? "success.light" : "error.main",
+                fontSize: "1.7em",
               }}
             >
               {passed ? "zaliczony" : "niezaliczony"}
             </Typography>
           </Typography>
 
-          <Typography variant="subtitle1">
+          <Typography variant="subtitle1" sx={{ fontSize: "1em" }}>
             poprawnie udzielone odpowiedzi:{" "}
             <HighlitedText>{`${correct}/32`}</HighlitedText>
           </Typography>
-          <Typography variant="subtitle1">
+          <Typography variant="subtitle1" sx={{ fontSize: "1em" }}>
             zdobyte punkty: <HighlitedText>{`${points}/74`}</HighlitedText>
           </Typography>
         </Box>
         <Progress correctPercent={correctPercent} wrongPercent={wrongPercent} />
       </Container>
-      <List questions={answeredQuestions} />
+      <List sx={{ fontSize: "1em" }} questions={answeredQuestions} />
     </Box>
   );
 }
