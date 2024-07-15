@@ -1,15 +1,17 @@
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import type { CSSProperties } from "react";
 import type { ButtonProps } from "@mui/material/Button";
 
 interface Props extends ButtonProps {
   to: string;
+  linkStyle?: CSSProperties;
 }
 
 export default function ButtonLink(props: Props) {
-  const { sx, children, to, disabled, ...buttonProps } = props;
+  const { sx, children, to, disabled, linkStyle, ...buttonProps } = props;
   return (
-    <Link to={disabled ? "#" : to}>
+    <Link to={disabled ? "#" : to} style={linkStyle}>
       <Button
         size="large"
         sx={{

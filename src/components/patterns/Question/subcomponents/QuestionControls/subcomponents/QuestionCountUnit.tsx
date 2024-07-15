@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { BoxProps } from "@mui/material";
+import type { BoxProps } from "@mui/material";
 
 interface Props extends Omit<BoxProps, "children"> {
   label: string;
@@ -7,25 +7,25 @@ interface Props extends Omit<BoxProps, "children"> {
   active: boolean;
 }
 
-export default function QuestionCount(props: Props) {
+export default function QuestionCountUnit(props: Props) {
   const { label, value, active, sx, ...boxProps } = props;
 
   return (
     <Box
       sx={{
         textAlign: "center",
-        mx: { xs: "15px", md: "5px", lg: "15px" },
+        mx: { xs: "0", md: "5px", lg: "15px" },
         color: active ? "unset" : "grey.500",
         transition: "color 0.2s",
         flexShrink: "2",
-        fontSize: { xs: "0.6em", sm: "0.8em", lg: "1em" },
+        fontSize: { xs: "0.6em", sm: "0.7em", md: "0.8em", lg: "0.9em" },
         ...sx,
       }}
       {...boxProps}
     >
       <Typography
         sx={{
-          fontSize: active ? "1.25em" : "1.1em",
+          fontSize: active ? "1.2em" : "0.9em",
           transition: "font-size 0.3s",
         }}
         variant="h6"
@@ -35,7 +35,7 @@ export default function QuestionCount(props: Props) {
       </Typography>
       <Typography
         sx={{
-          fontSize: active ? "3em" : "2.64em",
+          fontSize: active ? "2.5em" : "2.1em",
           transition: "font-size 0.1s",
         }}
         variant="h3"

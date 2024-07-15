@@ -30,13 +30,20 @@ export default function ProgressLabel(props: Props) {
       {props.above ? (
         <></>
       ) : (
-        <Typography sx={{ lineHeight: "1.1em" }}>{`${value}%`}</Typography>
+        <Typography
+          sx={{ lineHeight: "1.15em", fontSize: "1em" }}
+        >{`${value}%`}</Typography>
       )}
-      <Typography sx={{ lineHeight: "1em" }} variant="body2">
+      <Typography
+        sx={{ lineHeight: "1.15em", fontSize: "1em" }}
+        variant="body2"
+      >
         {props.label}
       </Typography>
       {props.above ? (
-        <Typography sx={{ lineHeight: "1.1em" }}>{`${value}%`}</Typography>
+        <Typography
+          sx={{ lineHeight: "1.15em", fontSize: "1em" }}
+        >{`${value}%`}</Typography>
       ) : (
         <></>
       )}
