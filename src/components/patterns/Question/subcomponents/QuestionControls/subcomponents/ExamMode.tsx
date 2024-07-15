@@ -5,8 +5,9 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import QuestionCount from "../../../subcomponents/QuestionCount/QuestionCount";
+import QuestionCount from "./QuestionCount";
 import TimeCount from "../../../subcomponents/TimeCount/TimeCount";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useExamControlContext } from "../../../../../../context/examControls/examControls";
 import type { ExcludeUndefined } from "../../../types";
 import type { QuestionType } from "../../../../../../types/globalTypes";
@@ -15,19 +16,9 @@ interface Props {
   type: QuestionType;
 }
 
-function drawBasicQuestionCount(count: number) {
-  if (count > 20) return "20/20";
-  else return `${count}/20`;
-}
-
-function drawSpecializedQuestionCount(count: number) {
-  if (count > 20) return count - 20 + "/12";
-  else return "0/12";
-}
-
 export default function ExamMode(props: Props) {
   const controls = useExamControlContext();
-  const { questionCount, endExam, handleNextQuestionBtnClick } =
+  const { endExam, handleNextQuestionBtnClick, questionCount } =
     controls as ExcludeUndefined<typeof controls>;
 
   const theme = useTheme();
@@ -40,20 +31,11 @@ export default function ExamMode(props: Props) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          width: "95%",
-          mb: { xs: "10px", md: "20px" },
+          width: { xs: "unset", md: "95%" },
+          mb: { xs: "0px", md: "20px" },
         }}
       >
-        <QuestionCount
-          label="Pytania podstawowe"
-          value={drawBasicQuestionCount(questionCount)}
-          active={questionCount <= 20}
-        />
-        <QuestionCount
-          label="Pytania specjalistyczne"
-          value={drawSpecializedQuestionCount(questionCount)}
-          active={questionCount > 20}
-        />
+        <QuestionCount questionCount={questionCount} />
       </Box>
       <TimeCount type={props.type} />
       <Button
@@ -61,11 +43,17 @@ export default function ExamMode(props: Props) {
         variant="outlined"
         sx={{
           textTransform: "unset",
-          mt: "20px",
+          mt: { xs: "0", md: "20px" },
           fontSize: "0.9em",
+          minWidth: "fit-content",
+          px: { xs: "5px", md: "15px" },
         }}
       >
-        <Typography>Zakończ egzamin</Typography>
+        {isMobile ? (
+          <ExitToAppIcon />
+        ) : (
+          <Typography>Zakończ egzamin</Typography>
+        )}
       </Button>
 
       {isMobile ? (

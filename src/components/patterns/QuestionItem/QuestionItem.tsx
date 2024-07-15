@@ -35,8 +35,8 @@ export default function QuestionItem(props: Props) {
   const { data: question } = props;
 
   const theme = useTheme();
-  const isLg = useMediaQuery(theme.breakpoints.down("xl"));
-  const isMd = useMediaQuery(theme.breakpoints.down("lg"));
+  const isLg = useMediaQuery(theme.breakpoints.up("lg"));
+  const isMd = useMediaQuery(theme.breakpoints.up("md"));
   const isOnlyMd = useMediaQuery(theme.breakpoints.only("md"));
 
   function getTrimValue() {
@@ -142,15 +142,7 @@ export default function QuestionItem(props: Props) {
             },
           }}
         >
-          <Typography
-            variant="body1"
-            sx={
-              {
-                /*  maxHeight: "70%",
-              overflowY: "clip", */
-              }
-            }
-          >
+          <Typography variant="body1" sx={{ fontSize: "1em" }}>
             {trimText(question.content, contentTrimValue)}
           </Typography>
           {question.type === "basic" ? (

@@ -1,5 +1,4 @@
 import { AppBar, Box, Button, useTheme, useMediaQuery } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "../../atoms/Logo/Logo";
 import Drawer from "../Drawer/Drawer";
 import { useState } from "react";
@@ -15,7 +14,7 @@ export default function SmallHeader() {
       sx={{
         boxShadow: 0,
         bgcolor: "rgb(108, 65, 0, 0.02)",
-        width: "100%",
+        width: { xs: "60px", sm: "100%" },
         display: "flex",
         flexDirection: "row",
         justifyContent: { xs: "flex-end", sm: "space-between" },

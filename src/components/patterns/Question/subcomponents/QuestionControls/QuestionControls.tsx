@@ -24,13 +24,17 @@ export default function QuestionControls(props: Props) {
 
         [theme.breakpoints.down("md")]: {
           flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "space-evenly",
-          ml: "0",
-          mb: "20px",
+          flexWrap: "nowrap",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "15px",
+          ml: "5px",
+          mr: { xs: "min(10%, 60px)", sm: "0" },
+          mb: "15px",
           gridRow: "1",
           gridColumn: "1",
           fontSize: "1em",
+          minHeight: "3.7em",
         },
       })}
     >

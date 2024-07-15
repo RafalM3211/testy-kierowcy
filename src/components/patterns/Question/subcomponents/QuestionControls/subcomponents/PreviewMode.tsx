@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
-import { Box, Typography } from "@mui/material";
-import QuestionCount from "../../../subcomponents/QuestionCount/QuestionCount";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import QuestionCount from "./QuestionCount";
 import { useAnswersContext } from "../../../../../../context/Answers/Answers";
 import ButtonLink from "../../../../../atoms/ButtonLink/ButtonLink";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 function drawBasicQuestionCount(count: number, total: number) {
   const basicQuestionsAmount = Math.min(total, 20);
@@ -21,6 +22,11 @@ function drawSpecializedQuestionCount(count: number, total: number) {
 
 export default function PreviewMode() {
   const { answeredQuestions } = useAnswersContext();
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isXs = useMediaQuery(theme.breakpoints.only("xs"));
+
   const questionId = useParams().id as string;
   const questionIndex = answeredQuestions.findIndex(
     (quesiton) => quesiton.id === parseInt(questionId)
@@ -42,18 +48,11 @@ export default function PreviewMode() {
           display: "flex",
           alignItems: "center",
           mb: { xs: "0px", md: "20px" },
+          ml: { xs: "10%", md: "0" },
+          order: 1,
         }}
       >
-        <QuestionCount
-          label="Pytania podstawowe"
-          value={drawBasicQuestionCount(questionCount, questionsAmount)}
-          active={questionCount <= 20}
-        />
-        <QuestionCount
-          label="Pytania specjalistyczne"
-          value={drawSpecializedQuestionCount(questionCount, questionsAmount)}
-          active={questionCount > 20}
-        />
+        <QuestionCount questionCount={questionCount} total={questionsAmount} />
       </Box>
 
       <ButtonLink
@@ -63,29 +62,47 @@ export default function PreviewMode() {
         sx={{
           mt: { xs: "20px", md: "50px" },
           mb: "20px",
+          minWidth: "fit-content",
+        }}
+        linkStyle={{ order: isMobile ? 3 : 2 }}
+      >
+        {isMobile ? (
+          <ExitToAppIcon />
+        ) : (
+          <Typography
+            sx={{ fontSize: { xs: "0.8em", lg: "0.9em" } }}
+            variant="h6"
+          >
+            Powrót do podsumowania
+          </Typography>
+        )}
+      </ButtonLink>
+      <Box
+        sx={{
+          textAlign: "center",
+          textWrap: "nowrap",
+          fontSize: { xs: "0.6em", lg: "0.9em" },
+          order: { xs: 2, md: 3 },
         }}
       >
-        <Typography
-          sx={{ fontSize: { xs: "0.95em", lg: "1.05em" } }}
-          variant="h6"
-        >
-          Powrót do podsumowania
-        </Typography>
-      </ButtonLink>
-      <Box sx={{ textAlign: "center" }}>
         <ButtonLink
           disabled={!previousQuestionId}
           to={"/question/" + previousQuestionId}
         >
-          <KeyboardArrowLeftIcon />
-          Poprzednie
+          <KeyboardArrowLeftIcon sx={{ fontSize: { xs: "3em", sm: "2em" } }} />
+          {isXs ? "" : "Poprzednie"}
         </ButtonLink>
         <ButtonLink
           disabled={!nextQuestionId}
           to={"/question/" + nextQuestionId}
         >
-          Następne
-          <KeyboardArrowRightIcon />
+          {isXs ? "" : "Następne"}
+          <KeyboardArrowRightIcon
+            sx={{
+              fontSize: { xs: "3em", sm: "2em" },
+              p: 0,
+            }}
+          />
         </ButtonLink>
       </Box>
     </>

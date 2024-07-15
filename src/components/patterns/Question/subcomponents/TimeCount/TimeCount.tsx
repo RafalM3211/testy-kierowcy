@@ -81,10 +81,14 @@ export default function TimeCount(props: Props) {
         ...flexCenter,
         flexDirection: "column",
         textAlign: "center",
-        width: { xs: "auto", sm: "100%" },
+        width: { xs: "120px", md: "100%" },
+        fontSize: { xs: "0.8em", md: "0.9em" },
       }}
     >
-      <Typography variant="subtitle2" sx={{ color: "grey.800" }}>
+      <Typography
+        variant="subtitle2"
+        sx={{ color: "grey.800", fontSize: "0.9em" }}
+      >
         {getTimerLabel(timerState)}
       </Typography>
       <Box
@@ -98,7 +102,7 @@ export default function TimeCount(props: Props) {
         }}
       >
         <Typography
-          sx={{ position: "relative", zIndex: 5 }}
+          sx={{ position: "relative", zIndex: 5, fontSize: "1.1em" }}
           variant="h6"
           component="p"
         >
